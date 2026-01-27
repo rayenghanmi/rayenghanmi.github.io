@@ -1,144 +1,144 @@
-<!DOCTYPE html>
-<html class="custom-scrollbar" lang="en">
+﻿<!doctype html>
+<html lang="en" class="js custom-scrollbar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RyTuneX - Windows 10 and 11 Optimizer | Boost Performance & Privacy</title>
-    <meta name="description" content="Optimize your Windows 10 and 11 systems for improved performance and privacy with RyTuneX. Easily remove unwanted apps, tweak system settings, and enhance your computing experience.">
-    <link rel="canonical" href="https://rayenghanmi.github.io" />
-    <link rel="canonical" href="https://rayenghanmi.github.io" />
-    <meta property="og:title" content="RyTuneX">
-    <meta property="og:description" content="Official Website for RyTuneX, Windows 10 and 11 Optimizer.">
-    <meta property="og:url" content="https://rayenghanmi.github.io">
-    <meta property="og:image" content="https://rayenghanmi.github.io/assets/og.jpg">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="RyTuneX">
-    <meta name="twitter:description" content="Official Website for RyTuneX, Windows 10 and 11 Optimizer.">
-    <meta name="twitter:url" content="https://rayenghanmi.github.io">
-    <meta name="twitter:image" content="https://rayenghanmi.github.io/assets/og.jpg">
-    <meta name="twitter:site" content="@rayen_ghanmi_23">
-    <meta name="twitter:creator" content="@rayen_ghanmi_23">
-    <script type="application/ld+json">
-        {
-          "@context": "http://schema.org",
-          "@type": "SoftwareApplication",
-          "name": "RyTuneX",
-          "url": "https://rayenghanmi.github.io",
-          "logo": "https://rayenghanmi.github.io/assets/og.jpg",
-          "description": "Windows 10 and 11 Optimizer",
-          "contactPoint": {
-            "@type": "ContactPoint",
-            "email": "ghanmirayen12@gmail.com",
-            "contactType": "Customer Support",
-            "areaServed": "Global",
-            "availableLanguage": "English"
-          },
-          "sameAs": [
-            "https://twitter.com/rayen_ghanmi_23",
-            "https://instagram.com/rayen.ghanmi.23",
-            "https://facebook.com/rayen.ghanmi.23",
-          ]
-        }
-    </script>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script>
-        async function getDownloadCount() {
-            try {
-                const response = await fetch('https://api.github.com/repos/rayenghanmi/RyTuneX/releases');
-                const data = await response.json();
-                let totalDownloadCount = 0;
-                data.forEach(release => {
-                    release.assets.forEach(asset => {
-                        totalDownloadCount += asset.download_count;
-                    });
-                });
-                let formattedDownloadCount = totalDownloadCount;
-                if (totalDownloadCount >= 1000000) {
-                    formattedDownloadCount = (totalDownloadCount / 1000000).toFixed(1) + 'M';
-                } else if (totalDownloadCount >= 1000) {
-                    formattedDownloadCount = (totalDownloadCount / 1000).toFixed(1) + 'K';
-                }
-                document.getElementById('download-count').textContent = formattedDownloadCount;
-            } catch (error) {
-                console.error('Error fetching release data:', error);
-            }
-        }
-        window.onload = getDownloadCount;
-    </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>RyTuneX — Windows 10 & 11 Optimizer | Boost Performance & Privacy</title>
+  <meta name="description" content="RyTuneX is a privacy-first optimizer for Windows 10 & 11. Remove bloat, tweak settings, and improve performance and privacy with a single tool.">
+  <link rel="canonical" href="https://rayenghanmi.github.io/rytunex/">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#f177a6">
+  <link rel="alternate" href="https://rayenghanmi.github.io/rytunex/" hreflang="en-us">
 
+  <!-- Open Graph -->
+  <meta property="og:title" content="RyTuneX — Windows 10 & 11 Optimizer | Boost Performance & Privacy">
+  <meta property="og:description" content="RyTuneX is a privacy-first optimizer for Windows 10 & 11. Remove bloat, tweak settings, and improve performance and privacy with a single tool.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://rayenghanmi.github.io/rytunex/">
+  <meta property="og:image" content="https://rayenghanmi.github.io/rytunex/assets/og.jpg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="RyTuneX — Windows 10 & 11 Optimizer">
+  <meta name="twitter:description" content="RyTuneX is a privacy-first optimizer for Windows 10 & 11. Remove bloat, tweak settings, and improve performance and privacy.">
+  <meta name="twitter:image" content="https://rayenghanmi.github.io/rytunex/assets/og.jpg">
+  <link rel="icon" href="assets/favicon.ico">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "RyTuneX",
+    "url": "https://rayenghanmi.github.io/rytunex/",
+    "logo": "https://rayenghanmi.github.io/rytunex/assets/og.jpg",
+    "description": "RyTuneX is a privacy-first optimizer for Windows 10 & 11. Remove bloat, tweak settings, and improve performance and privacy.",
+    "applicationCategory": "Utilities",
+    "operatingSystem": "Windows 10, Windows 11",
+    "offers": { "@type": "Offer", "url": "https://rayenghanmi.github.io/rytunex/download.html", "price": "0", "priceCurrency": "USD" },
+    "sameAs": [
+      "https://github.com/rayenghanmi",
+      "https://twitter.com/rayen_ghanmi_23",
+      "https://instagram.com/rayen.ghanmi.23"
+    ]
+  }
+  </script>
 </head>
 <body>
+  <div class="page">
+    <nav class="nav" role="navigation">
+      <div class="brand">
+        <img src="assets/logo.png" alt="RyTuneX" class="logo">
+        <span class="brand-name">RyTuneX</span>
+      </div>
+      <button class="menu-toggle" aria-controls="nav-links" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="hamburger" aria-hidden="true">☰</span>
+      </button>
+      <div class="nav-links" id="nav-links">
+        <a class="nav-link" href="https://github.com/rayenghanmi/RyTuneX/wiki" target="_blank">Docs</a>
+        <a class="nav-link" href="download.html">Download</a>
+        <a class="nav-link" href="https://github.com/rayenghanmi/RyTuneX" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </nav>
     <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="rayen.ghanmi.22" data-description="Support me on Buy me a coffee!" data-message="" data-color="#f177a6" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
-    <header>
-        <div class="app-name-container">
-            <img src="assets/logo.png" alt="Logo" class="logo">
-            <span class="app-name">RyTuneX</span>
-            <i style="margin-left: 20px;">&#xE896;</i>
-            <p style="margin-left: 5px;" id="download-count"></p>
+    <header class="hero">
+      <div class="hero-inner">
+        <h1 class="hero-title">RyTuneX</h1>
+        <p class="hero-sub">A lightweight optimizer for Windows 10 &amp; 11 — speed, privacy, control.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="download.html">Download</a>
+          <a class="btn ghost" href="https://github.com/rayenghanmi/RyTuneX/wiki" target="_blank">Documentation</a>
         </div>
-        <div>
-            <a href="https://github.com/rayenghanmi/RyTuneX" target="_blank" class="link">GitHub</a>
-            <a href="documentation/index.html" target="_blank" class="link">Documentation</a>
-            <a href="download.html" target="_blank" class="download-button">Download <i>&#xE896;</i></a>
+        <div class="hero-stats">
+          <div class="stat">
+            <div id="download-count" class="stat-number">—</div>
+            <div class="stat-label">Downloads</div>
+          </div>
         </div>
+      </div>
+      <div class="hero-decor" aria-hidden="true"></div>
     </header>
-    <!--<div class="notice">
-        <h3><i style="margin-right: 12px;">&#xE789;</i>Latest:</h3>
-        <p style="font-size: small;">Version 1.0.1 is finally here, make sure to <a target="_blank" href="https://github.com/rayenghanmi/RyTuneX/releases/latest">check it out</a></p>
-    </div>-->
-    <div class="main">
-        <section class="section">
-            <h1>Introducing RyTuneX</h1>
-            <h5>RyTuneX is a cutting-edge optimizer built with the WinUI 3 framework, designed to amplify the performance of Windows devices. Crafted for both Windows 10 and 11.</h5>
-            <div class="features">
-                <div class="feature">
-                    <i>&#xF259;</i>
-                    <h3>Optimize Performance</h3>
-                    <p>Boost system performance by streamlining reassets and enhancing responsiveness.</p>
-                </div>
-                <div class="feature">
-                    <i>&#xE71D;</i>
-                    <h3>Remove Unwanted Apps</h3>
-                    <p>Effortlessly uninstall unwanted pre-installed apps to free up storage space.</p>
-                </div>
-                <div class="feature">
-                    <i>&#xEA18;</i>
-                    <h3>Enhance Privacy</h3>
-                    <p>Protect your privacy by blocking telemetry and data collection processes.</p>
-                </div>
-                <div class="feature">
-                    <i>&#xE74C;</i>
-                    <h3>Manage Windows Features</h3>
-                    <p>Easily enable or disable some windows features according to your needs.</p>
-                </div>
-                <div class="feature">
-                    <i>&#xE968;</i>
-                    <h3>Networking Options</h3>
-                    <p>Change your dns server easily with a set of different options or a custom one.</p>
-                </div>
-                <div class="feature">
-                    <i>&#xE770;</i>
-                    <h3>Device Information</h3>
-                    <p>Get detailed information about your device, including both hardware and os information.</p>
-                </div>
-            </div>
-        </section>
-    </div>
-<script src="script.js"></script>
-    <footer class="footer">
-        <a href="https://facebook.com/rayen.ghanmi.23" target="_blank"><i class="fab fa-facebook"></i></a>
-        <a href="https://instagram.com/rayen.ghanmi.23" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="https://github.com/rayenghanmi" target="_blank"><i class="fab fa-github"></i></a>
-        <a href="https://twitter.com/rayen_ghanmi_23" target="_blank"><i class="fab fa-twitter"></i></a>
-        <a href="https://discord.gg/gyBzyd364t" target="_blank"><i class="fab fa-discord"></i></a>
-        <a href="mailto:ghanmirayen12@gmail.com" target="_blank"><i class="far fa-envelope"></i></a>
-        <a href="https://youtube.com/@rayen.ghanmi.23" target="_blank"><i class="fab fa-youtube"></i></a>
+
+    <main class="content">
+      <section class="features" aria-labelledby="features-title">
+        <h2 id="features-title" class="sr-only">Features</h2>
+        <ul class="feature-grid">
+          <li class="feature-card">
+            <div class="icon">⚡</div>
+            <h3>Optimize Performance</h3>
+            <p>Speed up your system by disabling unnecessary services and tweaks.</p>
+          </li>
+          <li class="feature-card">
+            <div class="icon">🧹</div>
+            <h3>Remove Unwanted Apps</h3>
+            <p>Clean up bloatware and reclaim disk space in a few clicks.</p>
+          </li>
+          <li class="feature-card">
+            <div class="icon">🔒</div>
+            <h3>Enhance Privacy</h3>
+            <p>Block telemetry and trackers while keeping core functionality.</p>
+          </li>
+          <li class="feature-card">
+            <div class="icon">🧰</div>
+            <h3>Manage Features</h3>
+            <p>Enable or disable optional Windows features safely.</p>
+          </li>
+          <li class="feature-card">
+            <div class="icon">🌐</div>
+            <h3>Networking Options</h3>
+            <p>Switch DNS, network profiles, and connectivity settings easily.</p>
+          </li>
+          <li class="feature-card">
+            <div class="icon">📊</div>
+            <h3>Device Info</h3>
+            <p>Inspect hardware and OS details for targeted optimizations.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section class="cta-strip">
+        <div class="container">
+          <h3>Ready to optimize?</h3>
+          <a class="btn primary large" href="download.html">Get RyTuneX</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="social">
+          <a href="https://github.com/rayenghanmi" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
+          <a href="https://twitter.com/rayen_ghanmi_23" target="_blank" rel="noopener"><i class="fab fa-twitter"></i></a>
+        </div>
+        <div class="copyright">© Rayen Ghanmi</div>
+      </div>
     </footer>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
