@@ -11,7 +11,8 @@
   --radius:14px;
 }
 *{box-sizing:border-box}
-html,body{height:100%}
+/* ensure no horizontal overflow from third-party widgets (eg. BuyMeACoffee) */
+html,body{height:100%;overflow-x:hidden}
 body{
   margin:0;font-family:'Exo',system-ui,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,#061018 0%, #071018 60%);color:#e6eef6; -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;position:relative;overflow-x:hidden;
 }
@@ -105,7 +106,37 @@ body::before{
   -webkit-backdrop-filter: blur(14px);
 }
 .feature-card:hover{transform:translateY(-6px);box-shadow:0 18px 48px rgba(2,6,23,0.52)}
-.feature-card .icon{font-size:26px;margin-bottom:8px;color:var(--accent)}
+.feature-card .icon{font-size:26px;margin-bottom:8px;color:var(--accent);display:flex;align-items:center;justify-content:center}
+.feature-card .icon svg{width:34px;height:34px;stroke:currentColor}
+.feature-card .icon:hover svg{transform:translateY(-3px);opacity:0.95}
+
+/* Fluent web component icon sizing */
+.feature-card .icon svg{stroke:currentColor;fill:none}
+/* Base Material Symbols style */
+.material-symbols-outlined{
+  font-family: 'Material Symbols Outlined' !important;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  font-size:16px !important;
+  color:var(--accent);
+  display:inline-block;
+  line-height:1;
+  vertical-align:middle;
+}
+/* Feature card icons: larger */
+.feature-card .icon > .material-symbols-outlined{font-size:36px !important; line-height:1 !important; display:block}
+/* Hamburger and social icons */
+.menu-toggle .material-symbols-outlined.hamburger,
+.hamburger,
+button.menu-toggle .hamburger {
+  font-size:26px !important;
+  line-height:1 !important;
+  display:inline-block;
+  vertical-align:middle;
+}
+.social .material-symbols-outlined{font-size:16px !important;color:var(--muted); display:inline-block}
+.social a:hover .material-symbols-outlined{color:var(--accent)}
+/* increase spacing when icons are larger */
+.feature-card .icon{margin-bottom:12px}
 .feature-card h3{margin:0 0 8px;color:#ffffff}
 .feature-card p{color:#d6e7ea;margin:0}
 
@@ -123,6 +154,7 @@ body::before{
 .site-footer{padding:18px 20px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid rgba(255,255,255,0.03)}
 .footer-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;color:var(--muted);z-index:22}
 .social a{color:var(--muted);margin-right:12px;text-decoration:none}
+.social a svg{width:20px;height:20px}
 
 /* Accessibility helpers */
 .sr-only{position:absolute;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
@@ -131,6 +163,9 @@ body::before{
 @media (max-width:900px){
   .feature-grid{grid-template-columns:repeat(2,1fr)}
   .hero-title{font-size:40px}
+  .material-symbols-outlined{
+    font-size:72px !important;
+  }
 }
 @media (max-width:520px){
   .feature-grid{grid-template-columns:1fr}

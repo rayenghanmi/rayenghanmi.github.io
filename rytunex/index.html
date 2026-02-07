@@ -27,7 +27,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- Google Material Symbols (outlined) -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <!-- Using inline SVG icons for compatibility -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -38,7 +40,7 @@
     "description": "RyTuneX is a privacy-first optimizer for Windows 10 & 11. Remove bloat, tweak settings, and improve performance and privacy.",
     "applicationCategory": "Utilities",
     "operatingSystem": "Windows 10, Windows 11",
-    "offers": { "@type": "Offer", "url": "https://rayenghanmi.github.io/rytunex/download.html", "price": "0", "priceCurrency": "USD" },
+    "offers": { "@type": "Offer", "url": "https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full", "price": "0", "priceCurrency": "USD" },
     "sameAs": [
       "https://github.com/rayenghanmi",
       "https://twitter.com/rayen_ghanmi_23",
@@ -48,6 +50,7 @@
   </script>
 </head>
 <body>
+<script type="module" src="https://get.microsoft.com/badge/ms-store-badge.bundled.js"></script>
   <div class="page">
     <nav class="nav" role="navigation">
       <div class="brand">
@@ -56,11 +59,10 @@
       </div>
       <button class="menu-toggle" aria-controls="nav-links" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
-        <span class="hamburger" aria-hidden="true">☰</span>
+        <span class="material-symbols-outlined hamburger" aria-hidden="true">menu</span>
       </button>
-      <div class="nav-links" id="nav-links">
+        <div class="nav-links" id="nav-links">
         <a class="nav-link" href="https://github.com/rayenghanmi/RyTuneX/wiki" target="_blank">Docs</a>
-        <a class="nav-link" href="download.html">Download</a>
         <a class="nav-link" href="https://github.com/rayenghanmi/RyTuneX" target="_blank" rel="noopener">GitHub</a>
       </div>
     </nav>
@@ -70,8 +72,9 @@
         <h1 class="hero-title">RyTuneX</h1>
         <p class="hero-sub">A lightweight optimizer for Windows 10 &amp; 11 — speed, privacy, control.</p>
         <div class="hero-actions">
-          <a class="btn primary" href="download.html">Download</a>
-          <a class="btn ghost" href="https://github.com/rayenghanmi/RyTuneX/wiki" target="_blank">Documentation</a>
+          <a href="https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full" target="_blank"  rel="noopener noreferrer">
+	        <img src="https://get.microsoft.com/images/en-us%20light.svg" width="200"/>
+          </a>
         </div>
         <div class="hero-stats">
           <div class="stat">
@@ -88,32 +91,44 @@
         <h2 id="features-title" class="sr-only">Features</h2>
         <ul class="feature-grid">
           <li class="feature-card">
-            <div class="icon">⚡</div>
+            <div class="icon" aria-hidden="true">
+              <span class="material-symbols-outlined">speed</span>
+            </div>
             <h3>Optimize Performance</h3>
             <p>Speed up your system by disabling unnecessary services and tweaks.</p>
           </li>
           <li class="feature-card">
-            <div class="icon">🧹</div>
+            <div class="icon" aria-hidden="true">
+              <span class="material-symbols-outlined">delete_outline</span>
+            </div>
             <h3>Remove Unwanted Apps</h3>
             <p>Clean up bloatware and reclaim disk space in a few clicks.</p>
           </li>
           <li class="feature-card">
-            <div class="icon">🔒</div>
+            <div class="icon" aria-hidden="true">
+              <span class="material-symbols-outlined">security</span>
+            </div>
             <h3>Enhance Privacy</h3>
             <p>Block telemetry and trackers while keeping core functionality.</p>
           </li>
           <li class="feature-card">
-            <div class="icon">🧰</div>
+            <div class="icon" aria-hidden="true">
+              <span class="material-symbols-outlined">settings</span>
+            </div>
             <h3>Manage Features</h3>
             <p>Enable or disable optional Windows features safely.</p>
           </li>
           <li class="feature-card">
-            <div class="icon">🌐</div>
+            <div class="icon" aria-hidden="true">
+              <span class="material-symbols-outlined">public</span>
+            </div>
             <h3>Networking Options</h3>
             <p>Switch DNS, network profiles, and connectivity settings easily.</p>
           </li>
           <li class="feature-card">
-            <div class="icon">📊</div>
+            <div class="icon" aria-hidden="true">
+              <span class="material-symbols-outlined">devices</span>
+            </div>
             <h3>Device Info</h3>
             <p>Inspect hardware and OS details for targeted optimizations.</p>
           </li>
@@ -123,7 +138,9 @@
       <section class="cta-strip">
         <div class="container">
           <h3>Ready to optimize?</h3>
-          <a class="btn primary large" href="download.html">Get RyTuneX</a>
+          <a href="https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full" target="_blank"  rel="noopener noreferrer">
+	        <img src="https://get.microsoft.com/images/en-us%20light.svg" width="200"/>
+          </a>
         </div>
       </section>
     </main>
@@ -131,8 +148,12 @@
     <footer class="site-footer">
       <div class="footer-inner">
         <div class="social">
-          <a href="https://github.com/rayenghanmi" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
-          <a href="https://twitter.com/rayen_ghanmi_23" target="_blank" rel="noopener"><i class="fab fa-twitter"></i></a>
+          <a href="https://github.com/rayenghanmi/rytunex" target="_blank" rel="noopener" aria-label="GitHub">
+            <span class="material-symbols-outlined">code</span>
+          </a>
+          <a href="https://twitter.com/rayen_ghanmi_23" target="_blank" rel="noopener" aria-label="Twitter">
+            <span class="material-symbols-outlined">share</span>
+          </a>
         </div>
         <div class="copyright">© Rayen Ghanmi</div>
       </div>

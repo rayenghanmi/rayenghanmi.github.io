@@ -140,60 +140,53 @@ window.addEventListener('load', ()=>{
 async function loadDownloadCount(){
   const el = document.getElementById('download-count');
   if(!el) return;
-  // Use ETag conditional requests to minimize payload and speed up unchanged responses.
-  const API = 'https://api.github.com/repos/rayenghanmi/RyTuneX/releases';
-  const ETAG_KEY = 'rxt_etag_v1';
+  // We'll use the shields.io badge JSON which already exposes the total downloads
+  // (no need to sum assets). Fallback to the GitHub releases API if shields fails.
+  const SHIELDS = 'https://img.shields.io/github/downloads/rayenghanmi/rytunex/total.json';
+  const FALLBACK_API = 'https://api.github.com/repos/rayenghanmi/RyTuneX/releases';
   const COUNT_KEY = 'rxt_count_v1';
 
-  // If we have a cached count, show it immediately (near-instant UX)
+  // Show cached value if available
   try{
     const cached = localStorage.getItem(COUNT_KEY);
     if(cached) el.textContent = cached;
-  } catch(e){ /* ignore storage errors */ }
-
-  // Prepare conditional header
-  const headers = {};
-  try{
-    const savedEtag = localStorage.getItem(ETAG_KEY);
-    if(savedEtag) headers['If-None-Match'] = savedEtag;
-  } catch(e){ /* ignore */ }
+  } catch(e){ }
 
   try{
-    const res = await fetch(API, { headers });
-
-    if(res.status === 304){
-      // Not modified -> nothing to do, cached count already displayed
-      return;
-    }
-
-    if(!res.ok) throw new Error('bad response');
-
-    // update stored ETag if present
-    const newEtag = res.headers.get('ETag');
-    if(newEtag){
-      try{ localStorage.setItem(ETAG_KEY, newEtag); } catch(e){}
-    }
-
-    const data = await res.json();
-    let total = 0;
-    data.forEach(rel=> rel.assets && rel.assets.forEach(a=> total += a.download_count || 0));
-    let formatted = total;
-    if(total >= 1000000) formatted = (total/1000000).toFixed(1) + 'M';
-    else if(total >= 1000) formatted = (total/1000).toFixed(1) + 'K';
-
-    // animate update if changed
-    if(el.textContent !== String(formatted)){
+    const res = await fetch(SHIELDS, { cache: 'no-cache' });
+    if(!res.ok) throw new Error('shields failed');
+    const json = await res.json();
+    // shields returns { label, message, ... } where message is the rendered text
+    const message = json && (json.message || json.value || '—');
+    if(message && el.textContent !== String(message)){
       if(!reducedMotion){
         el.animate([{opacity:0, transform:'translateY(6px)'},{opacity:1, transform:'translateY(0)'}],{duration:420,easing:'ease-out'});
       }
-      el.textContent = formatted;
+      el.textContent = message;
     }
-
-    // persist latest count so future loads are instant (still lightweight)
-    try{ localStorage.setItem(COUNT_KEY, formatted); } catch(e){}
-
+    try{ localStorage.setItem(COUNT_KEY, String(message)); } catch(e){}
+    return;
   }catch(err){
-    console.warn('download count failed',err);
+    // shields failed — fallback to GitHub releases summation (original behavior)
+    try{
+      const res2 = await fetch(FALLBACK_API);
+      if(!res2.ok) throw new Error('github api failed');
+      const data = await res2.json();
+      let total = 0;
+      data.forEach(rel=> rel.assets && rel.assets.forEach(a=> total += a.download_count || 0));
+      let formatted = total;
+      if(total >= 1000000) formatted = (total/1000000).toFixed(1) + 'M';
+      else if(total >= 1000) formatted = (total/1000).toFixed(1) + 'K';
+      if(el.textContent !== String(formatted)){
+        if(!reducedMotion){
+          el.animate([{opacity:0, transform:'translateY(6px)'},{opacity:1, transform:'translateY(0)'}],{duration:420,easing:'ease-out'});
+        }
+        el.textContent = formatted;
+      }
+      try{ localStorage.setItem(COUNT_KEY, formatted); } catch(e){}
+    }catch(err2){
+      console.warn('download count failed', err, err2);
+    }
   }
 }
 
