@@ -72,9 +72,18 @@
         <h1 class="hero-title">RyTuneX</h1>
         <p class="hero-sub">A lightweight optimizer for Windows 10 &amp; 11 — speed, privacy, control.</p>
         <div class="hero-actions">
-          <a href="https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full" target="_blank"  rel="noopener noreferrer">
-	        <img src="https://get.microsoft.com/images/en-us%20light.svg" width="200"/>
-          </a>
+          <div class="ms-badge-wrap">
+            <a href="https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full" target="_blank"  rel="noopener noreferrer">
+              <img src="https://get.microsoft.com/images/en-us%20light.svg" width="200"/>
+            </a>
+            <div class="winget-cta">
+              <div class="winget-label">Or using winget</div>
+              <div class="install-block" aria-label="Install via winget">
+                <pre><code id="winget-command">winget install --id 9PDH8M7HF2SQ</code></pre>
+                <button class="btn ghost" id="copy-winget" type="button" aria-label="Copy the installation command" onclick="(function(btn){navigator.clipboard.writeText('winget install --id 9PDH8M7HF2SQ').then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},1500)}).catch(function(){btn.textContent='Copy failed'})})(this)">Copy</button>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="hero-stats">
           <div class="stat">
