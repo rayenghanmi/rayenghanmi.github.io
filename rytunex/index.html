@@ -1,174 +1,473 @@
-﻿<!doctype html>
-<html lang="en" class="js custom-scrollbar">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>RyTuneX — Windows 10 & 11 Optimizer | Boost Performance & Privacy</title>
-  <meta name="description" content="RyTuneX is a privacy-first optimizer for Windows 10 & 11. Remove bloat, tweak settings, and improve performance and privacy with a single tool.">
-  <link rel="canonical" href="https://rayenghanmi.github.io/rytunex/">
-  <meta name="robots" content="index,follow">
-  <meta name="theme-color" content="#f177a6">
-  <link rel="alternate" href="https://rayenghanmi.github.io/rytunex/" hreflang="en-us">
+<!DOCTYPE html>
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="RyTuneX — Windows 10 & 11 Optimizer | Boost Performance & Privacy">
-  <meta property="og:description" content="RyTuneX is a privacy-first optimizer for Windows 10 & 11. Remove bloat, tweak settings, and improve performance and privacy with a single tool.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://rayenghanmi.github.io/rytunex/">
-  <meta property="og:image" content="https://rayenghanmi.github.io/rytunex/assets/og.jpg">
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RyTuneX | Ultimate Windows Optimization</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<meta name="description" content="RyTuneX is a privacy-first optimizer for Windows 10 & 11. Remove bloat, tweak settings, and improve performance and privacy with a single tool.">
+<link rel="canonical" href="https://rayenghanmi.github.io/rytunex/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#f177a6">
+<link rel="alternate" href="https://rayenghanmi.github.io/rytunex/" hreflang="en-us">
+<meta property="og:title" content="RyTuneX — Windows 10 & 11 Optimizer | Boost Performance & Privacy">
+<meta property="og:description" content="RyTuneX is a privacy-first optimizer for Windows 10 & 11. Remove bloat, tweak settings, and improve performance and privacy with a single tool.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://rayenghanmi.github.io/rytunex/">
+<meta property="og:image" content="https://rayenghanmi.github.io/rytunex/assets/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RyTuneX — Windows 10 & 11 Optimizer">
+<meta name="twitter:description" content="RyTuneX is a privacy-first optimizer for Windows 10 & 11. Remove bloat, tweak settings, and improve performance and privacy.">
+<meta name="twitter:image" content="https://rayenghanmi.github.io/rytunex/assets/og.jpg">
+<link rel="icon" href="assets/favicon.ico">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "RyTuneX",
+  "url": "https://rayenghanmi.github.io/rytunex/",
+  "logo": "https://rayenghanmi.github.io/rytunex/assets/og.jpg",
+  "description": "RyTuneX is a privacy-first optimizer for Windows 10 & 11. Remove bloat, tweak settings, and improve performance and privacy.",
+  "applicationCategory": "Utilities",
+  "operatingSystem": "Windows 10, Windows 11",
+  "offers": { "@type": "Offer", "url": "https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full", "price": "0", "priceCurrency": "USD" },
+  "sameAs": [
+    "https://github.com/rayenghanmi",
+    "https://twitter.com/rayen_ghanmi_23",
+    "https://instagram.com/rayen.ghanmi.23"
+  ]
+}
+</script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ff4d94",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#0b0e14",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.28rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        :root {
+            --color-primary: #ff4d94;
+            --color-primary-strong: #ff0066;
+            --color-background-light: #f5f6f8;
+            --color-background-dark: #0b0e14;
+            --color-surface-dark: #161b2c;
+        }
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="RyTuneX — Windows 10 & 11 Optimizer">
-  <meta name="twitter:description" content="RyTuneX is a privacy-first optimizer for Windows 10 & 11. Remove bloat, tweak settings, and improve performance and privacy.">
-  <meta name="twitter:image" content="https://rayenghanmi.github.io/rytunex/assets/og.jpg">
-  <link rel="icon" href="assets/favicon.ico">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-  <!-- Google Material Symbols (outlined) -->
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-  <!-- Using inline SVG icons for compatibility -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "RyTuneX",
-    "url": "https://rayenghanmi.github.io/rytunex/",
-    "logo": "https://rayenghanmi.github.io/rytunex/assets/og.jpg",
-    "description": "RyTuneX is a privacy-first optimizer for Windows 10 & 11. Remove bloat, tweak settings, and improve performance and privacy.",
-    "applicationCategory": "Utilities",
-    "operatingSystem": "Windows 10, Windows 11",
-    "offers": { "@type": "Offer", "url": "https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full", "price": "0", "priceCurrency": "USD" },
-    "sameAs": [
-      "https://github.com/rayenghanmi",
-      "https://twitter.com/rayen_ghanmi_23",
-      "https://instagram.com/rayen.ghanmi.23"
-    ]
-  }
-  </script>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+        }
+
+        .material-symbols-outlined {
+            font-family: "Material Symbols Outlined";
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
+            font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            width: 0;
+            height: 2px;
+            background: var(--color-primary);
+            transition: width 0.2s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.is-active::after {
+            width: 100%;
+        }
+
+        .nav-link.is-active {
+            color: var(--color-primary) !important;
+        }
+
+        .sidebar-link,
+        .toc-link {
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-link.is-active {
+            background: rgba(255, 46, 136, 0.15);
+            border-left: 3px solid #ff2e88;
+            color: var(--color-primary) !important;
+            font-weight: 600;
+        }
+
+        .toc-link.is-active {
+            color: var(--color-primary) !important;
+        }
+
+        .hero-preview {
+            width: 100%;
+            border-radius: 6px;
+            overflow: hidden;
+            border: .5px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 20px 56px rgba(255, 77, 148, 0.14);
+            backdrop-filter: blur(2px) saturate(120%);
+            -webkit-backdrop-filter: blur(2px) saturate(120%);
+        }
+
+        .hero-preview img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+            object-position: center top;
+            opacity: 0.9;
+            filter: saturate(108%) contrast(102%);
+        }
+
+        @media (max-width: 767px) {
+            .hero-preview {
+                border-radius: 6px;
+                box-shadow: 0 14px 36px rgba(255, 77, 148, 0.12);
+            }
+
+            .hero-preview img {
+                max-height: 260px;
+            }
+
+            .hero-glow {
+                display: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
 </head>
-<body>
-<script type="module" src="https://get.microsoft.com/badge/ms-store-badge.bundled.js"></script>
-  <div class="page">
-    <nav class="nav" role="navigation">
-      <div class="brand">
-        <img src="assets/logo.png" alt="RyTuneX" class="logo">
-        <span class="brand-name">RyTuneX</span>
-      </div>
-      <button class="menu-toggle" aria-controls="nav-links" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="material-symbols-outlined hamburger" aria-hidden="true">menu</span>
-      </button>
-        <div class="nav-links" id="nav-links">
-        <a class="nav-link" href="https://github.com/rayenghanmi/RyTuneX/wiki" target="_blank">Docs</a>
-        <a class="nav-link" href="https://github.com/rayenghanmi/RyTuneX" target="_blank" rel="noopener">GitHub</a>
-      </div>
-    </nav>
-    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="rayen.ghanmi.22" data-description="Support me on Buy me a coffee!" data-message="" data-color="#f177a6" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
-    <header class="hero">
-      <div class="hero-inner">
-        <h1 class="hero-title">RyTuneX</h1>
-        <p class="hero-sub">A lightweight optimizer for Windows 10 &amp; 11 — speed, privacy, control.</p>
-        <div class="hero-actions">
-          <div class="ms-badge-wrap">
-            <a href="https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full" target="_blank"  rel="noopener noreferrer">
-              <img src="https://get.microsoft.com/images/en-us%20light.svg" width="200"/>
-            </a>
-            <div class="winget-cta">
-              <div class="winget-label">Or using winget</div>
-              <div class="install-block" aria-label="Install via winget">
-                <pre><code id="winget-command">winget install --id 9PDH8M7HF2SQ</code></pre>
-                <button class="btn ghost" id="copy-winget" type="button" aria-label="Copy the installation command" onclick="(function(btn){navigator.clipboard.writeText('winget install --id 9PDH8M7HF2SQ').then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},1500)}).catch(function(){btn.textContent='Copy failed'})})(this)">Copy</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="hero-stats">
-          <div class="stat">
-            <div id="download-count" class="stat-number">—</div>
-            <div class="stat-label">Downloads</div>
-          </div>
-        </div>
-      </div>
-      <div class="hero-decor" aria-hidden="true"></div>
-    </header>
-
-    <main class="content">
-      <section class="features" aria-labelledby="features-title">
-        <h2 id="features-title" class="sr-only">Features</h2>
-        <ul class="feature-grid">
-          <li class="feature-card">
-            <div class="icon" aria-hidden="true">
-              <span class="material-symbols-outlined">speed</span>
-            </div>
-            <h3>Optimize Performance</h3>
-            <p>Speed up your system by disabling unnecessary services and tweaks.</p>
-          </li>
-          <li class="feature-card">
-            <div class="icon" aria-hidden="true">
-              <span class="material-symbols-outlined">delete_outline</span>
-            </div>
-            <h3>Remove Unwanted Apps</h3>
-            <p>Clean up bloatware and reclaim disk space in a few clicks.</p>
-          </li>
-          <li class="feature-card">
-            <div class="icon" aria-hidden="true">
-              <span class="material-symbols-outlined">security</span>
-            </div>
-            <h3>Enhance Privacy</h3>
-            <p>Block telemetry and trackers while keeping core functionality.</p>
-          </li>
-          <li class="feature-card">
-            <div class="icon" aria-hidden="true">
-              <span class="material-symbols-outlined">settings</span>
-            </div>
-            <h3>Manage Features</h3>
-            <p>Enable or disable optional Windows features safely.</p>
-          </li>
-          <li class="feature-card">
-            <div class="icon" aria-hidden="true">
-              <span class="material-symbols-outlined">public</span>
-            </div>
-            <h3>Networking Options</h3>
-            <p>Switch DNS, network profiles, and connectivity settings easily.</p>
-          </li>
-          <li class="feature-card">
-            <div class="icon" aria-hidden="true">
-              <span class="material-symbols-outlined">devices</span>
-            </div>
-            <h3>Device Info</h3>
-            <p>Inspect hardware and OS details for targeted optimizations.</p>
-          </li>
-        </ul>
-      </section>
-
-      <section class="cta-strip">
-        <div class="container">
-          <h3>Ready to optimize?</h3>
-          <a href="https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full" target="_blank"  rel="noopener noreferrer">
-	        <img src="https://get.microsoft.com/images/en-us%20light.svg" width="200"/>
-          </a>
-        </div>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <div class="footer-inner">
-        <div class="social">
-          <a href="https://github.com/rayenghanmi/rytunex" target="_blank" rel="noopener" aria-label="GitHub">
-            <span class="material-symbols-outlined">code</span>
-          </a>
-          <a href="https://twitter.com/rayen_ghanmi_23" target="_blank" rel="noopener" aria-label="Twitter">
-            <span class="material-symbols-outlined">share</span>
-          </a>
-        </div>
-        <div class="copyright">© Rayen Ghanmi</div>
-      </div>
-    </footer>
-  </div>
-
-  <script src="script.js"></script>
-</body>
-</html>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-6 md:px-20 py-4 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-3 text-primary">
+<img alt="RyTuneX Logo" class="size-8 rounded-sm shadow-sm" src="assets/logo.png"/>
+<h2 class="text-slate-900 dark:text-white text-xl font-black leading-tight tracking-tight">RyTuneX</h2>
+</div>
+<nav class="hidden md:flex flex-1 justify-end gap-10 mr-10">
+<a class="nav-link text-slate-600 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" href="#features">Features</a>
+<a class="nav-link text-slate-600 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" href="#benchmarks">Benchmarks</a>
+<a class="nav-link text-slate-600 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" href="#testimonials">Testimonials</a>
+<a class="nav-link text-slate-600 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" data-page-link="true" href="docs.html">Docs</a>
+</nav>
+<div class="flex items-center gap-4">
+<a class="hidden sm:flex min-w-[120px] cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-primary text-white text-sm font-bold transition-transform active:scale-95 shadow-lg shadow-primary/20 shadow-primary/40" href="https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full" rel="noopener noreferrer" target="_blank">
+                        Download Now
+                    </a>
+<button aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu" class="md:hidden text-slate-600 dark:text-slate-300" data-mobile-menu-button="true" type="button">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<nav class="hidden md:hidden border-b border-slate-200 dark:border-slate-800 bg-background-light/95 dark:bg-background-dark/95 px-6 py-4" data-mobile-menu="true" id="mobile-nav">
+<div class="flex flex-col gap-3">
+<a class="nav-link text-slate-700 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" href="#features">Features</a>
+<a class="nav-link text-slate-700 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" href="#benchmarks">Benchmarks</a>
+<a class="nav-link text-slate-700 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" href="#testimonials">Testimonials</a>
+<a class="nav-link text-slate-700 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" data-page-link="true" href="docs.html">Docs</a>
+<a class="mt-2 inline-flex items-center justify-center rounded-lg h-10 px-5 bg-primary text-white text-sm font-bold" href="https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full" rel="noopener noreferrer" target="_blank">Download Now</a>
+</div>
+</nav>
+<main class="flex-1">
+<!-- Hero Section -->
+<section class="max-w-7xl mx-auto px-6 md:px-20 py-12 md:py-24">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+<div class="flex flex-col gap-8">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 w-fit">
+<span class="flex h-2 w-2 rounded-full bg-primary animate-pulse"></span>
+<span class="text-xs font-bold text-primary tracking-widest uppercase" data-version-template="Version {versionNoV} Now Live">Version - Now Live</span>
+</div>
+<h1 class="text-slate-900 dark:text-white text-5xl md:text-7xl font-black leading-[1.1] tracking-tight">
+                                Unlock Your PC's <span class="text-primary">True Potential</span>
+</h1>
+<p class="text-slate-600 dark:text-slate-400 text-lg md:text-xl font-normal leading-relaxed max-w-xl">
+                                Professional Windows 10/11 optimization tool for gamers and power users. Eliminate system bloat, reduce latency, and experience ultimate stability.
+                            </p>
+<div class="flex flex-wrap gap-4">
+<div class="flex flex-col gap-4 w-full sm:w-auto">
+<a class="flex min-w-[240px] cursor-pointer items-center justify-center rounded-xl h-14 px-8 bg-primary text-white text-lg font-bold shadow-xl shadow-primary/30 hover:brightness-110 transition-all" href="https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full" rel="noopener noreferrer" target="_blank">
+<span class="material-symbols-outlined mr-2">shopping_bag</span>
+        Download from Store
+    </a>
+<div class="flex items-center gap-2 p-3 bg-slate-900/50 border border-slate-800 rounded-xl text-xs font-mono text-slate-400 group relative">
+<span class="text-primary">winget</span> install --id 9PDH8M7HF2SQ
+    <button aria-label="Copy winget install command" class="ml-auto text-primary hover:text-white transition-colors" data-copy-text="winget install --id 9PDH8M7HF2SQ" title="Copy command" type="button">
+<span class="material-symbols-outlined text-sm">content_copy</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4 pt-4">
+<div class="flex -space-x-3" data-stargazers-avatars>
+<img alt="RyTuneX stargazer avatar" class="w-10 h-10 rounded-full border-2 border-background-dark bg-slate-700 object-cover" src="https://avatars.githubusercontent.com/u/108760398?v=4"/>
+<img alt="RyTuneX stargazer avatar" class="w-10 h-10 rounded-full border-2 border-background-dark bg-slate-700 object-cover" src="https://avatars.githubusercontent.com/u/9919?v=4"/>
+<img alt="RyTuneX stargazer avatar" class="w-10 h-10 rounded-full border-2 border-background-dark bg-slate-700 object-cover" src="https://avatars.githubusercontent.com/u/49699333?v=4"/>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 font-medium" data-stars-template="Trusted by {stars} GitHub stargazers">Trusted by GitHub stargazers</p>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -inset-4 bg-primary/20 blur-3xl rounded-full hero-glow"></div>
+<div class="relative hero-preview">
+<img alt="RyTuneX app preview" src="assets/img/pc2.png"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Features Grid -->
+<section class="bg-slate-50 dark:bg-slate-900/50 py-24 scroll-mt-24" id="features">
+<div class="max-w-7xl mx-auto px-6 md:px-20">
+<div class="text-center mb-16">
+<h2 class="text-slate-900 dark:text-white text-3xl md:text-5xl font-black mb-4">Engineered for Performance</h2>
+<p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">RyTuneX optimizes your OS at a kernel level to ensure every frame counts and system interruptions are a thing of the past.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="p-8 rounded-2xl bg-white dark:bg-background-dark border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-colors group">
+<div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">speed</span>
+</div>
+<h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Optimize Performance</h3>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed">Speed up your system by disabling unnecessary services and applying high-performance power plans.</p>
+</div>
+<div class="p-8 rounded-2xl bg-white dark:bg-background-dark border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-colors group">
+<div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">delete</span>
+</div>
+<h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Remove Unwanted Apps</h3>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed">Clean up bloatware and reclaim disk space in seconds with our intelligent system debloater.</p>
+</div>
+<div class="p-8 rounded-2xl bg-white dark:bg-background-dark border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-colors group">
+<div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">shield</span>
+</div>
+<h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Enhance Privacy</h3>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed">Block telemetry and trackers while keeping your personal data private and secure.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Benchmarks Section -->
+<section class="py-24 max-w-7xl mx-auto px-6 md:px-20 scroll-mt-24" id="benchmarks">
+<h2 class="text-slate-900 dark:text-white text-3xl md:text-4xl font-black mb-12">Proven Results: Before vs After</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<!-- Benchmark 1 -->
+<div class="bg-white dark:bg-slate-900/40 p-8 rounded-2xl border border-slate-200 dark:border-slate-800">
+<div class="flex justify-between items-end mb-8">
+<div>
+<p class="text-slate-500 dark:text-slate-400 font-semibold mb-1 uppercase tracking-wider text-xs">FPS Performance</p>
+<h3 class="text-2xl font-bold text-slate-900 dark:text-white">AAA Titles Average</h3>
+</div>
+<div class="text-right">
+<span class="text-3xl font-black text-emerald-500">+24%</span>
+<p class="text-xs text-slate-500">Increase</p>
+</div>
+</div>
+<div class="space-y-6">
+<div>
+<div class="flex justify-between text-sm mb-2 font-medium">
+<span>Stock Windows</span>
+<span>142 FPS</span>
+</div>
+<div class="h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-slate-400 dark:bg-slate-600 rounded-full" style="width: 70%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-sm mb-2 font-bold text-primary">
+<span>RyTuneX Optimized</span>
+<span>176 FPS</span>
+</div>
+<div class="h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full shadow-lg shadow-primary/40" style="width: 90%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Benchmark 2 -->
+<div class="bg-white dark:bg-slate-900/40 p-8 rounded-2xl border border-slate-200 dark:border-slate-800">
+<div class="flex justify-between items-end mb-8">
+<div>
+<p class="text-slate-500 dark:text-slate-400 font-semibold mb-1 uppercase tracking-wider text-xs">Memory Efficiency</p>
+<h3 class="text-2xl font-bold text-slate-900 dark:text-white">Idle RAM Usage</h3>
+</div>
+<div class="text-right">
+<span class="text-3xl font-black text-emerald-500">-40%</span>
+<p class="text-xs text-slate-500">Reduction</p>
+</div>
+</div>
+<div class="space-y-6">
+<div>
+<div class="flex justify-between text-sm mb-2 font-medium">
+<span>Stock Windows</span>
+<span>4.2 GB</span>
+</div>
+<div class="h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-slate-400 dark:bg-slate-600 rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-sm mb-2 font-bold text-primary">
+<span>RyTuneX Optimized</span>
+<span>2.5 GB</span>
+</div>
+<div class="h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full shadow-lg shadow-primary/40" style="width: 50%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonials -->
+<section class="bg-primary/5 py-24 scroll-mt-24" id="testimonials">
+<div class="max-w-7xl mx-auto px-6 md:px-20">
+<div class="text-center mb-16">
+<h2 class="text-slate-900 dark:text-white text-3xl md:text-4xl font-black mb-4">What Users & Reviewers Say</h2>
+<p class="text-slate-600 dark:text-slate-400">Feedback from real reviewers and Windows power users.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="bg-white dark:bg-background-dark p-10 rounded-2xl border border-slate-200 dark:border-slate-800 relative shadow-sm" data-testimonial-slot>
+<span class="material-symbols-outlined text-primary/20 text-6xl absolute top-4 right-8">format_quote</span>
+<p class="text-slate-700 dark:text-slate-300 italic mb-8 relative z-10 text-lg" data-testimonial-quote>
+"The most striking aspect of RyTuneX is how directly it addresses user pain points with practical, low-friction solutions."
+</p>
+<div class="flex items-center gap-4">
+<img alt="WindowsForum logo" class="w-12 h-12 rounded-full object-cover border border-slate-300 dark:border-slate-700 bg-white" data-testimonial-image src="https://www.google.com/s2/favicons?domain=windowsforum.com&amp;sz=64"/>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-white" data-testimonial-author>WindowsForum</h4>
+<p class="text-sm text-primary"><a class="hover:underline" data-testimonial-link href="https://windowsforum.com/threads/rytunex-1-3-2-review-the-best-windows-tweaking-tool-for-privacy-and-customization.367929/" rel="noopener noreferrer" target="_blank">Source Review</a></p>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-background-dark p-10 rounded-2xl border border-slate-200 dark:border-slate-800 relative shadow-sm" data-testimonial-slot>
+<span class="material-symbols-outlined text-primary/20 text-6xl absolute top-4 right-8">format_quote</span>
+<p class="text-slate-700 dark:text-slate-300 italic mb-8 relative z-10 text-lg" data-testimonial-quote>
+"RyTuneX is more than just an optimization tool - it's a refined solution for anyone looking to unlock their Windows device's full potential."
+</p>
+<div class="flex items-center gap-4">
+<img alt="TrishTech logo" class="w-12 h-12 rounded-full object-cover border border-slate-300 dark:border-slate-700 bg-white" data-testimonial-image src="https://www.google.com/s2/favicons?domain=trishtech.com&amp;sz=64"/>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-white" data-testimonial-author>Trisha - TrishTech</h4>
+<p class="text-sm text-primary"><a class="hover:underline" data-testimonial-link href="https://www.trishtech.com/2025/06/rytunex-optimize-and-enhance-your-windows-10-and-11-pc/" rel="noopener noreferrer" target="_blank">Source Review</a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-24 max-w-7xl mx-auto px-6 md:px-20 text-center">
+<div class="bg-gradient-to-br from-primary to-[#ff0066] rounded-[2rem] p-12 md:p-20 relative overflow-hidden">
+<div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+<div class="relative z-10 flex flex-col items-center gap-8">
+<h2 class="text-white text-4xl md:text-6xl font-black max-w-3xl">Ready to Feel the Speed?</h2>
+<p class="text-blue-100 text-lg md:text-xl max-w-xl">
+                                Download the most advanced Windows optimization suite today. Free for personal use.
+                            </p>
+<a class="flex min-w-[240px] cursor-pointer items-center justify-center rounded-xl h-16 px-10 bg-white text-primary text-xl font-bold shadow-2xl hover:scale-105 transition-all" data-version-template="Download Now - {versionWithV}" href="https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full" rel="noopener noreferrer" target="_blank">
+                                Download Now - 
+                            </a>
+<p class="text-blue-200 text-sm">Supports Windows 10 (20H1+), Windows 11</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-900 py-16">
+<div class="max-w-7xl mx-auto px-6 md:px-20 grid grid-cols-1 md:grid-cols-4 gap-12">
+<div class="col-span-1 md:col-span-1">
+<div class="flex items-center gap-3 text-primary mb-6">
+<img alt="RyTuneX Logo" class="size-6 rounded-sm" src="assets/logo.png"/>
+<h2 class="text-slate-900 dark:text-white text-lg font-black">RyTuneX</h2>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                            Empowering gamers and professionals through precision software engineering and system optimization.
+                        </p>
+</div>
+<div>
+<h4 class="text-slate-900 dark:text-white font-bold mb-6">Product</h4>
+<ul class="space-y-4 text-sm text-slate-500 dark:text-slate-400">
+<li><a class="hover:text-primary transition-colors" href="#features">Features</a></li>
+<li><a class="hover:text-primary transition-colors" href="privacy-policy.html">Privacy Policy</a></li>
+<li><a class="hover:text-primary transition-colors" href="https://github.com/rayenghanmi/RyTuneX/blob/main/CHANGELOG.md" rel="noopener noreferrer" target="_blank">Changelog</a></li>
+<li><a class="hover:text-primary transition-colors" href="https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full" rel="noopener noreferrer" target="_blank">Download</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-slate-900 dark:text-white font-bold mb-6">Resources</h4>
+<ul class="space-y-4 text-sm text-slate-500 dark:text-slate-400">
+<li><a class="hover:text-primary transition-colors" href="docs.html">Documentation</a></li>
+<li><a class="hover:text-primary transition-colors" href="https://discord.gg/gyBzyd364t" rel="noopener noreferrer" target="_blank">Community (Discord)</a></li>
+<li><a class="hover:text-primary transition-colors" href="https://github.com/rayenghanmi/RyTuneX/wiki" rel="noopener noreferrer" target="_blank">Knowledge Base</a></li>
+<li><a class="hover:text-primary transition-colors" href="https://github.com/rayenghanmi/RyTuneX" rel="noopener noreferrer" target="_blank">GitHub Repository</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-slate-900 dark:text-white font-bold mb-6">Stay Connected</h4>
+<div class="flex gap-4 mb-6">
+<a class="w-10 h-10 rounded-lg bg-slate-200 dark:bg-slate-900 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="https://rayenghanmi.github.io/rytunex" rel="noopener noreferrer" target="_blank">
+<span class="material-symbols-outlined text-xl">public</span>
+</a>
+<a class="w-10 h-10 rounded-lg bg-slate-200 dark:bg-slate-900 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="mailto:rytunex@gmail.com">
+<span class="material-symbols-outlined text-xl">rss_feed</span>
+</a>
+</div>
+<p class="text-xs text-slate-500 dark:text-slate-600">
+                            Contact: rytunex@gmail.com • © Rayen Ghanmi. Windows is a registered trademark of Microsoft Corporation.
+                        </p>
+</div>
+</div>
+</footer>
+</div>
+</div>
+<script src="script.js"></script>
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="rayen.ghanmi.22" data-description="Support me on Buy me a coffee!" data-message="" data-color="#ff4d94" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+</body></html>

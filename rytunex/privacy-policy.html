@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RyTuneX | Privacy Policy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL,GRAD,opsz@100..700,0..1,-50..200,20..48&display=swap" rel="stylesheet"/>
+<meta name="description" content="Official RyTuneX privacy policy detailing data handling, local storage behavior, connectivity, third-party sharing, and contact information.">
+<link rel="canonical" href="https://rayenghanmi.github.io/rytunex/privacy-policy.html">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#f177a6">
+<link rel="alternate" href="https://rayenghanmi.github.io/rytunex/privacy-policy.html" hreflang="en-us">
+<meta property="og:title" content="RyTuneX Privacy Policy">
+<meta property="og:description" content="Review how RyTuneX handles privacy: no personal data collection, local-only settings, optional update checks, and zero ad tracking.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://rayenghanmi.github.io/rytunex/privacy-policy.html">
+<meta property="og:image" content="https://rayenghanmi.github.io/rytunex/assets/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RyTuneX Privacy Policy">
+<meta name="twitter:description" content="Official RyTuneX privacy policy covering data collection, local storage, internet use, third parties, and policy updates.">
+<meta name="twitter:image" content="https://rayenghanmi.github.io/rytunex/assets/og.jpg">
+<link rel="icon" href="assets/favicon.ico">
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#ff4d94",
+          "background-light": "#f5f6f8",
+          "background-dark": "#0b0e14",
+          "surface-dark": "#161b2c"
+        },
+        fontFamily: {
+          "display": ["Inter", "sans-serif"]
+        },
+        borderRadius: {
+          "DEFAULT": "0.5rem",
+          "lg": "0.75rem",
+          "xl": "1rem",
+          "full": "9999px"
+        }
+      }
+    }
+  }
+</script>
+<style>
+  :root {
+    --color-primary: #ff4d94;
+    --color-primary-strong: #ff0066;
+    --color-background-light: #f5f6f8;
+    --color-background-dark: #0b0e14;
+    --color-surface-dark: #161b2c;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: "Inter", sans-serif;
+  }
+
+  .material-symbols-outlined {
+    font-family: "Material Symbols Outlined";
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-link {
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0;
+    height: 2px;
+    background: var(--color-primary);
+    transition: width 0.2s ease;
+  }
+
+  .nav-link:hover::after,
+  .nav-link.is-active::after {
+    width: 100%;
+  }
+
+  .nav-link.is-active {
+    color: var(--color-primary) !important;
+  }
+
+  .sidebar-link,
+  .toc-link {
+    transition: all 0.2s ease;
+  }
+
+  .sidebar-link.is-active {
+    background: rgba(255, 46, 136, 0.15);
+    border-left: 3px solid #ff2e88;
+    color: var(--color-primary) !important;
+    font-weight: 600;
+  }
+
+  .toc-link.is-active {
+    color: var(--color-primary) !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+</style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex min-h-screen flex-col overflow-x-hidden">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-6 md:px-20 py-4 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md sticky top-0 z-50">
+  <div class="flex items-center gap-3 text-primary">
+    <img alt="RyTuneX Logo" class="size-8 rounded-lg shadow-lg" src="assets/logo.png"/>
+    <h2 class="text-slate-900 dark:text-white text-xl font-black leading-tight tracking-tight">RyTuneX</h2>
+  </div>
+  <nav class="hidden md:flex flex-1 justify-end gap-10 mr-10">
+    <a class="nav-link text-slate-600 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" data-page-link="true" href="index.html">Home</a>
+    <a class="nav-link text-slate-600 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" data-page-link="true" href="docs.html">Docs</a>
+    <a class="nav-link text-slate-600 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" data-page-link="true" href="privacy-policy.html">Privacy Policy</a>
+  </nav>
+  <a class="hidden sm:flex min-w-[140px] cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-primary text-white text-sm font-bold transition-transform active:scale-95 shadow-lg shadow-primary/20" href="https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full" rel="noopener noreferrer" target="_blank">Download</a>
+  <button aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu" class="md:hidden text-slate-600 dark:text-slate-300" data-mobile-menu-button="true" type="button">
+    <span class="material-symbols-outlined">menu</span>
+  </button>
+</header>
+
+<nav class="hidden md:hidden border-b border-slate-200 dark:border-slate-800 bg-background-light/95 dark:bg-background-dark/95 px-6 py-4" data-mobile-menu="true" id="mobile-nav">
+  <div class="flex flex-col gap-3">
+    <a class="nav-link text-slate-700 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" data-page-link="true" href="index.html">Home</a>
+    <a class="nav-link text-slate-700 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" data-page-link="true" href="docs.html">Docs</a>
+    <a class="nav-link text-slate-700 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" data-page-link="true" href="privacy-policy.html">Privacy Policy</a>
+    <a class="mt-2 inline-flex items-center justify-center rounded-lg h-10 px-5 bg-primary text-white text-sm font-bold" href="https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full" rel="noopener noreferrer" target="_blank">Download</a>
+  </div>
+</nav>
+
+<main class="flex-1">
+  <section class="max-w-5xl mx-auto px-6 md:px-12 py-14 md:py-20">
+    <div class="mb-10">
+      <p class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-bold text-primary tracking-widest uppercase">Official Policy</p>
+      <h1 class="mt-4 text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight">Privacy Policy</h1>
+      <p class="mt-4 text-slate-600 dark:text-slate-400 text-lg leading-relaxed">This page reflects the official RyTuneX privacy policy published for the Microsoft Store listing.</p>
+    </div>
+
+    <article class="space-y-6">
+      <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-surface-dark/70 p-6 md:p-8">
+        <p class="text-slate-700 dark:text-slate-300 leading-relaxed">I built RyTuneX as an open-source tool with a simple philosophy: your data is none of my business. This privacy policy explains how I handle information (or rather, how I don't).</p>
+      </div>
+
+      <section class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-surface-dark/70 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">1. No Data Collection</h2>
+        <p class="text-slate-700 dark:text-slate-300 leading-relaxed mb-4"><strong>Personal Information:</strong> I do not collect, store, or have access to any of your personal information. This includes your name, email, IP address, or any other identifying data.</p>
+        <p class="text-slate-700 dark:text-slate-300 leading-relaxed mb-4"><strong>Usage Tracking:</strong> I do not use any analytics or telemetry tools. I have no way of knowing how you use the app or how many times you open it.</p>
+        <p class="text-slate-700 dark:text-slate-300 leading-relaxed"><strong>Location:</strong> RyTuneX does not access or track your location.</p>
+      </section>
+
+      <section class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-surface-dark/70 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">2. Local Storage</h2>
+        <p class="text-slate-700 dark:text-slate-300 leading-relaxed">Any settings or preferences you change within the app are stored locally on your computer only. This data is never uploaded to a server or synced to the cloud. If you uninstall the app, this local data is deleted.</p>
+      </section>
+
+      <section class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-surface-dark/70 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">3. Internet Connectivity</h2>
+        <p class="text-slate-700 dark:text-slate-300 leading-relaxed mb-4">RyTuneX is designed to work offline. It only connects to the internet if you manually choose to check for updates via GitHub.</p>
+        <p class="text-slate-700 dark:text-slate-300 leading-relaxed">When checking for updates, the app only requests version information from the public RyTuneX repository. No personal data is transmitted during this process.</p>
+      </section>
+
+      <section class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-surface-dark/70 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">4. Third Parties</h2>
+        <p class="text-slate-700 dark:text-slate-300 leading-relaxed">I do not share any data with third parties because I never collect it in the first place. There are no ads, no trackers, and no hidden data-sharing scripts in the software.</p>
+      </section>
+
+      <section class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-surface-dark/70 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">5. Changes to This Policy</h2>
+        <p class="text-slate-700 dark:text-slate-300 leading-relaxed">If I ever add a feature that requires data (such as optional crash reporting), I will update this policy and clearly state what has changed.</p>
+      </section>
+
+      <section class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-surface-dark/70 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">6. Contact</h2>
+        <p class="text-slate-700 dark:text-slate-300 leading-relaxed">Since RyTuneX is open-source, you can review the code yourself on GitHub. If you have any questions about this policy, please open an issue on <a class="text-primary hover:underline" href="https://github.com/rayenghanmi/rytunex" rel="noopener noreferrer" target="_blank">https://github.com/rayenghanmi/rytunex</a>.</p>
+      </section>
+
+      <div class="pt-2">
+        <a class="inline-flex items-center gap-2 text-primary font-semibold hover:underline" href="index.html">
+          <span class="material-symbols-outlined text-base">arrow_back</span>
+          Back to Home
+        </a>
+      </div>
+    </article>
+  </section>
+</main>
+
+<footer class="bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-900 py-10">
+  <div class="max-w-7xl mx-auto px-6 md:px-20 flex flex-col md:flex-row justify-between gap-4 items-center">
+    <p class="text-xs text-slate-500 dark:text-slate-400">Privacy Policy of RyTuneX.</p>
+  </div>
+</footer>
+</div>
+<script src="script.js"></script>
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="rayen.ghanmi.22" data-description="Support me on Buy me a coffee!" data-message="" data-color="#ff4d94" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+</body></html>

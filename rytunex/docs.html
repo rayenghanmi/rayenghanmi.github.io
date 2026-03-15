@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RyTuneX | Documentation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL,GRAD,opsz@100..700,0..1,-50..200,20..48&amp;display=swap" rel="stylesheet"/>
+<meta name="description" content="Official RyTuneX documentation: installation, system requirements, key features, usage guidance, and support resources for Windows 10 and 11.">
+<link rel="canonical" href="https://rayenghanmi.github.io/rytunex/docs.html">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#f177a6">
+<link rel="alternate" href="https://rayenghanmi.github.io/rytunex/docs.html" hreflang="en-us">
+<meta property="og:title" content="RyTuneX Documentation | Installation, Features, and Support">
+<meta property="og:description" content="Read the official RyTuneX docs for setup steps, requirements, feature overview, optimization workflow, and support links.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://rayenghanmi.github.io/rytunex/docs.html">
+<meta property="og:image" content="https://rayenghanmi.github.io/rytunex/assets/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RyTuneX Documentation">
+<meta name="twitter:description" content="Official documentation for RyTuneX covering installation, requirements, features, usage, and support.">
+<meta name="twitter:image" content="https://rayenghanmi.github.io/rytunex/assets/og.jpg">
+<link rel="icon" href="assets/favicon.ico">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ff2e88",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#0a0c14",
+                        "surface-dark": "#161b2c",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        :root {
+            --color-primary: #ff2e88;
+            --color-primary-strong: #ff0066;
+            --color-background-light: #f5f6f8;
+            --color-background-dark: #0a0c14;
+            --color-surface-dark: #161b2c;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+        }
+
+        .material-symbols-outlined {
+            font-family: "Material Symbols Outlined";
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
+            font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            width: 0;
+            height: 2px;
+            background: var(--color-primary);
+            transition: width 0.2s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.is-active::after {
+            width: 100%;
+        }
+
+        .nav-link.is-active {
+            color: var(--color-primary) !important;
+        }
+
+        .sidebar-link,
+        .toc-link {
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-link.is-active {
+            background: rgba(255, 46, 136, 0.15);
+            border-left: 3px solid #ff2e88;
+            color: var(--color-primary) !important;
+            font-weight: 600;
+        }
+
+        .toc-link.is-active {
+            color: var(--color-primary) !important;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display transition-colors duration-300">
+<div class="relative flex min-h-screen flex-col">
+<!-- Header -->
+<header class="sticky top-0 z-50 w-full border-b border-primary/10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-4 lg:px-20 py-3">
+<div class="mx-auto flex max-w-7xl items-center justify-between">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3">
+<img alt="RyTuneX Logo" class="size-8 rounded-lg shadow-lg shadow-primary/20" src="assets/logo.png"/>
+<h2 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">RyTuneX</h2>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="nav-link text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" data-page-link="true" href="index.html">Home</a>
+<a class="nav-link text-sm font-medium text-primary transition-colors" data-page-link="true" href="docs.html">Documentation</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden sm:flex relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">search</span>
+<input class="h-10 w-64 rounded-xl border-none bg-slate-200 dark:bg-surface-dark pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/50 transition-all" placeholder="Search docs..." type="text"/>
+</div>
+<button class="bg-primary text-white px-6 py-2 rounded-xl text-sm font-bold shadow-lg shadow-primary/30 hover:brightness-110 transition-all">
+                    Get Started
+                </button>
+<button aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu" class="md:hidden text-slate-600 dark:text-slate-300" data-mobile-menu-button="true" type="button">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</header>
+<nav class="hidden md:hidden border-b border-primary/10 bg-background-light/95 dark:bg-background-dark/95 px-4 py-4" data-mobile-menu="true" id="mobile-nav">
+<div class="flex flex-col gap-3">
+<a class="nav-link text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" data-page-link="true" href="index.html">Home</a>
+<a class="nav-link text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" data-page-link="true" href="docs.html">Documentation</a>
+<a class="nav-link text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="#overview">Overview</a>
+<a class="nav-link text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="#installation">Installation</a>
+<a class="nav-link text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="#features">Features</a>
+<a class="nav-link text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="#support">Support</a>
+</div>
+</nav>
+<div class="mx-auto flex w-full max-w-7xl grow px-4 lg:px-20">
+<!-- Sidebar Navigation -->
+<aside class="hidden lg:block w-64 shrink-0 border-r border-primary/10 py-10 pr-8">
+<div class="sticky top-28 flex flex-col gap-8">
+<div>
+<h3 class="mb-4 text-xs font-bold uppercase tracking-widest text-primary/70">Getting Started</h3>
+<ul class="flex flex-col gap-1">
+<li><a class="sidebar-link is-active flex items-center gap-3 px-3 py-2 text-sm font-semibold text-primary rounded-lg transition-all" href="#overview"><span class="material-symbols-outlined text-[20px]">info</span> Overview</a></li>
+<li><a class="sidebar-link flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-500 hover:text-primary hover:bg-primary/5 rounded-lg transition-all" href="#installation"><span class="material-symbols-outlined text-[20px]">download</span> Installation</a></li>
+<li><a class="sidebar-link flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-500 hover:text-primary hover:bg-primary/5 rounded-lg transition-all" href="#requirements"><span class="material-symbols-outlined text-[20px]">checklist</span> Requirements</a></li>
+</ul>
+</div>
+<div>
+<h3 class="mb-4 text-xs font-bold uppercase tracking-widest text-primary/70">App Guide</h3>
+<ul class="flex flex-col gap-1">
+<li><a class="sidebar-link flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-500 hover:text-primary hover:bg-primary/5 rounded-lg transition-all" href="#features"><span class="material-symbols-outlined text-[20px]">featured_play_list</span> Features</a></li>
+<li><a class="sidebar-link flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-500 hover:text-primary hover:bg-primary/5 rounded-lg transition-all" href="#usage"><span class="material-symbols-outlined text-[20px]">terminal</span> Usage</a></li>
+</ul>
+</div>
+<div>
+<h3 class="mb-4 text-xs font-bold uppercase tracking-widest text-primary/70">Community</h3>
+<ul class="flex flex-col gap-1">
+<li><a class="sidebar-link flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-500 hover:text-primary hover:bg-primary/5 rounded-lg transition-all" href="#contributing"><span class="material-symbols-outlined text-[20px]">groups</span> Contributing</a></li>
+<li><a class="sidebar-link flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-500 hover:text-primary hover:bg-primary/5 rounded-lg transition-all" href="#support"><span class="material-symbols-outlined text-[20px]">help_center</span> Support</a></li>
+</ul>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 py-10 lg:pl-12">
+<article class="prose prose-slate dark:prose-invert max-w-none">
+<header class="mb-12">
+<div class="flex items-center gap-2 text-primary font-bold text-sm mb-4">
+<span class="material-symbols-outlined text-sm">auto_awesome</span>
+<span data-version-template="{versionWithV} Stable Release">v1.2.0 Stable Release</span>
+</div>
+<h1 class="text-4xl lg:text-5xl font-black text-slate-900 dark:text-white mb-6 tracking-tight">Documentation Overview</h1>
+<p class="text-xl text-slate-500 dark:text-slate-400 leading-relaxed">
+                        RyTuneX is an advanced, open-source Windows optimization utility designed to reclaim your PC's performance and privacy through modern UI and safe automation.
+                    </p>
+</header>
+<!-- Overview Section -->
+<section class="mb-20 scroll-mt-24" id="overview">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+<div class="p-6 rounded-2xl bg-surface-dark border border-primary/10">
+<span class="material-symbols-outlined text-primary mb-4 text-3xl">speed</span>
+<h3 class="text-lg font-bold mb-2">Performance</h3>
+<p class="text-sm text-slate-400">Low-level tweaks for lower latency and higher FPS in gaming and creative tasks.</p>
+</div>
+<div class="p-6 rounded-2xl bg-surface-dark border border-primary/10">
+<span class="material-symbols-outlined text-primary mb-4 text-3xl">lock</span>
+<h3 class="text-lg font-bold mb-2">Privacy</h3>
+<p class="text-sm text-slate-400">Granular control over telemetry, tracking services, and data harvesting.</p>
+</div>
+<div class="p-6 rounded-2xl bg-surface-dark border border-primary/10">
+<span class="material-symbols-outlined text-primary mb-4 text-3xl">palette</span>
+<h3 class="text-lg font-bold mb-2">Usability</h3>
+<p class="text-sm text-slate-400">Modern WinUI 3 interface with intuitive controls and real-time feedback.</p>
+</div>
+</div>
+</section>
+<!-- Installation Section -->
+<section class="mb-20 scroll-mt-24" id="installation">
+<h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+<span class="h-8 w-1 bg-primary rounded-full"></span>
+                        Installation Guide
+                    </h2>
+<div class="space-y-8">
+<div class="flex gap-6">
+<div class="flex-none flex items-center justify-center size-8 rounded-full bg-primary text-white font-bold text-sm">1</div>
+<div>
+<h4 class="font-bold text-lg mb-1">Download the Installer</h4>
+<p class="text-slate-400">Install from the <a class="text-primary hover:underline" href="https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full" rel="noopener noreferrer" target="_blank">Microsoft Store</a> (recommended), or get release assets from <a class="text-primary hover:underline" href="https://github.com/rayenghanmi/RyTuneX/releases" rel="noopener noreferrer" target="_blank">GitHub Releases</a>.</p>
+</div>
+</div>
+<div class="flex gap-6">
+<div class="flex-none flex items-center justify-center size-8 rounded-full bg-primary text-white font-bold text-sm">2</div>
+<div>
+<h4 class="font-bold text-lg mb-1">Verify Requirements</h4>
+<p class="text-slate-400">The app requires <strong>.NET 8 Desktop Runtime</strong>. If not present, the installer will attempt to download it for you or redirect you to Microsoft's official download page.</p>
+</div>
+</div>
+<div class="flex gap-6">
+<div class="flex-none flex items-center justify-center size-8 rounded-full bg-primary text-white font-bold text-sm">3</div>
+<div>
+<h4 class="font-bold text-lg mb-1">Execution &amp; Permissions</h4>
+<p class="text-slate-400">Launch RyTuneX. For full functionality (especially registry tweaks), right-click and <strong>Run as Administrator</strong>. SmartScreen may show a warning because the app is open-source and unsigned; click "More info" then "Run anyway".</p>
+</div>
+</div>
+</div>
+<div class="mt-10 p-4 rounded-xl bg-primary/10 border-l-4 border-primary">
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-primary">warning</span>
+<p class="text-sm text-slate-300 leading-relaxed">
+<strong>Safety First:</strong> RyTuneX includes a "Create Restore Point" button on the welcome screen. It is highly recommended to use this before applying any system-wide optimizations.
+                            </p>
+</div>
+</div>
+</section>
+<!-- Technical Requirements -->
+<section class="mb-20 scroll-mt-24" id="requirements">
+<h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+<span class="h-8 w-1 bg-primary rounded-full"></span>
+                        Technical Requirements
+                    </h2>
+<div class="rounded-2xl overflow-hidden border border-primary/10 bg-surface-dark">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-primary/5">
+<th class="p-4 text-sm font-bold text-primary">Component</th>
+<th class="p-4 text-sm font-bold text-primary">Requirement</th>
+</tr>
+</thead>
+<tbody class="text-slate-300">
+<tr class="border-b border-primary/5">
+<td class="p-4 font-medium">Operating System</td>
+<td class="p-4">Windows 10 (20H1+) or Windows 11</td>
+</tr>
+<tr class="border-b border-primary/5">
+<td class="p-4 font-medium">Framework</td>
+<td class="p-4">Built on .NET 10 (Store install manages dependencies automatically)</td>
+</tr>
+<tr class="border-b border-primary/5">
+<td class="p-4 font-medium">Architecture</td>
+<td class="p-4">x64 / X86</td>
+</tr>
+<tr>
+<td class="p-4 font-medium">Privileges</td>
+<td class="p-4">Administrator required for all tweaks</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Detailed Features Section -->
+<section class="mb-20 scroll-mt-24" id="features">
+<h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+<span class="h-8 w-1 bg-primary rounded-full"></span>
+                        Key Features
+                    </h2>
+<p class="text-slate-400 mb-8">Additional features and capabilities of RyTuneX may be added in future updates.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="bg-surface-dark p-7 rounded-2xl border border-primary/5">
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-primary">auto_delete</span>
+<h3 class="text-xl font-bold">Selective App Removal</h3>
+</div>
+<p class="text-sm text-slate-400 leading-relaxed">Debloat Windows by removing pre-installed and unwanted apps so you can reclaim resources and reduce background overhead.</p>
+</div>
+<div class="bg-surface-dark p-7 rounded-2xl border border-primary/5">
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-primary">bolt</span>
+<h3 class="text-xl font-bold">System Optimizations</h3>
+</div>
+<p class="text-sm text-slate-400 leading-relaxed">Apply performance-focused tweaks to improve responsiveness, reduce resource usage, and streamline overall system behavior.</p>
+</div>
+<div class="bg-surface-dark p-7 rounded-2xl border border-primary/5">
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-primary">shield</span>
+<h3 class="text-xl font-bold">Privacy Enhancements</h3>
+</div>
+<p class="text-sm text-slate-400 leading-relaxed">Limit telemetry and tracking-related behavior to give you stronger control over personal data and system privacy options.</p>
+</div>
+<div class="bg-surface-dark p-7 rounded-2xl border border-primary/5">
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-primary">tune</span>
+<h3 class="text-xl font-bold">Windows Feature Management</h3>
+</div>
+<p class="text-sm text-slate-400 leading-relaxed">Enable or disable optional Windows components from one place so you can tailor the OS to your workflow.</p>
+</div>
+<div class="bg-surface-dark p-7 rounded-2xl border border-primary/5">
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-primary">router</span>
+<h3 class="text-xl font-bold">Networking Options</h3>
+</div>
+<p class="text-sm text-slate-400 leading-relaxed">Configure connectivity-related settings such as DNS and network profiles for better control and troubleshooting.</p>
+</div>
+<div class="bg-surface-dark p-7 rounded-2xl border border-primary/5">
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-primary">memory</span>
+<h3 class="text-xl font-bold">Device Information</h3>
+</div>
+<p class="text-sm text-slate-400 leading-relaxed">Review hardware and operating system details to make informed decisions before applying tweaks and optimizations.</p>
+</div>
+</div>
+</section>
+<!-- Usage Section -->
+<section class="mb-20 scroll-mt-24" id="usage">
+<h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+<span class="h-8 w-1 bg-primary rounded-full"></span>
+                        Usage Instructions
+                    </h2>
+<div class="space-y-10">
+<div class="relative pl-8 border-l border-primary/20">
+<h3 class="text-xl font-bold mb-3">1. Start with a Restore Point</h3>
+<p class="text-slate-400 mb-4">Before applying tweaks, create a restore point so you can roll back safely if needed. This is the recommended first step in the official usage flow.</p>
+</div>
+<div class="relative pl-8 border-l border-primary/20">
+<h3 class="text-xl font-bold mb-3">2. Optimize and Debloat</h3>
+<p class="text-slate-400 mb-4">Use the <strong>Optimize</strong> tab to apply performance settings, then use the <strong>Debloat</strong> tab to uninstall unwanted apps. Some changes may require a restart to fully apply.</p>
+</div>
+<div class="relative pl-8 border-l border-primary/20">
+<h3 class="text-xl font-bold mb-3">3. Privacy, Features, and Device Review</h3>
+<p class="text-slate-400 mb-4">Configure telemetry controls in the <strong>Privacy</strong> tab, manage optional components in the <strong>Features</strong> tab, and confirm your hardware/OS details in the <strong>Device</strong> page before finalizing changes.</p>
+</div>
+</div>
+</section>
+<!-- Contributing Section -->
+<section class="mb-20 scroll-mt-24" id="contributing">
+<h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+<span class="h-8 w-1 bg-primary rounded-full"></span>
+                        Contributing to RyTuneX
+                    </h2>
+<div class="p-8 rounded-2xl bg-surface-dark border border-primary/10">
+<p class="text-slate-300 mb-6">We welcome contributions from everyone! Whether you're a developer or just want to report a bug, here's how you can help:</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<h4 class="font-bold text-white flex items-center gap-2"><span class="material-symbols-outlined text-primary">bug_report</span> Bug Reports</h4>
+<p class="text-sm text-slate-400">If you find an issue, please open a GitHub Issue with your Windows version and logs from the <code>View Logs</code> button in the settings page of the app.</p>
+</div>
+<div class="space-y-2">
+<h4 class="font-bold text-white flex items-center gap-2"><span class="material-symbols-outlined text-primary">code</span> Code Contributions</h4>
+<p class="text-sm text-slate-400">Fork the repo, create a branch for your feature, and submit a PR targeting the <code>testing</code> branch. Please ensure you follow the existing C# coding standards.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Support Section -->
+<section class="mb-20 scroll-mt-24" id="support">
+<h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+<span class="h-8 w-1 bg-primary rounded-full"></span>
+                        Support &amp; Resources
+                    </h2>
+<p class="text-slate-400 mb-6">Contact: <a class="text-primary hover:underline" href="mailto:rytunex@gmail.com">rytunex@gmail.com</a></p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<a class="group p-6 rounded-2xl bg-surface-dark border border-primary/5 hover:border-primary/30 transition-all" href="https://discord.gg/gyBzyd364t" rel="noopener noreferrer" target="_blank">
+<div class="flex items-center gap-4 mb-3">
+<div class="size-10 rounded-lg bg-[#5865F2]/20 flex items-center justify-center text-[#5865F2]">
+<svg class="size-6 fill-current" viewbox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.862-1.297 1.198-1.99a.076.076 0 0 0-.041-.105 13.053 13.053 0 0 1-1.867-.887.077.077 0 0 1-.008-.128c.125-.094.248-.192.366-.292a.077.077 0 0 1 .081-.01c3.901 1.787 8.124 1.787 11.979 0a.077.077 0 0 1 .081.01c.118.1.241.198.366.292a.077.077 0 0 1-.007.127 12.299 12.299 0 0 1-1.868.888.076.076 0 0 0-.041.105c.336.691.736 1.36 1.198 1.99a.078.078 0 0 0 .084.028 19.83 19.83 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.06.06 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.419-2.157 2.419zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.419-2.157 2.419z"></path></svg>
+</div>
+<h4 class="font-bold group-hover:text-primary transition-colors">Discord Community</h4>
+</div>
+<p class="text-sm text-slate-400">Join our active community to chat with developers and other users, share tweaks, and get real-time help.</p>
+</a>
+<a class="group p-6 rounded-2xl bg-surface-dark border border-primary/5 hover:border-primary/30 transition-all" href="https://github.com/rayenghanmi/RyTuneX/issues" rel="noopener noreferrer" target="_blank">
+<div class="flex items-center gap-4 mb-3">
+<div class="size-10 rounded-lg bg-slate-100/10 flex items-center justify-center text-white">
+<svg class="size-6 fill-current" viewbox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg>
+</div>
+<h4 class="font-bold group-hover:text-primary transition-colors">GitHub Issues</h4>
+</div>
+<p class="text-sm text-slate-400">Our primary tracker for bugs and feature requests. Search existing issues before opening a new one.</p>
+</a>
+</div>
+</section>
+</article>
+</main>
+<!-- Table of Contents (Right Sidebar) -->
+<aside class="hidden xl:block w-48 shrink-0 py-10 pl-8">
+<div class="sticky top-28">
+<h4 class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4">On this page</h4>
+<ul class="flex flex-col gap-3 text-sm font-medium text-slate-500 border-l border-primary/10 pl-4">
+<li><a class="toc-link is-active hover:text-primary transition-colors" href="#overview">Overview</a></li>
+<li><a class="toc-link hover:text-primary transition-colors" href="#installation">Installation</a></li>
+<li><a class="toc-link hover:text-primary transition-colors" href="#requirements">Requirements</a></li>
+<li><a class="toc-link hover:text-primary transition-colors" href="#features">Key Features</a></li>
+<li><a class="toc-link hover:text-primary transition-colors" href="#usage">Usage Instructions</a></li>
+<li><a class="toc-link hover:text-primary transition-colors" href="#contributing">Contributing</a></li>
+<li><a class="toc-link hover:text-primary transition-colors" href="#support">Support</a></li>
+</ul>
+</div>
+</aside>
+</div>
+<!-- Footer -->
+<footer class="border-t border-primary/10 bg-surface-dark py-12 px-4 lg:px-20 mt-20">
+<div class="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-4 gap-12">
+<div class="col-span-1 md:col-span-2">
+<div class="flex items-center gap-3 mb-6">
+<img alt="RyTuneX Logo" class="size-6 rounded" src="assets/logo.png"/>
+<h2 class="text-lg font-bold text-white tracking-tight">RyTuneX</h2>
+</div>
+<p class="text-slate-400 text-sm max-w-sm mb-6 leading-relaxed">
+                    The ultimate open-source Windows utility for those who demand more from their hardware. Built with WinUI 3 and .NET 10.
+                </p>
+<div class="flex gap-4">
+<a class="size-10 rounded-full bg-background-dark flex items-center justify-center text-slate-400 hover:text-primary hover:bg-primary/10 transition-all border border-primary/5" href="#">
+<svg class="size-5 fill-current" viewbox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg>
+</a>
+<a class="size-10 rounded-full bg-background-dark flex items-center justify-center text-slate-400 hover:text-primary hover:bg-primary/10 transition-all border border-primary/5" href="#">
+<svg class="size-5 fill-current" viewbox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"></path></svg>
+</a>
+</div>
+</div>
+<div>
+<h4 class="text-white font-bold mb-6">Navigation</h4>
+<ul class="space-y-4 text-sm text-slate-400">
+<li><a class="hover:text-primary transition-colors" href="index.html">Home</a></li>
+<li><a class="hover:text-primary transition-colors" href="docs.html">Documentation</a></li>
+<li><a class="hover:text-primary transition-colors" href="#features">Features</a></li>
+<li><a class="hover:text-primary transition-colors" href="https://twitter.com/rayen_ghanmi_23" rel="noopener noreferrer" target="_blank">X / Twitter</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-white font-bold mb-6">Support</h4>
+<ul class="space-y-4 text-sm text-slate-400">
+<li><a class="hover:text-primary transition-colors" href="https://discord.gg/gyBzyd364t" rel="noopener noreferrer" target="_blank">Discord Server</a></li>
+<li><a class="hover:text-primary transition-colors" href="https://github.com/rayenghanmi/RyTuneX/issues" rel="noopener noreferrer" target="_blank">GitHub Issues</a></li>
+<li><a class="hover:text-primary transition-colors" href="privacy-policy.html" rel="noopener noreferrer">Privacy Policy</a></li>
+<li><a class="hover:text-primary transition-colors" href="mailto:rytunex@gmail.com">Contact Email</a></li>
+</ul>
+</div>
+</div>
+<div class="mx-auto max-w-7xl border-t border-primary/5 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+<p>© Rayen Ghanmi. Released under AGPL-3.0 License.</p>
+<div class="flex gap-6">
+<a class="hover:text-white transition-colors" href="privacy-policy.html" rel="noopener noreferrer">Privacy Policy</a>
+<a class="hover:text-white transition-colors" href="https://aka.ms/microsoft-store-terms-of-transaction" rel="noopener noreferrer" target="_blank">Terms of Service</a>
+</div>
+</div>
+</footer>
+</div>
+<script src="script.js"></script>
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="rayen.ghanmi.22" data-description="Support me on Buy me a coffee!" data-message="" data-color="#ff4d94" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+</body></html>

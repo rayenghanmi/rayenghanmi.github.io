@@ -1,217 +1,461 @@
-﻿// Small helper to respect reduced-motion
-const reducedMotion = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+(function () {
+  var REPO_API_URL = "https://api.github.com/repos/rayenghanmi/rytunex";
+  var repoMetadataPromise = null;
 
-// Reveal elements on scroll (simple)
-function initReveal(){
-  if(reducedMotion) return;
-  const opts = {threshold:0.12};
-  const obs = new IntersectionObserver((entries, o)=>{
-    entries.forEach(en=>{
-      if(en.isIntersecting){
-        en.target.classList.add('revealed');
-        o.unobserve(en.target);
-      }
-    });
-  }, opts);
-
-  document.querySelectorAll('.feature-card, .hero-inner, .cta-strip').forEach((el,i)=>{
-    el.style.transitionDelay = `${i * 80}ms`;
-    obs.observe(el);
-    const rect = el.getBoundingClientRect();
-    if(rect.top <= window.innerHeight * 0.9){
-      el.classList.add('revealed');
-      obs.unobserve(el);
-    }
-  });
-}
-
-// Optional interactive background parallax for large screens (passive events)
-function initParallax(){
-  if(reducedMotion) return;
-  if(window.innerWidth < 900) return;
-  const decor = document.querySelector('.hero-decor');
-  if(!decor) return;
-  let raf = null;
-  function onMove(e){
-    if(raf) cancelAnimationFrame(raf);
-    raf = requestAnimationFrame(()=>{
-      const x = (e.clientX / window.innerWidth - 0.5) * 30; // more noticeable
-      const y = (e.clientY / window.innerHeight - 0.5) * 22;
-      decor.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-    });
-  }
-  document.addEventListener('mousemove', onMove, {passive:true});
-}
-
-/* Animated canvas background - optimized particles and subtle connections */
-function initCanvasBG(){
-  if(reducedMotion) return;
-  if(window.innerWidth < 700) return; // skip on small screens
-  if(navigator.deviceMemory && navigator.deviceMemory < 1.5) return; // low-memory devices
-  if(navigator.hardwareConcurrency && navigator.hardwareConcurrency < 2) return; // low-core devices
-
-  const canvas = document.createElement('canvas');
-  canvas.id = 'bg-canvas';
-  document.body.appendChild(canvas);
-  const ctx = canvas.getContext('2d');
-
-  let width = canvas.width = window.innerWidth;
-  let height = canvas.height = window.innerHeight;
-
-  // adaptive particle count based on area, but capped
-  const area = width * height;
-  const count = Math.max(18, Math.min(80, Math.floor(area / 60000)));
-  const particles = new Array(count);
-  for(let i=0;i<count;i++){
-    particles[i] = {
-      x:Math.random()*width,
-      y:Math.random()*height,
-      vx:(Math.random()-0.5)*(0.6 + Math.random()*0.8),
-      vy:(Math.random()-0.5)*(0.6 + Math.random()*0.8),
-      r: 0.8 + Math.random()*2.4
-    };
-  }
-
-  let resizeTimeout;
-  function handleResize(){
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(()=>{
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    }, 120);
-  }
-  window.addEventListener('resize', handleResize, {passive:true});
-
-  let rafId = 0;
-  const maxDist = Math.max(120, Math.min(220, Math.sqrt(width*height)/8));
-  const maxDistSq = maxDist * maxDist;
-
-  function frame(){
-    ctx.clearRect(0,0,width,height);
-    ctx.fillStyle = 'rgba(2,6,23,0.22)';
-    ctx.fillRect(0,0,width,height);
-
-    for(let i=0;i<particles.length;i++){
-      const p = particles[i];
-      p.x += p.vx; p.y += p.vy;
-      if(p.x < -10) p.x = width + 10; else if(p.x > width + 10) p.x = -10;
-      if(p.y < -10) p.y = height + 10; else if(p.y > height + 10) p.y = -10;
-      ctx.beginPath();
-      ctx.fillStyle = 'rgba(255,255,255,0.09)';
-      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fill();
-    }
-
-    // connections with cheap bounds check to avoid sqrt for many pairs
-    for(let i=0;i<particles.length;i++){
-      const a = particles[i];
-      for(let j=i+1;j<particles.length;j++){
-        const b = particles[j];
-        const dx = a.x - b.x; if(Math.abs(dx) > maxDist) continue;
-        const dy = a.y - b.y; if(Math.abs(dy) > maxDist) continue;
-        const d2 = dx*dx + dy*dy;
-        if(d2 > maxDistSq) continue;
-        const alpha = 0.09 * (1 - d2 / maxDistSq);
-        ctx.strokeStyle = `rgba(241,119,166,${alpha})`;
-        ctx.lineWidth = 0.8;
-        ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
-      }
-    }
-
-    rafId = requestAnimationFrame(frame);
-  }
-  frame();
-
-  document.addEventListener('visibilitychange', ()=>{
-    if(document.hidden){ cancelAnimationFrame(rafId); }
-    else { frame(); }
-  });
-}
-
-// initialize subtle effects after load
-window.addEventListener('load', ()=>{
-  setTimeout(()=>{
-    initParallax();
-    initCanvasBG();
-  }, 500);
-});
-
-// Fetch GitHub releases and sum downloads; update UI
-async function loadDownloadCount(){
-  const el = document.getElementById('download-count');
-  if(!el) return;
-  // We'll use the shields.io badge JSON which already exposes the total downloads
-  // (no need to sum assets). Fallback to the GitHub releases API if shields fails.
-  const SHIELDS = 'https://img.shields.io/github/downloads/rayenghanmi/rytunex/total.json';
-  const FALLBACK_API = 'https://api.github.com/repos/rayenghanmi/RyTuneX/releases';
-  const COUNT_KEY = 'rxt_count_v1';
-
-  // Show cached value if available
-  try{
-    const cached = localStorage.getItem(COUNT_KEY);
-    if(cached) el.textContent = cached;
-  } catch(e){ }
-
-  try{
-    const res = await fetch(SHIELDS, { cache: 'no-cache' });
-    if(!res.ok) throw new Error('shields failed');
-    const json = await res.json();
-    // shields returns { label, message, ... } where message is the rendered text
-    const message = json && (json.message || json.value || '—');
-    if(message && el.textContent !== String(message)){
-      if(!reducedMotion){
-        el.animate([{opacity:0, transform:'translateY(6px)'},{opacity:1, transform:'translateY(0)'}],{duration:420,easing:'ease-out'});
-      }
-      el.textContent = message;
-    }
-    try{ localStorage.setItem(COUNT_KEY, String(message)); } catch(e){}
-    return;
-  }catch(err){
-    // shields failed — fallback to GitHub releases summation (original behavior)
-    try{
-      const res2 = await fetch(FALLBACK_API);
-      if(!res2.ok) throw new Error('github api failed');
-      const data = await res2.json();
-      let total = 0;
-      data.forEach(rel=> rel.assets && rel.assets.forEach(a=> total += a.download_count || 0));
-      let formatted = total;
-      if(total >= 1000000) formatted = (total/1000000).toFixed(1) + 'M';
-      else if(total >= 1000) formatted = (total/1000).toFixed(1) + 'K';
-      if(el.textContent !== String(formatted)){
-        if(!reducedMotion){
-          el.animate([{opacity:0, transform:'translateY(6px)'},{opacity:1, transform:'translateY(0)'}],{duration:420,easing:'ease-out'});
+  function fetchRepoMetadata() {
+    if (!repoMetadataPromise) {
+      repoMetadataPromise = fetch(REPO_API_URL, {
+        headers: {
+          Accept: "application/vnd.github+json"
         }
-        el.textContent = formatted;
-      }
-      try{ localStorage.setItem(COUNT_KEY, formatted); } catch(e){}
-    }catch(err2){
-      console.warn('download count failed', err, err2);
+      }).then(function (response) {
+        if (!response.ok) {
+          throw new Error("Failed to fetch repo metadata");
+        }
+        return response.json();
+      });
     }
-  }
-}
 
-document.addEventListener('DOMContentLoaded',()=>{
-  initReveal();
-  loadDownloadCount();
-  // mobile nav toggle behavior
-  const toggle = document.querySelector('.menu-toggle');
-  const navLinks = document.getElementById('nav-links');
-  if(toggle && navLinks){
-    toggle.addEventListener('click', (e)=>{
-      const open = navLinks.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', String(open));
+    return repoMetadataPromise;
+  }
+
+  function formatNumber(value) {
+    return Number(value || 0).toLocaleString("en-US");
+  }
+
+  function applyVersionTemplates(version) {
+    if (!version) return;
+
+    var versionWithV = /^v/i.test(version) ? version : "v" + version;
+    var versionNoV = versionWithV.replace(/^v/i, "");
+    var targets = document.querySelectorAll("[data-version-template]");
+
+    targets.forEach(function (target) {
+      var template = target.getAttribute("data-version-template");
+      if (!template) return;
+
+      var rendered = template
+        .replace(/\{versionWithV\}/g, versionWithV)
+        .replace(/\{versionNoV\}/g, versionNoV);
+
+      target.textContent = rendered;
     });
-    // close when clicking a link
-    navLinks.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=>{
-      navLinks.classList.remove('open');
-      toggle.setAttribute('aria-expanded','false');
-    }));
-    // close on outside click
-    document.addEventListener('click', (ev)=>{
-      if(!navLinks.contains(ev.target) && !toggle.contains(ev.target)){
-        navLinks.classList.remove('open');
-        toggle.setAttribute('aria-expanded','false');
+  }
+
+  function fetchLatestVersion() {
+    return fetchRepoMetadata()
+      .then(function (repoData) {
+        var releasesUrlTemplate = repoData && repoData.releases_url;
+        var releasesLatestUrl = releasesUrlTemplate
+          ? releasesUrlTemplate.replace("{/id}", "/latest")
+          : REPO_API_URL + "/releases/latest";
+
+        return fetch(releasesLatestUrl, {
+          headers: {
+            Accept: "application/vnd.github+json"
+          }
+        });
+      })
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error("Failed to fetch latest release");
+        }
+        return response.json();
+      })
+      .then(function (releaseData) {
+        return releaseData.tag_name || releaseData.name || "";
+      });
+  }
+
+  function syncLatestVersion() {
+    var cachedVersion = "";
+    try {
+      cachedVersion = localStorage.getItem("rytunex_latest_version") || "";
+    } catch (error) {
+      cachedVersion = "";
+    }
+
+    if (cachedVersion) {
+      applyVersionTemplates(cachedVersion);
+    }
+
+    fetchLatestVersion()
+      .then(function (latestVersion) {
+        if (!latestVersion) return;
+        applyVersionTemplates(latestVersion);
+
+        try {
+          localStorage.setItem("rytunex_latest_version", latestVersion);
+        } catch (error) {
+          // Ignore storage errors and continue.
+        }
+      })
+      .catch(function () {
+        // Keep hardcoded fallback text if API is unavailable.
+      });
+  }
+
+  function syncSocialProof() {
+    var starsTarget = document.querySelector("[data-stars-template]");
+    var avatarsContainer = document.querySelector("[data-stargazers-avatars]");
+    if (!starsTarget && !avatarsContainer) return;
+
+    fetchRepoMetadata()
+      .then(function (repoData) {
+        if (starsTarget) {
+          var template = starsTarget.getAttribute("data-stars-template") || "Trusted by {stars} GitHub stargazers";
+          starsTarget.textContent = template.replace(/\{stars\}/g, formatNumber(repoData.stargazers_count));
+        }
+
+        if (!avatarsContainer) return null;
+
+        var stargazersUrl = (repoData && repoData.stargazers_url) || (REPO_API_URL + "/stargazers");
+        return fetch(stargazersUrl + "?per_page=100", {
+          headers: {
+            Accept: "application/vnd.github+json"
+          }
+        });
+      })
+      .then(function (response) {
+        if (!response || !avatarsContainer) return null;
+        if (!response.ok) {
+          throw new Error("Failed to fetch stargazers");
+        }
+        return response.json();
+      })
+      .then(function (stargazers) {
+        if (!avatarsContainer || !Array.isArray(stargazers) || stargazers.length < 3) return;
+
+        var pickedIndexes = {};
+        var picked = [];
+        while (picked.length < 3 && Object.keys(pickedIndexes).length < stargazers.length) {
+          var index = Math.floor(Math.random() * stargazers.length);
+          if (pickedIndexes[index]) continue;
+          pickedIndexes[index] = true;
+          picked.push(stargazers[index]);
+        }
+
+        if (picked.length < 3) return;
+
+        var avatars = avatarsContainer.querySelectorAll("img");
+        for (var i = 0; i < Math.min(avatars.length, picked.length); i++) {
+          var user = picked[i];
+          avatars[i].src = user.avatar_url;
+          avatars[i].alt = (user.login || "RyTuneX") + " avatar";
+          avatars[i].title = user.login || "RyTuneX stargazer";
+        }
+      })
+      .catch(function () {
+        // Keep fallback avatars/text if API is unavailable or rate-limited.
+      });
+  }
+
+  function pickRandomItems(items, count) {
+    var pool = Array.isArray(items) ? items.slice() : [];
+    var picked = [];
+
+    while (pool.length && picked.length < count) {
+      var randomIndex = Math.floor(Math.random() * pool.length);
+      picked.push(pool.splice(randomIndex, 1)[0]);
+    }
+
+    return picked;
+  }
+
+  function syncTestimonials() {
+    var slots = document.querySelectorAll("[data-testimonial-slot]");
+    if (!slots.length) return;
+
+    var testimonials = [
+      {
+        quote:
+          "The most striking aspect of RyTuneX is how directly it addresses user pain points with practical, low-friction solutions.",
+        author: "WindowsForum",
+        link: "https://windowsforum.com/threads/rytunex-1-3-2-review-the-best-windows-tweaking-tool-for-privacy-and-customization.367929/",
+        image: "https://www.google.com/s2/favicons?domain=windowsforum.com&sz=64",
+        imageAlt: "WindowsForum logo"
+      },
+      {
+        quote:
+          "RyTuneX is more than just an optimization tool - it is a refined solution for anyone looking to unlock their Windows device's full potential.",
+        author: "Trisha - TrishTech",
+        link: "https://www.trishtech.com/2025/06/rytunex-optimize-and-enhance-your-windows-10-and-11-pc/",
+        image: "https://www.google.com/s2/favicons?domain=trishtech.com&sz=64",
+        imageAlt: "TrishTech logo"
+      },
+      {
+        quote:
+          "It is a free tool built with WinUI 3 and .NET 8 that lets you clean up your system, block telemetry, manage features, and get rid of the junk that ships with Windows.",
+        author: "Brian Fagioli - BetaNews",
+        link: "https://betanews.com/2025/05/26/rytunex-1-3-2-optimize-windows-11-remove-microsoft-edge/",
+        image: "https://www.google.com/s2/favicons?domain=betanews.com&sz=64",
+        imageAlt: "BetaNews logo"
+      },
+      {
+        quote:
+          "RyTuneX supports Windows 10 and 11, offering users a streamlined approach to managing their systems.",
+        author: "MajorGeeks Editors",
+        link: "https://www.majorgeeks.com/files/details/rytunex.html",
+        image: "https://www.google.com/s2/favicons?domain=majorgeeks.com&sz=64",
+        imageAlt: "MajorGeeks logo"
+      },
+      {
+        quote:
+          "By far the simplest way to optimize your PC is to get rid of the bloatware that comes pre-packed especially with Windows 11.",
+        author: "Alexandra Sava - Softpedia",
+        link: "https://www.softpedia.com/get/Tweak/System-Tweak/RyTuneX.shtml",
+        image: "https://www.google.com/s2/favicons?domain=softpedia.com&sz=64",
+        imageAlt: "Softpedia logo"
+      },
+      {
+        quote:
+            "RyTuneX centralizes advanced privacy controls that are normally scattered across Settings, services, and the registry.",
+        author: "All Things Windows",
+        link: "https://windows.atsit.in/tl/31650/",
+        image: "https://www.google.com/s2/favicons?domain=windows.atsit.in&sz=64",
+        imageAlt: "All Things Windows logo"
+      },
+      {
+        quote:
+            "RyTuneX makes it easy to disable telemetry, manage features, and remove unwanted components from Windows.",
+        author: "All Things Windows",
+        link: "https://windows.atsit.in/tl/31650/",
+        image: "https://www.google.com/s2/favicons?domain=windows.atsit.in&sz=64",
+        imageAlt: "All Things Windows logo"
+      },
+      {
+        quote:
+            "RyTuneX lets users clean up their system, block telemetry, manage Windows features, and remove built-in apps.",
+        author: "Brian Fagioli - BetaNews",
+        link: "https://betanews.com/article/rytunex-1-3-2-optimize-windows-11-remove-microsoft-edge/",
+        image: "https://www.google.com/s2/favicons?domain=betanews.com&sz=64",
+        imageAlt: "BetaNews logo"
+      },
+      {
+        quote:
+            "Built with WinUI 3 and .NET 8, RyTuneX provides a modern interface and compatibility with Windows 10 and 11.",
+        author: "JustGeek",
+        link: "https://www.justgeek.fr/rytunex-optimiser-windows-125187/",
+        image: "https://www.google.com/s2/favicons?domain=justgeek.fr&sz=64",
+        imageAlt: "JustGeek logo"
+      }
+    ];
+
+    var selectedTestimonials = pickRandomItems(testimonials, Math.min(2, slots.length));
+    if (!selectedTestimonials.length) return;
+
+    slots.forEach(function (slot, index) {
+      var item = selectedTestimonials[index % selectedTestimonials.length];
+      if (!item) return;
+
+      var quoteEl = slot.querySelector("[data-testimonial-quote]");
+      var imageEl = slot.querySelector("[data-testimonial-image]");
+      var authorEl = slot.querySelector("[data-testimonial-author]");
+      var linkEl = slot.querySelector("[data-testimonial-link]");
+
+      if (quoteEl) {
+        quoteEl.textContent = '"' + item.quote + '"';
+      }
+
+      if (imageEl) {
+        imageEl.src = item.image;
+        imageEl.alt = item.imageAlt || item.author;
+      }
+
+      if (authorEl) {
+        authorEl.textContent = item.author;
+      }
+
+      if (linkEl) {
+        linkEl.href = item.link;
+        linkEl.textContent = "Source Review";
       }
     });
   }
-});
+
+  function copyTextToClipboard(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text);
+    }
+
+    return new Promise(function (resolve, reject) {
+      var textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.setAttribute("readonly", "");
+      textArea.style.position = "fixed";
+      textArea.style.left = "-9999px";
+      document.body.appendChild(textArea);
+      textArea.select();
+
+      try {
+        var copied = document.execCommand("copy");
+        document.body.removeChild(textArea);
+        if (copied) {
+          resolve();
+        } else {
+          reject(new Error("Copy command failed"));
+        }
+      } catch (error) {
+        document.body.removeChild(textArea);
+        reject(error);
+      }
+    });
+  }
+
+  function setupCopyButtons() {
+    var copyButtons = document.querySelectorAll("[data-copy-text]");
+    if (!copyButtons.length) return;
+
+    copyButtons.forEach(function (button) {
+      var icon = button.querySelector(".material-symbols-outlined");
+      var defaultIcon = icon ? icon.textContent.trim() : "content_copy";
+
+      button.addEventListener("click", function () {
+        var text = button.getAttribute("data-copy-text") || "";
+        if (!text) return;
+
+        copyTextToClipboard(text)
+          .then(function () {
+            if (icon) icon.textContent = "check";
+            button.setAttribute("title", "Copied!");
+
+            window.setTimeout(function () {
+              if (icon) icon.textContent = defaultIcon;
+              button.setAttribute("title", "Copy command");
+            }, 1400);
+          })
+          .catch(function () {
+            if (icon) icon.textContent = "error";
+            button.setAttribute("title", "Copy failed");
+
+            window.setTimeout(function () {
+              if (icon) icon.textContent = defaultIcon;
+              button.setAttribute("title", "Copy command");
+            }, 1400);
+          });
+      });
+    });
+  }
+
+  function setupMobileMenu() {
+    var button = document.querySelector("[data-mobile-menu-button]");
+    var menu = document.querySelector("[data-mobile-menu]");
+    if (!button || !menu) return;
+
+    function closeMenu() {
+      menu.classList.add("hidden");
+      button.setAttribute("aria-expanded", "false");
+      button.setAttribute("aria-label", "Open menu");
+      var iconClose = button.querySelector(".material-symbols-outlined");
+      if (iconClose) iconClose.textContent = "menu";
+    }
+
+    button.addEventListener("click", function () {
+      var isHidden = menu.classList.contains("hidden");
+      menu.classList.toggle("hidden", !isHidden);
+      button.setAttribute("aria-expanded", isHidden ? "true" : "false");
+      button.setAttribute("aria-label", isHidden ? "Close menu" : "Open menu");
+      var icon = button.querySelector(".material-symbols-outlined");
+      if (icon) icon.textContent = isHidden ? "close" : "menu";
+    });
+
+    menu.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", function () {
+        closeMenu();
+      });
+    });
+
+    window.addEventListener("resize", function () {
+      if (window.innerWidth >= 768) {
+        closeMenu();
+      }
+    });
+  }
+
+  function normalizeHash(hash) {
+    return (hash || "").replace(/^#/, "").trim();
+  }
+
+  function setActiveByHash(linkSelector, activeClass, hash) {
+    var normalized = normalizeHash(hash);
+    var links = document.querySelectorAll(linkSelector);
+
+    links.forEach(function (link) {
+      var linkHash = normalizeHash(link.getAttribute("href"));
+      var isActive = normalized && linkHash === normalized;
+      link.classList.toggle(activeClass, isActive);
+    });
+  }
+
+  function setActivePageLinks() {
+    var currentPage = window.location.pathname.split("/").pop() || "index.html";
+    var pageLinks = document.querySelectorAll("[data-page-link]");
+
+    pageLinks.forEach(function (link) {
+      var href = (link.getAttribute("href") || "").split("#")[0];
+      var targetPage = href || "index.html";
+      var isActive = targetPage === currentPage;
+      link.classList.toggle("is-active", isActive);
+      if (isActive) {
+        link.setAttribute("aria-current", "page");
+      } else {
+        link.removeAttribute("aria-current");
+      }
+    });
+  }
+
+  function setupSectionObserver(sectionSelector, linkSelector, activeClass) {
+    var sections = document.querySelectorAll(sectionSelector);
+    if (!sections.length) return;
+
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            setActiveByHash(linkSelector, activeClass, "#" + entry.target.id);
+          }
+        });
+      },
+      {
+        root: null,
+        threshold: 0.35,
+        rootMargin: "-20% 0px -55% 0px"
+      }
+    );
+
+    sections.forEach(function (section) {
+      if (section.id) observer.observe(section);
+    });
+  }
+
+  function init() {
+    setActivePageLinks();
+    setupCopyButtons();
+    setupMobileMenu();
+    syncLatestVersion();
+    syncSocialProof();
+    syncTestimonials();
+
+    setupSectionObserver("main section[id]", ".nav-link[href^='#']", "is-active");
+    setupSectionObserver("main section[id]", ".sidebar-link[href^='#']", "is-active");
+    setupSectionObserver("main section[id]", ".toc-link[href^='#']", "is-active");
+
+    if (window.location.hash) {
+      setActiveByHash(".nav-link[href^='#']", "is-active", window.location.hash);
+      setActiveByHash(".sidebar-link[href^='#']", "is-active", window.location.hash);
+      setActiveByHash(".toc-link[href^='#']", "is-active", window.location.hash);
+    }
+
+    window.addEventListener("hashchange", function () {
+      setActiveByHash(".nav-link[href^='#']", "is-active", window.location.hash);
+      setActiveByHash(".sidebar-link[href^='#']", "is-active", window.location.hash);
+      setActiveByHash(".toc-link[href^='#']", "is-active", window.location.hash);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
