@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>RyTuneX | Documentation</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL,GRAD,opsz@100..700,0..1,-50..200,20..48&amp;display=swap" rel="stylesheet"/>
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>RyTuneX — Architectural & Technical Documentation</title>
 <meta name="description" content="Official RyTuneX documentation: installation, system requirements, key features, usage guidance, and support resources for Windows 10 and 11.">
 <link rel="canonical" href="https://rayenghanmi.github.io/rytunex/docs.html">
 <meta name="robots" content="index,follow">
@@ -22,475 +19,1823 @@
 <meta name="twitter:description" content="Official documentation for RyTuneX covering installation, requirements, features, usage, and support.">
 <meta name="twitter:image" content="https://rayenghanmi.github.io/rytunex/assets/og.jpg">
 <link rel="icon" href="assets/favicon.ico">
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#ff2e88",
-                        "background-light": "#f5f6f8",
-                        "background-dark": "#0a0c14",
-                        "surface-dark": "#161b2c",
-                    },
-                    fontFamily: {
-                        "display": ["Inter", "sans-serif"]
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.125rem",
-                        "lg": "0.25rem",
-                        "xl": "0.5rem",
-                        "full": "0.75rem"
-                    },
-                },
-            },
-        }
-    </script>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
 <style>
-        :root {
-            --color-primary: #ff2e88;
-            --color-primary-strong: #ff0066;
-            --color-background-light: #f5f6f8;
-            --color-background-dark: #0a0c14;
-            --color-surface-dark: #161b2c;
-        }
+/* ─── TOKENS ─────────────────────────────────────── */
+:root {
+  --bg:           #0b0e14;
+  --bg-card:      #121523;
+  --bg-sidebar:   #0b0e14;
+  --bg-hover:     #121523;
+  --bg-code:      #0b0e14;
+  --border:       rgba(255, 255, 255, 0.12);
+  --border-light: rgba(255, 255, 255, 0.08);
+  --accent:       #ff4d94;
+  --accent-2:     #ff0066;
+  --accent-dim:   rgba(255, 77, 148, 0.15);
+  --accent-glow:  rgba(255, 77, 148, 0.25);
+  --green:        #3fb950;
+  --green-dim:    rgba(63,185,80,.12);
+  --orange:       #d29922;
+  --orange-dim:   rgba(210,153,34,.12);
+  --red:          #f85149;
+  --red-dim:      rgba(248,81,73,.12);
+  --purple:       #a371f7;
+  --purple-dim:   rgba(163,113,247,.12);
+  --text:         #e6edf3;
+  --text-muted:   #8b949e;
+  --text-dim:     #8b949e;
+  --radius:       8px;
+  --radius-lg:    12px;
+  --sidebar-w:    260px;
+  --nav-h:        60px;
+  --font:         'Inter', sans-serif;
+  --mono:         'JetBrains Mono', monospace;
+}
 
-        html {
-            scroll-behavior: smooth;
-        }
+/* ─── RESET ──────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+img{max-width:100%}
 
-        body {
-            font-family: "Inter", sans-serif;
-        }
+/* ─── SCROLLBAR ──────────────────────────────────── */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 
-        .material-symbols-outlined {
-            font-family: "Material Symbols Outlined";
-            font-weight: normal;
-            font-style: normal;
-            font-size: 24px;
-            line-height: 1;
-            letter-spacing: normal;
-            text-transform: none;
-            display: inline-block;
-            white-space: nowrap;
-            word-wrap: normal;
-            direction: ltr;
-            -webkit-font-smoothing: antialiased;
-            font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
-        }
+/* ─── TOP NAV ────────────────────────────────────── */
+.topnav{
+  position:sticky;top:0;left:0;right:0;height:var(--nav-h);
+  background:rgba(11,14,20,.92);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;padding:0 24px;gap:16px;
+  z-index:1000;
+}
+.topnav-logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.1rem;color:var(--text);text-decoration:none}
+.topnav-logo img{width:28px;height:28px;border-radius:6px}
+.topnav-logo span{background:linear-gradient(135deg,var(--accent),var(--purple));background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.topnav-links{display:flex;align-items:center;gap:4px;margin-left:auto}
+.topnav-links a{color:var(--text-muted);font-size:.9rem;padding:6px 12px;border-radius:var(--radius);transition:.15s}
+.topnav-links a:hover,.topnav-links a.active{color:var(--text);background:var(--bg-hover);text-decoration:none}
+.badge-version{background:var(--accent-dim);color:var(--accent);font-size:.72rem;font-weight:600;padding:2px 8px;border-radius:20px;border:1px solid var(--accent-glow)}
 
-        .scrollbar-hide::-webkit-scrollbar {
-            display: none;
-        }
+/* ─── LAYOUT ─────────────────────────────────────── */
+.layout{display:flex;margin-top:var(--nav-h)}
+.sidebar{
+  position:fixed;top:var(--nav-h);left:0;width:var(--sidebar-w);
+  height:calc(100vh - var(--nav-h));overflow-y:auto;
+  background:var(--bg-sidebar);border-right:1px solid var(--border);
+  padding:24px 0;
+}
+.main{
+  margin-left:var(--sidebar-w);flex:1;
+  max-width:calc(100% - var(--sidebar-w));
+  padding:48px 48px 120px;
+}
 
-        .nav-link {
-            position: relative;
-        }
+/* ─── SIDEBAR NAV ────────────────────────────────── */
+.sidebar-section{margin-bottom:24px}
+.sidebar-section-label{
+  font-size:.72rem;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--text-dim);
+  padding:0 20px 8px;
+}
+.sidebar-link{
+  display:flex;align-items:center;gap:10px;
+  padding:7px 20px;font-size:.88rem;color:var(--text-muted);
+  cursor:pointer;transition:.12s;border-left:2px solid transparent;
+}
+.sidebar-link:hover{color:var(--text);background:var(--bg-hover);text-decoration:none}
+.sidebar-link.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-dim)}
+.sidebar-link .material-icons-round{font-size:16px}
 
-        .nav-link::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: -6px;
-            width: 0;
-            height: 2px;
-            background: var(--color-primary);
-            transition: width 0.2s ease;
-        }
+/* ─── HEADINGS ───────────────────────────────────── */
+body h1{font-size:2.2rem;font-weight:700;line-height:1.2;margin-bottom:8px;letter-spacing:-.03em}
+body h2{font-size:1.6rem;font-weight:700;margin:56px 0 16px;letter-spacing:-.02em;padding-top:16px;
+   border-bottom:1px solid var(--border);padding-bottom:12px}
+body h3{font-size:1.15rem;font-weight:600;margin:32px 0 12px}
+body h4{font-size:.95rem;font-weight:600;margin:24px 0 8px;color:var(--text-muted)}
+body h1,body h2{scroll-margin-top:calc(var(--nav-h) + 24px)}
+body h3,body h4{scroll-margin-top:calc(var(--nav-h) + 24px)}
 
-        .nav-link:hover::after,
-        .nav-link.is-active::after {
-            width: 100%;
-        }
+/* ─── PROSE ──────────────────────────────────────── */
+body p{margin-bottom:16px;color:var(--text-muted);font-size:.95rem}
+body p strong{color:var(--text);font-weight:600}
+body ul,body ol{padding-left:20px;margin-bottom:16px}
+body li{color:var(--text-muted);font-size:.93rem;margin-bottom:6px}
+body li strong{color:var(--text)}
 
-        .nav-link.is-active {
-            color: var(--color-primary) !important;
-        }
+/* ─── CARDS ──────────────────────────────────────── */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin:24px 0}
+.card{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:20px;
+  transition:border-color .2s,transform .15s,box-shadow .2s;
+}
+.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 30px var(--accent-glow)}
+.card-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.card-icon.blue{background:var(--accent-dim);color:var(--accent)}
+.card-icon.green{background:var(--green-dim);color:var(--green)}
+.card-icon.orange{background:var(--orange-dim);color:var(--orange)}
+.card-icon.purple{background:var(--purple-dim);color:var(--purple)}
+.card-icon.red{background:var(--red-dim);color:var(--red)}
+.card h3{font-size:.95rem;margin:0 0 6px;color:var(--text)}
+.card p{font-size:.84rem;margin:0;line-height:1.5}
 
-        .sidebar-link,
-        .toc-link {
-            transition: all 0.2s ease;
-        }
+/* ─── CALLOUTS ───────────────────────────────────── */
+.callout{
+  display:flex;gap:12px;padding:16px;border-radius:var(--radius);
+  margin:20px 0;font-size:.88rem;border-left:3px solid;
+}
+.callout .material-icons-round{font-size:18px;flex-shrink:0;margin-top:1px}
+.callout.info{background:var(--accent-dim);border-color:var(--accent);color:var(--accent-2)}
+.callout.warning{background:var(--orange-dim);border-color:var(--orange);color:var(--orange)}
+.callout.success{background:var(--green-dim);border-color:var(--green);color:var(--green)}
+.callout.danger{background:var(--red-dim);border-color:var(--red);color:var(--red)}
+.callout.purple{background:var(--purple-dim);border-color:var(--purple);color:var(--purple)}
+.callout p{color:inherit;margin:0;font-size:.88rem}
+.callout strong{color:inherit}
 
-        .sidebar-link.is-active {
-            background: rgba(255, 46, 136, 0.15);
-            border-left: 3px solid #ff2e88;
-            color: var(--color-primary) !important;
-            font-weight: 600;
-        }
+/* ─── TABLES ─────────────────────────────────────── */
+.table-wrap{overflow-x:auto;margin:20px 0;border-radius:var(--radius-lg);border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+thead{background:var(--bg-hover)}
+th{padding:10px 16px;text-align:left;font-weight:600;color:var(--text);border-bottom:1px solid var(--border);font-size:.82rem;letter-spacing:.03em}
+td{padding:10px 16px;border-bottom:1px solid var(--border-light);color:var(--text-muted)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,.02)}
+td code{background:var(--bg-code);padding:2px 6px;border-radius:4px;font-family:var(--mono);font-size:.8rem;color:var(--accent-2)}
 
-        .toc-link.is-active {
-            color: var(--color-primary) !important;
-        }
+/* ─── CODE ───────────────────────────────────────── */
+pre{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;margin:16px 0;overflow-x:auto;white-space:pre-wrap;word-break:break-word;overflow-wrap:anywhere;}
+code{font-family:var(--mono);font-size:.83rem;color:var(--accent-2);background:var(--bg-code);padding:2px 6px;border-radius:4px;word-break:break-word;overflow-wrap:anywhere;}
+pre code{background:none;padding:0;color:var(--text-muted);white-space:inherit;}
+.code-label{font-size:.72rem;color:var(--text-dim);font-family:var(--mono);margin-bottom:8px;display:block;}
 
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation: none !important;
-                transition: none !important;
-            }
-        }
-    </style>
+/* ─── STEPS ──────────────────────────────────────── */
+.steps{counter-reset:step;margin:24px 0}
+.step{display:flex;gap:16px;margin-bottom:24px;position:relative}
+.step::before{
+  counter-increment:step;content:counter(step);
+  flex-shrink:0;width:32px;height:32px;
+  background:var(--accent-dim);color:var(--accent);
+  border:1px solid var(--accent-glow);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.85rem;font-weight:700;
+}
+.step-body h4{color:var(--text);margin:0 0 6px;font-size:.95rem}
+.step-body p{margin:0;font-size:.88rem}
+
+/* ─── BADGES / TAGS ──────────────────────────────── */
+.tag{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:.75rem;font-weight:600;margin:2px}
+.tag.blue{background:var(--accent-dim);color:var(--accent);border:1px solid var(--accent-glow)}
+.tag.green{background:var(--green-dim);color:var(--green)}
+.tag.orange{background:var(--orange-dim);color:var(--orange)}
+.tag.purple{background:var(--purple-dim);color:var(--purple)}
+.tag.red{background:var(--red-dim);color:var(--red)}
+.tag.gray{background:rgba(255,255,255,.05);color:var(--text-muted)}
+
+/* ─── HERO ───────────────────────────────────────── */
+.hero{margin-bottom:48px;padding:40px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);position:relative;overflow:hidden}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 50% at 80% 50%, rgba(88,166,255,.08), transparent);
+}
+.hero-eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.hero h1{position:relative}
+.hero p{font-size:1.05rem;max-width:640px;position:relative;margin-top:12px}
+.hero-meta{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;position:relative}
+
+/* ─── DIAGRAMS (pure SVG) ────────────────────────── */
+.diagram{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;margin:24px 0;overflow-x:auto;max-width:100%}
+.diagram svg{display:block;margin:0 auto;max-width:100%;height:auto}
+.diagram figcaption{text-align:center;font-size:.8rem;color:var(--text-dim);margin-top:12px}
+
+/* ─── SECTION DIVIDERS ───────────────────────────── */
+.section-intro{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:24px;margin-bottom:32px;
+  display:flex;gap:16px;
+}
+.section-intro .material-icons-round{font-size:32px;flex-shrink:0;margin-top:4px}
+.section-intro.blue{border-left:3px solid var(--accent)}.section-intro.blue .material-icons-round{color:var(--accent)}
+.section-intro.green{border-left:3px solid var(--green)}.section-intro.green .material-icons-round{color:var(--green)}
+.section-intro.purple{border-left:3px solid var(--purple)}.section-intro.purple .material-icons-round{color:var(--purple)}
+.section-intro.orange{border-left:3px solid var(--orange)}.section-intro.orange .material-icons-round{color:var(--orange)}
+.section-intro h3{margin:0 0 6px;font-size:1rem}
+.section-intro p{margin:0;font-size:.88rem}
+
+/* ─── FEATURE GRID ───────────────────────────────── */
+.feature-row{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:24px 0}
+.feature-block{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px}
+.feature-block h4{font-size:1rem;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+
+/* ─── MODULE CARD ────────────────────────────────── */
+.module-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;margin-bottom:20px}
+.module-card-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:16px}
+.module-badge{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.module-card h3{margin:0 0 4px;font-size:1.05rem}
+.module-card .module-path{font-family:var(--mono);font-size:.78rem;color:var(--text-dim)}
+.module-card p{font-size:.9rem}
+.module-responsibilities{list-style:none;padding:0;display:grid;grid-template-columns:1fr;gap:14px;margin-top:16px;}
+@media(min-width:1100px){.module-responsibilities{grid-template-columns:1fr 1fr;}}
+.module-responsibilities li{font-size:.88rem;line-height:1.6;max-width:60ch;}
+.module-responsibilities li::before{content:'›';color:var(--accent);font-weight:700;flex-shrink:0;margin-right:8px}
+
+/* ─── REGISTRY TABLE ─────────────────────────────── */
+.reg-key{font-family:var(--mono);font-size:.78rem;color:var(--text-dim);display:block;margin-top:2px}
+
+/* ─── LAYER STACK ────────────────────────────────── */
+.layer-stack{margin:24px 0;display:flex;flex-direction:column;gap:4px}
+.layer{padding:14px 20px;border-radius:var(--radius);border:1px solid var(--border);display:flex;align-items:center;gap:12px;font-size:.9rem;font-weight:500}
+.layer.l1{background:rgba(88,166,255,.1);border-color:rgba(88,166,255,.3);color:var(--accent)}
+.layer.l2{background:rgba(163,113,247,.08);border-color:rgba(163,113,247,.3);color:var(--purple)}
+.layer.l3{background:rgba(63,185,80,.08);border-color:rgba(63,185,80,.3);color:var(--green)}
+.layer.l4{background:rgba(210,153,34,.08);border-color:rgba(210,153,34,.3);color:var(--orange)}
+.layer.l5{background:rgba(248,81,73,.08);border-color:rgba(248,81,73,.3);color:var(--red)}
+.layer .material-icons-round{font-size:18px;flex-shrink:0}
+.layer-desc{font-size:.8rem;font-weight:400;color:var(--text-dim);margin-left:auto}
+
+/* ─── FOOTER ─────────────────────────────────────── */
+footer{
+  margin-left:var(--sidebar-w);padding:40px 48px;
+  border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:16px;color:var(--text-dim);font-size:.83rem;
+}
+footer a{color:var(--text-muted)}
+
+/* ─── RESPONSIVE ─────────────────────────────────── */
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+  margin-left: auto;
+  padding: 4px;
+}
+@media(max-width:768px){
+  html, body { max-width: 100vw; overflow-x: hidden; }
+  .sidebar{display:none}
+  .main{margin-left:0;max-width:100vw;width:100%;padding:24px 16px 80px;box-sizing:border-box;}
+  .feature-row{grid-template-columns:1fr}
+  footer{margin-left:0;padding:24px 16px}
+  .topnav{padding:0 16px}
+  
+  .mobile-menu-btn { display: block; }
+  .topnav-links {
+    display: none;
+    position: absolute;
+    top: var(--nav-h);
+    left: 0;
+    right: 0;
+    background: rgba(11,14,20,.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    margin-left: 0;
+    gap: 8px;
+  }
+  .topnav-links.show { display: flex; }
+  .topnav-links a { width: 100%; display: block; }
+}
+
+/* ─── NAVIGATION HOVER ANIMATIONS ────────────────── */
+.nav-link {
+    position: relative;
+}
+.nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.2s ease;
+}
+.nav-link:hover::after,
+.nav-link.is-active::after {
+    width: 100%;
+}
+.nav-link.is-active {
+    color: var(--accent) !important;
+}
+</style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 </head>
-<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display transition-colors duration-300">
-<div class="relative flex min-h-screen flex-col">
-<!-- Header -->
-<header class="sticky top-0 z-50 w-full border-b border-primary/10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-4 lg:px-20 py-3">
-<div class="mx-auto flex max-w-7xl items-center justify-between">
-<div class="flex items-center gap-8">
-<div class="flex items-center gap-3">
-<img alt="RyTuneX Logo" class="size-8 rounded-lg shadow-lg shadow-primary/20" src="assets/logo.png"/>
-<h2 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">RyTuneX</h2>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased" style="font-family: 'Inter', sans-serif;">
+
+<!-- Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-6 md:px-20 py-4 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-3 text-primary">
+<img alt="RyTuneX Logo" class="size-8 rounded-sm shadow-sm" src="assets/logo.png"/>
+<h2 class="text-slate-900 dark:text-white text-xl font-black leading-tight tracking-tight" style="margin: 0; padding: 0; border: none;">RyTuneX</h2>
 </div>
-<nav class="hidden md:flex items-center gap-6">
-<a class="nav-link text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" data-page-link="true" href="index.html">Home</a>
-<a class="nav-link text-sm font-medium text-primary transition-colors" data-page-link="true" href="docs.html">Documentation</a>
+<nav class="hidden md:flex flex-1 justify-end gap-10 mr-10">
+<a class="nav-link text-slate-600 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" href="index.html" style="text-decoration: none;">Home</a>
+<a class="nav-link text-slate-700 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" href="https://github.com/rayenghanmi/RyTuneX" target="_blank" style="text-decoration: none;">GitHub</a>
+<span class="badge-version">
+  <span class="material-icons-round" style="font-size:11px">auto_awesome</span>
+  <span data-version-template="{versionWithV}"></span>
+</span>
 </nav>
-</div>
 <div class="flex items-center gap-4">
-<div class="hidden sm:flex relative group">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">search</span>
-<input class="h-10 w-64 rounded-xl border-none bg-slate-200 dark:bg-surface-dark pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/50 transition-all" placeholder="Search docs..." type="text"/>
-</div>
-<button class="bg-primary text-white px-6 py-2 rounded-xl text-sm font-bold shadow-lg shadow-primary/30 hover:brightness-110 transition-all">
-                    Get Started
-                </button>
-<button aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu" class="md:hidden text-slate-600 dark:text-slate-300" data-mobile-menu-button="true" type="button">
+<button aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu" class="md:hidden text-slate-600 dark:text-slate-300" data-mobile-menu-button="true" type="button" style="background: none; border: none;">
 <span class="material-symbols-outlined">menu</span>
 </button>
 </div>
-</div>
 </header>
-<nav class="hidden md:hidden border-b border-primary/10 bg-background-light/95 dark:bg-background-dark/95 px-4 py-4" data-mobile-menu="true" id="mobile-nav">
+<nav class="hidden md:hidden border-b border-slate-200 dark:border-slate-800 bg-background-light/95 dark:bg-background-dark/95 px-6 py-4" data-mobile-menu="true" id="mobile-nav">
 <div class="flex flex-col gap-3">
-<a class="nav-link text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" data-page-link="true" href="index.html">Home</a>
-<a class="nav-link text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" data-page-link="true" href="docs.html">Documentation</a>
-<a class="nav-link text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="#overview">Overview</a>
-<a class="nav-link text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="#installation">Installation</a>
-<a class="nav-link text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="#features">Features</a>
-<a class="nav-link text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="#support">Support</a>
+<a class="nav-link text-slate-700 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" href="index.html">Home</a>
+<a class="nav-link text-slate-700 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" href="https://github.com/rayenghanmi/RyTuneX" target="_blank">GitHub</a>
 </div>
 </nav>
-<div class="mx-auto flex w-full max-w-7xl grow px-4 lg:px-20">
-<!-- Sidebar Navigation -->
-<aside class="hidden lg:block w-64 shrink-0 border-r border-primary/10 py-10 pr-8">
-<div class="sticky top-28 flex flex-col gap-8">
-<div>
-<h3 class="mb-4 text-xs font-bold uppercase tracking-widest text-primary/70">Getting Started</h3>
-<ul class="flex flex-col gap-1">
-<li><a class="sidebar-link is-active flex items-center gap-3 px-3 py-2 text-sm font-semibold text-primary rounded-lg transition-all" href="#overview"><span class="material-symbols-outlined text-[20px]">info</span> Overview</a></li>
-<li><a class="sidebar-link flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-500 hover:text-primary hover:bg-primary/5 rounded-lg transition-all" href="#installation"><span class="material-symbols-outlined text-[20px]">download</span> Installation</a></li>
-<li><a class="sidebar-link flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-500 hover:text-primary hover:bg-primary/5 rounded-lg transition-all" href="#requirements"><span class="material-symbols-outlined text-[20px]">checklist</span> Requirements</a></li>
-</ul>
-</div>
-<div>
-<h3 class="mb-4 text-xs font-bold uppercase tracking-widest text-primary/70">App Guide</h3>
-<ul class="flex flex-col gap-1">
-<li><a class="sidebar-link flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-500 hover:text-primary hover:bg-primary/5 rounded-lg transition-all" href="#features"><span class="material-symbols-outlined text-[20px]">featured_play_list</span> Features</a></li>
-<li><a class="sidebar-link flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-500 hover:text-primary hover:bg-primary/5 rounded-lg transition-all" href="#usage"><span class="material-symbols-outlined text-[20px]">terminal</span> Usage</a></li>
-</ul>
-</div>
-<div>
-<h3 class="mb-4 text-xs font-bold uppercase tracking-widest text-primary/70">Community</h3>
-<ul class="flex flex-col gap-1">
-<li><a class="sidebar-link flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-500 hover:text-primary hover:bg-primary/5 rounded-lg transition-all" href="#contributing"><span class="material-symbols-outlined text-[20px]">groups</span> Contributing</a></li>
-<li><a class="sidebar-link flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-500 hover:text-primary hover:bg-primary/5 rounded-lg transition-all" href="#support"><span class="material-symbols-outlined text-[20px]">help_center</span> Support</a></li>
-</ul>
-</div>
-</div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Getting Started</div>
+    <a class="sidebar-link active" href="#overview"><span class="material-icons-round">info</span>Overview</a>
+    <a class="sidebar-link" href="#installation"><span class="material-icons-round">download</span>Installation</a>
+    <a class="sidebar-link" href="#requirements"><span class="material-icons-round">checklist</span>Requirements</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Architecture</div>
+    <a class="sidebar-link" href="#tech-stack"><span class="material-icons-round">layers</span>Technology Stack</a>
+    <a class="sidebar-link" href="#system-architecture"><span class="material-icons-round">account_tree</span>System Architecture</a>
+    <a class="sidebar-link" href="#project-structure"><span class="material-icons-round">folder_open</span>Project Structure</a>
+    <a class="sidebar-link" href="#ui-layer"><span class="material-icons-round">palette</span>UI Layer (WinUI 3)</a>
+    <a class="sidebar-link" href="#core-services"><span class="material-icons-round">hub</span>Core Services</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Modules</div>
+    <a class="sidebar-link" href="#module-optimize"><span class="material-icons-round">bolt</span>Optimize Module</a>
+    <a class="sidebar-link" href="#module-debloat"><span class="material-icons-round">auto_delete</span>Debloat Module</a>
+    <a class="sidebar-link" href="#module-privacy"><span class="material-icons-round">shield</span>Privacy Module</a>
+    <a class="sidebar-link" href="#module-features"><span class="material-icons-round">tune</span>Features Module</a>
+    <a class="sidebar-link" href="#module-network"><span class="material-icons-round">router</span>Network Module</a>
+    <a class="sidebar-link" href="#module-device"><span class="material-icons-round">memory</span>Device Module</a>
+    <a class="sidebar-link" href="#module-policies"><span class="material-icons-round">policy</span>Policies Module</a>
+    <a class="sidebar-link" href="#module-packages"><span class="material-icons-round">inventory_2</span>Packages Module</a>
+    <a class="sidebar-link" href="#module-security"><span class="material-icons-round">security</span>Security Module</a>
+    <a class="sidebar-link" href="#module-processes"><span class="material-icons-round">account_tree</span>Processes Module</a>
+    <a class="sidebar-link" href="#module-repair"><span class="material-icons-round">build</span>Repair Module</a>
+    <a class="sidebar-link" href="#module-services"><span class="material-icons-round">miscellaneous_services</span>Services Module</a>
+    <a class="sidebar-link" href="#module-settings"><span class="material-icons-round">settings</span>Settings Module</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Deep Dives</div>
+    <a class="sidebar-link" href="#registry-engine"><span class="material-icons-round">dns</span>Registry Engine</a>
+    <a class="sidebar-link" href="#uwp-removal"><span class="material-icons-round">clear_all</span>UWP Removal Engine</a>
+    <a class="sidebar-link" href="#telemetry"><span class="material-icons-round">block</span>Telemetry Blocking</a>
+    <a class="sidebar-link" href="#state-mgmt"><span class="material-icons-round">data_object</span>State Management</a>
+    <a class="sidebar-link" href="#logging"><span class="material-icons-round">article</span>Logging System</a>
+    <a class="sidebar-link" href="#i18n"><span class="material-icons-round">language</span>Localization</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">App Guide</div>
+    <a class="sidebar-link" href="#features"><span class="material-icons-round">featured_play_list</span>Key Features</a>
+    <a class="sidebar-link" href="#usage"><span class="material-icons-round">terminal</span>Usage</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Community</div>
+    <a class="sidebar-link" href="#contributing"><span class="material-icons-round">groups</span>Contributing</a>
+    <a class="sidebar-link" href="#support"><span class="material-icons-round">help_center</span>Support</a>
+  </div>
 </aside>
-<!-- Main Content -->
-<main class="flex-1 py-10 lg:pl-12">
-<article class="prose prose-slate dark:prose-invert max-w-none">
-<header class="mb-12">
-<div class="flex items-center gap-2 text-primary font-bold text-sm mb-4">
-<span class="material-symbols-outlined text-sm">auto_awesome</span>
-<span data-version-template="{versionWithV} Stable Release">v1.2.0 Stable Release</span>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+
+<!-- HERO -->
+<section id="overview">
+<div class="hero">
+  <div class="hero-eyebrow"><span class="material-icons-round" style="font-size:12px;vertical-align:middle">auto_awesome</span> Architectural & Technical Reference</div>
+  <h1>RyTuneX Documentation</h1>
+  <p>A comprehensive architectural, systematic, and technical deep-dive into RyTuneX — an open-source Windows 10 &amp; 11 optimization utility built with <strong>WinUI 3</strong> and <strong>.NET 10</strong>. This reference covers every layer of the application from UI to OS interaction.</p>
+  <div class="hero-meta">
+    <span class="tag blue"><span class="material-icons-round" style="font-size:12px">code</span>C# / .NET 10</span>
+    <span class="tag purple"><span class="material-icons-round" style="font-size:12px">palette</span>WinUI 3</span>
+    <span class="tag green"><span class="material-icons-round" style="font-size:12px">shop</span>Microsoft Store</span>
+    <span class="tag orange"><span class="material-icons-round" style="font-size:12px">gavel</span>AGPL-3.0</span>
+    <span class="tag gray">
+    <span class="material-icons-round" style="font-size:12px">star</span><span data-stars-template="{stars} stars"></span></span>
+  </div>
 </div>
-<h1 class="text-4xl lg:text-5xl font-black text-slate-900 dark:text-white mb-6 tracking-tight">Documentation Overview</h1>
-<p class="text-xl text-slate-500 dark:text-slate-400 leading-relaxed">
-                        RyTuneX is an advanced, open-source Windows optimization utility designed to reclaim your PC's performance and privacy through modern UI and safe automation.
-                    </p>
-</header>
-<!-- Overview Section -->
-<section class="mb-20 scroll-mt-24" id="overview">
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-<div class="p-6 rounded-2xl bg-surface-dark border border-primary/10">
-<span class="material-symbols-outlined text-primary mb-4 text-3xl">speed</span>
-<h3 class="text-lg font-bold mb-2">Performance</h3>
-<p class="text-sm text-slate-400">Low-level tweaks for lower latency and higher FPS in gaming and creative tasks.</p>
-</div>
-<div class="p-6 rounded-2xl bg-surface-dark border border-primary/10">
-<span class="material-symbols-outlined text-primary mb-4 text-3xl">lock</span>
-<h3 class="text-lg font-bold mb-2">Privacy</h3>
-<p class="text-sm text-slate-400">Granular control over telemetry, tracking services, and data harvesting.</p>
-</div>
-<div class="p-6 rounded-2xl bg-surface-dark border border-primary/10">
-<span class="material-symbols-outlined text-primary mb-4 text-3xl">palette</span>
-<h3 class="text-lg font-bold mb-2">Usability</h3>
-<p class="text-sm text-slate-400">Modern WinUI 3 interface with intuitive controls and real-time feedback.</p>
-</div>
-</div>
-</section>
-<!-- Installation Section -->
-<section class="mb-20 scroll-mt-24" id="installation">
-<h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
-<span class="h-8 w-1 bg-primary rounded-full"></span>
-                        Installation Guide
-                    </h2>
-<div class="space-y-8">
-<div class="flex gap-6">
-<div class="flex-none flex items-center justify-center size-8 rounded-full bg-primary text-white font-bold text-sm">1</div>
-<div>
-<h4 class="font-bold text-lg mb-1">Download the Installer</h4>
-<p class="text-slate-400">Install from the <a class="text-primary hover:underline" href="https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full" rel="noopener noreferrer" target="_blank">Microsoft Store</a> (recommended), or get release assets from <a class="text-primary hover:underline" href="https://github.com/rayenghanmi/RyTuneX/releases" rel="noopener noreferrer" target="_blank">GitHub Releases</a>.</p>
-</div>
-</div>
-<div class="flex gap-6">
-<div class="flex-none flex items-center justify-center size-8 rounded-full bg-primary text-white font-bold text-sm">2</div>
-<div>
-<h4 class="font-bold text-lg mb-1">Verify Requirements</h4>
-<p class="text-slate-400">The app requires <strong>.NET 8 Desktop Runtime</strong>. If not present, the installer will attempt to download it for you or redirect you to Microsoft's official download page.</p>
-</div>
-</div>
-<div class="flex gap-6">
-<div class="flex-none flex items-center justify-center size-8 rounded-full bg-primary text-white font-bold text-sm">3</div>
-<div>
-<h4 class="font-bold text-lg mb-1">Execution &amp; Permissions</h4>
-<p class="text-slate-400">Launch RyTuneX. For full functionality (especially registry tweaks), right-click and <strong>Run as Administrator</strong>. SmartScreen may show a warning because the app is open-source and unsigned; click "More info" then "Run anyway".</p>
-</div>
-</div>
-</div>
-<div class="mt-10 p-4 rounded-xl bg-primary/10 border-l-4 border-primary">
-<div class="flex gap-3">
-<span class="material-symbols-outlined text-primary">warning</span>
-<p class="text-sm text-slate-300 leading-relaxed">
-<strong>Safety First:</strong> RyTuneX includes a "Create Restore Point" button on the welcome screen. It is highly recommended to use this before applying any system-wide optimizations.
-                            </p>
-</div>
+
+<div class="cards">
+  <div class="card">
+    <div class="card-icon blue"><span class="material-icons-round">speed</span></div>
+    <h3>Performance</h3>
+    <p>Registry-level tweaks for lower latency, disabling wasteful services, and gaming-optimized power profiles.</p>
+  </div>
+  <div class="card">
+    <div class="card-icon purple"><span class="material-icons-round">lock</span></div>
+    <h3>Privacy</h3>
+    <p>Granular blocking of Windows telemetry, diagnostic services, and data collection pipelines.</p>
+  </div>
+  <div class="card">
+    <div class="card-icon green"><span class="material-icons-round">palette</span></div>
+    <h3>Modern UI</h3>
+    <p>WinUI 3 Fluent Design with Mica backdrop, adaptive layouts, and real-time toggle feedback.</p>
+  </div>
+  <div class="card">
+    <div class="card-icon orange"><span class="material-icons-round">policy</span></div>
+    <h3>Policy Engine</h3>
+    <p>Scans and manages Group Policy overrides across privacy, updates, telemetry, and more.</p>
+  </div>
 </div>
 </section>
-<!-- Technical Requirements -->
-<section class="mb-20 scroll-mt-24" id="requirements">
-<h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
-<span class="h-8 w-1 bg-primary rounded-full"></span>
-                        Technical Requirements
-                    </h2>
-<div class="rounded-2xl overflow-hidden border border-primary/10 bg-surface-dark">
-<table class="w-full text-left border-collapse">
-<thead>
-<tr class="bg-primary/5">
-<th class="p-4 text-sm font-bold text-primary">Component</th>
-<th class="p-4 text-sm font-bold text-primary">Requirement</th>
-</tr>
-</thead>
-<tbody class="text-slate-300">
-<tr class="border-b border-primary/5">
-<td class="p-4 font-medium">Operating System</td>
-<td class="p-4">Windows 10 (20H1+) or Windows 11</td>
-</tr>
-<tr class="border-b border-primary/5">
-<td class="p-4 font-medium">Framework</td>
-<td class="p-4">Built on .NET 10 (Store install manages dependencies automatically)</td>
-</tr>
-<tr class="border-b border-primary/5">
-<td class="p-4 font-medium">Architecture</td>
-<td class="p-4">x64 / X86</td>
-</tr>
-<tr>
-<td class="p-4 font-medium">Privileges</td>
-<td class="p-4">Administrator required for all tweaks</td>
-</tr>
-</tbody>
+
+<!-- NOTE -->
+<div class="callout purple" style="margin-top:48px">
+  <span class="material-icons-round">info</span>
+  <p><strong>Changes Note:</strong> This document outlines the intended and current architectural surface of RyTuneX, including its layered system design, functional modules, registry abstraction engine, telemetry blocking strategy, UWP removal pipeline, state management ledger, logging infrastructure, and localization system. However, some features or descriptions referenced here may have been modified, removed, or were planned but never fully introduced in the application.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2 id="tech-stack">Technology Stack</h2>
+
+<div class="section-intro blue">
+  <span class="material-icons-round">layers</span>
+  <div>
+    <h3>Foundation</h3>
+    <p>RyTuneX is built on Microsoft's modern Windows application development stack. It combines the Windows App SDK, WinUI 3 for native rendering, and .NET 10 for the managed runtime, creating a secure, performant, and visually rich desktop experience.</p>
+  </div>
+</div>
+
+<div class="layer-stack">
+  <div class="layer l1"><span class="material-icons-round">palette</span> <strong>Presentation Layer</strong> — WinUI 3 + XAML + Fluent Design + Mica Backdrop <span class="layer-desc">User Interface</span></div>
+  <div class="layer l2"><span class="material-icons-round">code</span> <strong>Application Layer</strong> — C# 14 / .NET 10 + Windows App SDK 1.8 <span class="layer-desc">Business Logic</span></div>
+  <div class="layer l3"><span class="material-icons-round">hub</span> <strong>Service Layer</strong> — OptimizationService · DebloatService · PrivacyService · NetworkService <span class="layer-desc">Domain Services</span></div>
+  <div class="layer l4"><span class="material-icons-round">dns</span> <strong>Platform Layer</strong> — Win32 APIs · WMI · Registry · PowerShell · AppX APIs <span class="layer-desc">OS Interop</span></div>
+  <div class="layer l5"><span class="material-icons-round">computer</span> <strong>OS Layer</strong> — Windows 10 (20H1+) / Windows 11 — x64/x86 Kernel <span class="layer-desc">Host Platform</span></div>
+</div>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Component</th><th>Technology</th><th>Version</th><th>Purpose</th></tr></thead>
+  <tbody>
+    <tr><td>UI Framework</td><td>WinUI 3</td><td>1.8 (Windows App SDK)</td><td>Native Fluent Design controls &amp; rendering</td></tr>
+    <tr><td>Language</td><td>C#</td><td>14</td><td>Primary application logic</td></tr>
+    <tr><td>Runtime</td><td>.NET</td><td>10.0 Desktop</td><td>Managed runtime, async/await, LINQ</td></tr>
+    <tr><td>Build System</td><td>MSBuild + Visual Studio</td><td>2026 18.x</td><td>Compilation, packaging, signing</td></tr>
+    <tr><td>Packaging</td><td>MSIX</td><td>—</td><td>Microsoft Store distribution</td></tr>
+    <tr><td>OS Interop</td><td>P/Invoke + WMI + COM</td><td>Win32 SDK</td><td>System-level operations</td></tr>
+    <tr><td>Localization</td><td>Resources.resw</td><td>—</td><td>Multi-language string resources</td></tr>
+    <tr><td>Logging</td><td>Custom file logger</td><td>—</td><td>Structured event &amp; error logs</td></tr>
+  </tbody>
 </table>
 </div>
-</section>
-<!-- Detailed Features Section -->
-<section class="mb-20 scroll-mt-24" id="features">
-<h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
-<span class="h-8 w-1 bg-primary rounded-full"></span>
-                        Key Features
-                    </h2>
-<p class="text-slate-400 mb-8">Additional features and capabilities of RyTuneX may be added in future updates.</p>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div class="bg-surface-dark p-7 rounded-2xl border border-primary/5">
-<div class="flex items-center gap-3 mb-3">
-<span class="material-symbols-outlined text-primary">auto_delete</span>
-<h3 class="text-xl font-bold">Selective App Removal</h3>
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<h2 id="system-architecture">System Architecture</h2>
+
+<div class="section-intro purple">
+  <span class="material-icons-round">account_tree</span>
+  <div>
+    <h3>Layered Architecture with Direct OS Interop</h3>
+    <p>RyTuneX follows a <strong>layered monolithic desktop architecture</strong> with clean separation between the UI, service orchestration, and platform interaction layers. There is no network backend — all operations run locally with elevated privileges.</p>
+  </div>
 </div>
-<p class="text-sm text-slate-400 leading-relaxed">Debloat Windows by removing pre-installed and unwanted apps so you can reclaim resources and reduce background overhead.</p>
+
+<!-- ARCHITECTURE DIAGRAM -->
+<figure class="diagram">
+<svg viewBox="0 0 820 560" width="820" height="560" xmlns="http://www.w3.org/2000/svg" font-family="Inter,sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#58a6ff" opacity=".7"/></marker>
+    <marker id="arr-g" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#3fb950" opacity=".7"/></marker>
+    <marker id="arr-o" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#d29922" opacity=".7"/></marker>
+    <linearGradient id="gb1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#58a6ff" stop-opacity=".25"/><stop offset="1" stop-color="#a371f7" stop-opacity=".25"/></linearGradient>
+    <linearGradient id="gb2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a371f7" stop-opacity=".2"/><stop offset="1" stop-color="#3fb950" stop-opacity=".2"/></linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="820" height="560" fill="#121523" rx="8"/>
+
+  <!-- USER INTERACTION -->
+  <rect x="310" y="18" width="200" height="44" rx="8" fill="#0d1117" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="410" y="35" text-anchor="middle" fill="#58a6ff" font-size="11" font-weight="600">USER</text>
+  <text x="410" y="51" text-anchor="middle" fill="#8b949e" font-size="10">Mouse · Keyboard · Touch</text>
+
+  <!-- Layer 1: WinUI 3 -->
+  <rect x="40" y="84" width="740" height="80" rx="8" fill="url(#gb1)" stroke="#58a6ff" stroke-width="1" stroke-opacity=".5"/>
+  <text x="60" y="108" fill="#58a6ff" font-size="11" font-weight="700" letter-spacing="1">PRESENTATION LAYER — WinUI 3 / XAML Views</text>
+  <!-- Pages based on PageService.cs -->
+  <rect x="56" y="118" width="65" height="30" rx="5" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="88.5" y="137" text-anchor="middle" fill="#8b949e" font-size="9">HomePage</text>
+
+  <rect x="131" y="118" width="98" height="30" rx="5" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="180" y="137" text-anchor="middle" fill="#8b949e" font-size="9">OptimizeSystemPage</text>
+
+  <rect x="237" y="118" width="98" height="30" rx="5" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="286" y="137" text-anchor="middle" fill="#8b949e" font-size="9">DebloatSystemPage</text>
+
+  <rect x="343" y="118" width="76" height="30" rx="5" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="381" y="137" text-anchor="middle" fill="#8b949e" font-size="9">PackagesPage</text>
+
+  <rect x="427" y="118" width="80" height="30" rx="5" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="467" y="137" text-anchor="middle" fill="#8b949e" font-size="9">SecurityPage</text>
+
+  <rect x="515" y="118" width="80" height="30" rx="5" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="555" y="137" text-anchor="middle" fill="#8b949e" font-size="9">PoliciesPage</text>
+
+  <rect x="603" y="118" width="90" height="30" rx="5" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="648" y="137" text-anchor="middle" fill="#8b949e" font-size="9">SystemInfoPage</text>
+
+  <rect x="701" y="118" width="67" height="30" rx="5" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="734.5" y="137" text-anchor="middle" fill="#8b949e" font-size="9">SettingsPage</text>
+
+  <!-- Layer 2: App Services -->
+  <rect x="40" y="188" width="740" height="74" rx="8" fill="url(#gb2)" stroke="#a371f7" stroke-width="1" stroke-opacity=".5"/>
+  <text x="60" y="208" fill="#a371f7" font-size="11" font-weight="700" letter-spacing="1">SERVICE LAYER — Core Dependency Injection Services</text>
+  <!-- Services based on App.xaml.cs ConfigureServices -->
+  <rect x="56" y="218" width="112" height="28" rx="5" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="112" y="236" text-anchor="middle" fill="#8b949e" font-size="9.5">LocalSettingsService</text>
+
+  <rect x="176" y="218" width="116" height="28" rx="5" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="234" y="236" text-anchor="middle" fill="#8b949e" font-size="9.5">ThemeSelectorService</text>
+
+  <rect x="300" y="218" width="108" height="28" rx="5" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="354" y="236" text-anchor="middle" fill="#8b949e" font-size="9.5">NavigationService</text>
+
+  <rect x="416" y="218" width="94" height="28" rx="5" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="463" y="236" text-anchor="middle" fill="#8b949e" font-size="9.5">ActivationService</text>
+
+  <rect x="518" y="218" width="110" height="28" rx="5" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="573" y="236" text-anchor="middle" fill="#8b949e" font-size="9.5">SystemStateDetector</text>
+
+  <rect x="636" y="218" width="82" height="28" rx="5" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="677" y="236" text-anchor="middle" fill="#8b949e" font-size="9.5">FileService</text>
+
+  <!-- Layer 3: Platform Interop -->
+  <rect x="40" y="284" width="400" height="64" rx="8" fill="rgba(63,185,80,.1)" stroke="#3fb950" stroke-width="1" stroke-opacity=".5"/>
+  <text x="60" y="302" fill="#3fb950" font-size="10.5" font-weight="700">SYSTEM HELPERS</text>
+  <rect x="56" y="310" width="124" height="26" rx="4" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="118" y="326" text-anchor="middle" fill="#8b949e" font-size="9">OptimizeSystemHelper</text>
+
+  <rect x="188" y="310" width="112" height="26" rx="4" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="244" y="326" text-anchor="middle" fill="#8b949e" font-size="9">GroupPolicyHelper</text>
+
+  <rect x="308" y="310" width="120" height="26" rx="4" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="368" y="326" text-anchor="middle" fill="#8b949e" font-size="9">WinGet/AppSearchService</text>
+
+  <rect x="450" y="284" width="330" height="64" rx="8" fill="rgba(210,153,34,.1)" stroke="#d29922" stroke-width="1" stroke-opacity=".5"/>
+  <text x="470" y="302" fill="#d29922" font-size="10.5" font-weight="700">UTILITY HELPERS</text>
+  
+  <rect x="466" y="310" width="96" height="26" rx="4" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="514" y="326" text-anchor="middle" fill="#8b949e" font-size="9">LogHelper</text>
+  
+  <rect x="570" y="310" width="112" height="26" rx="4" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="626" y="326" text-anchor="middle" fill="#8b949e" font-size="9">ResourceExtensions</text>
+  
+  <rect x="690" y="310" width="76" height="26" rx="4" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="728" y="326" text-anchor="middle" fill="#8b949e" font-size="9">ProcessHelper</text>
+
+  <!-- Layer 4: Windows OS APIs -->
+  <rect x="40" y="372" width="740" height="66" rx="8" fill="rgba(248,81,73,.08)" stroke="#f85149" stroke-width="1" stroke-opacity=".5"/>
+  <text x="60" y="392" fill="#f85149" font-size="10.5" font-weight="700">WINDOWS PLATFORM APIs (P/Invoke · PowerShell · WMI)</text>
+  <rect x="56" y="402" width="90" height="24" rx="4" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="101" y="417" text-anchor="middle" fill="#8b949e" font-size="9">Registry API</text>
+  <rect x="158" y="402" width="90" height="24" rx="4" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="203" y="417" text-anchor="middle" fill="#8b949e" font-size="9">Win32 Services</text>
+  <rect x="260" y="402" width="90" height="24" rx="4" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="305" y="417" text-anchor="middle" fill="#8b949e" font-size="9">WMI Provider</text>
+  <rect x="362" y="402" width="90" height="24" rx="4" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="407" y="417" text-anchor="middle" fill="#8b949e" font-size="9">PowerShell Exec</text>
+  <rect x="464" y="402" width="90" height="24" rx="4" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="509" y="417" text-anchor="middle" fill="#8b949e" font-size="9">WinGet CLI</text>
+  <rect x="566" y="402" width="90" height="24" rx="4" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="611" y="417" text-anchor="middle" fill="#8b949e" font-size="9">Group Policy</text>
+  <rect x="668" y="402" width="96" height="24" rx="4" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="716" y="417" text-anchor="middle" fill="#8b949e" font-size="9">Task Scheduler</text>
+
+  <!-- Layer 5: Windows Kernel / OS -->
+  <rect x="40" y="460" width="740" height="44" rx="8" fill="rgba(139,148,158,.08)" stroke="#30363d" stroke-width="1"/>
+  <text x="410" y="480" text-anchor="middle" fill="#6e7681" font-size="10.5" font-weight="700">WINDOWS 10 (20H1+) / WINDOWS 11 KERNEL</text>
+  <text x="410" y="496" text-anchor="middle" fill="#6e7681" font-size="9">HKLM · HKCU · SCM · Scheduler · Firewall · ntdll · kernel32</text>
+
+  <!-- Arrows between layers -->
+  <line x1="410" y1="62" x2="410" y2="84" stroke="#58a6ff" stroke-width="1.5" stroke-opacity=".5" marker-end="url(#arr)"/>
+  <line x1="410" y1="164" x2="410" y2="188" stroke="#a371f7" stroke-width="1.5" stroke-opacity=".5" marker-end="url(#arr)"/>
+  <line x1="240" y1="262" x2="240" y2="284" stroke="#3fb950" stroke-width="1.5" stroke-opacity=".5" marker-end="url(#arr-g)"/>
+  <line x1="615" y1="262" x2="615" y2="284" stroke="#d29922" stroke-width="1.5" stroke-opacity=".5" marker-end="url(#arr-o)"/>
+  <line x1="240" y1="348" x2="240" y2="372" stroke="#3fb950" stroke-width="1.5" stroke-opacity=".5" marker-end="url(#arr-g)"/>
+  <line x1="615" y1="348" x2="615" y2="372" stroke="#d29922" stroke-width="1.5" stroke-opacity=".5" marker-end="url(#arr-o)"/>
+  <line x1="410" y1="438" x2="410" y2="460" stroke="#f85149" stroke-width="1.5" stroke-opacity=".5" marker-end="url(#arr)"/>
+
+  <!-- Layer labels on right -->
+  <text x="798" y="130" text-anchor="end" fill="#58a6ff" font-size="9" opacity=".7">L1</text>
+  <text x="798" y="228" text-anchor="end" fill="#a371f7" font-size="9" opacity=".7">L2</text>
+  <text x="798" y="320" text-anchor="end" fill="#3fb950" font-size="9" opacity=".7">L3</text>
+  <text x="798" y="410" text-anchor="end" fill="#f85149" font-size="9" opacity=".7">L4</text>
+  <text x="798" y="484" text-anchor="end" fill="#8b949e" font-size="9" opacity=".7">L5</text>
+</svg>
+<figcaption>Figure 1 — RyTuneX 5-Layer System Architecture. Data flows top-down from user interaction through UI, business services, platform interop, and OS APIs.</figcaption>
+</figure>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2 id="project-structure">Project Structure</h2>
+
+<div class="section-intro green">
+  <span class="material-icons-round">folder_open</span>
+  <div>
+    <h3>Repository Layout</h3>
+    <p>RyTuneX uses a flat single-project structure targeting the <code>testing</code> branch for active development. The application is a single MSIX-packaged C# project with XAML pages, helper classes, and embedded resources.</p>
+  </div>
 </div>
-<div class="bg-surface-dark p-7 rounded-2xl border border-primary/5">
-<div class="flex items-center gap-3 mb-3">
-<span class="material-symbols-outlined text-primary">bolt</span>
-<h3 class="text-xl font-bold">System Optimizations</h3>
+
+<pre><code class="code-label">RyTuneX/ (repository root)</code>
+RyTuneX/
+├── App.xaml                    # Application entry point, resource dictionaries
+├── App.xaml.cs                 # App lifecycle: OnLaunched, unhandled exceptions
+├── MainWindow.xaml             # Root NavigationView shell
+├── MainWindow.xaml.cs          # Navigation logic, user profile header, backdrop
+│
+├── Views/
+│   ├── DebloatSystemPage.xaml  # App removal UI & scanning logic
+│   ├── FeaturesPage.xaml       # Windows feature toggles
+│   ├── HomePage.xaml           # Landing & basic actions
+│   ├── NetworkPage.xaml        # DNS & network config
+│   ├── OptimizeSystemPage.xaml # Performance tweaks UI & logic
+│   ├── PackagesPage.xaml       # WinGet package manager integration
+│   ├── PoliciesPage.xaml       # Group Policy scanner UI
+│   ├── PrivacyPage.xaml        # Telemetry toggle UI & logic
+│   ├── ProcessesPage.xaml      # Running processes management
+│   ├── RepairPage.xaml         # System repair options
+│   ├── SecurityPage.xaml       # Defender & security toggles
+│   ├── ServicesPage.xaml       # Windows services management
+│   ├── SettingsPage.xaml       # Theme / language / logs
+│   ├── ShellPage.xaml          # Shell Navigation Root
+│   └── SystemInfoPage.xaml     # Hardware info display
+│
+├── Helpers/
+│   ├── AppSearchService.cs     # UWP/Win32 app detection
+│   ├── LogHelper.cs            # File-based structured logger
+│   ├── OptimizationOptions.cs  # Options configuration 
+│   ├── OptimizeSystemHelper.cs # Core system tweaks helper
+│   ├── PolicyHelper.cs         # LGPO read/write/reset
+│   ├── PseudoConsoleHelper.cs  # Terminal interop logic
+│   ├── ResourceExtensions.cs   # Resource lookup extensions
+│   ├── SystemStateDetector.cs  # OS version & privileges check
+│   └── TitleBarHelper.cs       # Custom titlebar integration
+│
+├── Models/
+│   ├── LocalSettingsOptions.cs # Settings options
+│   ├── SearchableItem.cs       # Base model for searchable items
+│   └── WingetPackage.cs        # Installed package model
+│
+├── Strings/                    # Localization resources
+│   ├── en-us/Resources.resw
+│   ├── fr-fr/Resources.resw
+│   ├── ar-tn/Resources.resw
+│   └── ...                     # 10+ language folders
+│
+└── Assets                      # Icons, images</code></pre>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2 id="ui-layer">UI Layer — WinUI 3 &amp; Fluent Design</h2>
+
+<div class="section-intro blue">
+  <span class="material-icons-round">palette</span>
+  <div>
+    <h3>WinUI 3 Shell Architecture</h3>
+    <p>The entire UI is built on <strong>WinUI 3</strong> (Windows App SDK), Microsoft's modern native UI framework. It delivers hardware-accelerated rendering via DirectX, Fluent Design materials (Mica, Acrylic), and the full library of native Windows controls. The main shell is a <code>NavigationView</code> with a left-rail sidebar that drives page navigation.</p>
+  </div>
 </div>
-<p class="text-sm text-slate-400 leading-relaxed">Apply performance-focused tweaks to improve responsiveness, reduce resource usage, and streamline overall system behavior.</p>
+
+<figure class="diagram">
+<svg viewBox="0 0 760 400" width="760" height="400" xmlns="http://www.w3.org/2000/svg" font-family="Inter,sans-serif">
+  <rect width="760" height="400" fill="#121523" rx="8"/>
+
+  <!-- Root: App.xaml -->
+  <rect x="300" y="20" width="160" height="36" rx="6" fill="#0d1117" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="380" y="43" text-anchor="middle" fill="#58a6ff" font-size="11" font-weight="600">App.xaml / App.cs</text>
+
+  <!-- MainWindow / ShellPage -->
+  <rect x="250" y="88" width="260" height="36" rx="6" fill="#0d1117" stroke="#a371f7" stroke-width="1.5"/>
+  <text x="380" y="111" text-anchor="middle" fill="#a371f7" font-size="11" font-weight="600">MainWindow → ShellPage (NavigationView)</text>
+  <line x1="380" y1="56" x2="380" y2="88" stroke="#58a6ff" stroke-width="1.2" stroke-dasharray="4,2"/>
+
+  <!-- Nav Labels -->
+  <text x="68" y="176" text-anchor="middle" fill="#3fb950" font-size="9.5" font-weight="600">Optimize</text>
+  <text x="148" y="176" text-anchor="middle" fill="#3fb950" font-size="9.5" font-weight="600">Debloat</text>
+  <text x="228" y="176" text-anchor="middle" fill="#3fb950" font-size="9.5" font-weight="600">Privacy</text>
+  <text x="308" y="176" text-anchor="middle" fill="#3fb950" font-size="9.5" font-weight="600">Features</text>
+  <text x="388" y="176" text-anchor="middle" fill="#3fb950" font-size="9.5" font-weight="600">Network</text>
+  <text x="468" y="176" text-anchor="middle" fill="#3fb950" font-size="9.5" font-weight="600">System Info</text>
+  <text x="548" y="176" text-anchor="middle" fill="#3fb950" font-size="9.5" font-weight="600">Policies</text>
+  <text x="628" y="176" text-anchor="middle" fill="#3fb950" font-size="9.5" font-weight="600">Settings</text>
+  <text x="708" y="176" text-anchor="middle" fill="#d29922" font-size="9.5" font-weight="600">Home</text>
+
+  <!-- Page boxes -->
+  <g fill="#0d1117" stroke="#30363d" stroke-width="1">
+    <rect x="23" y="182" width="88" height="28" rx="4"/>
+    <rect x="113" y="182" width="72" height="28" rx="4"/>
+    <rect x="188" y="182" width="76" height="28" rx="4"/>
+    <rect x="268" y="182" width="76" height="28" rx="4"/>
+    <rect x="348" y="182" width="76" height="28" rx="4"/>
+    <rect x="428" y="182" width="76" height="28" rx="4"/>
+    <rect x="508" y="182" width="76" height="28" rx="4"/>
+    <rect x="588" y="182" width="76" height="28" rx="4"/>
+    <rect x="668" y="182" width="76" height="28" rx="4" stroke="#d29922"/>
+  </g>
+  <text x="68" y="199" text-anchor="middle" fill="#8b949e" font-size="7.5">OptimizeSystemPage</text>
+  <text x="148" y="199" text-anchor="middle" fill="#8b949e" font-size="7.2">DebloatSystemPage</text>
+  <text x="228" y="199" text-anchor="middle" fill="#8b949e" font-size="7.5">PrivacyPage</text>
+  <text x="308" y="199" text-anchor="middle" fill="#8b949e" font-size="7.5">FeaturesPage</text>
+  <text x="388" y="199" text-anchor="middle" fill="#8b949e" font-size="7.5">NetworkPage</text>
+  <text x="468" y="199" text-anchor="middle" fill="#8b949e" font-size="7.2">SystemInfoPage</text>
+  <text x="548" y="199" text-anchor="middle" fill="#8b949e" font-size="7.5">PoliciesPage</text>
+  <text x="628" y="199" text-anchor="middle" fill="#8b949e" font-size="7.5">SettingsPage</text>
+  <text x="708" y="199" text-anchor="middle" fill="#8b949e" font-size="7.5">HomePage</text>
+
+  <!-- Connect pages to MainWindow -->
+  <line x1="380" y1="124" x2="380" y2="165" stroke="#a371f7" stroke-width="1.2"/>
+  <line x1="68" y1="165" x2="708" y2="165" stroke="#a371f7" stroke-width="1.2" stroke-opacity=".5"/>
+  
+  <line x1="68" y1="165" x2="68" y2="182" stroke="#3fb950" stroke-width="1" stroke-opacity=".6"/>
+  <line x1="148" y1="165" x2="148" y2="182" stroke="#3fb950" stroke-width="1" stroke-opacity=".6"/>
+  <line x1="228" y1="165" x2="228" y2="182" stroke="#3fb950" stroke-width="1" stroke-opacity=".6"/>
+  <line x1="308" y1="165" x2="308" y2="182" stroke="#3fb950" stroke-width="1" stroke-opacity=".6"/>
+  <line x1="388" y1="165" x2="388" y2="182" stroke="#3fb950" stroke-width="1" stroke-opacity=".6"/>
+  <line x1="468" y1="165" x2="468" y2="182" stroke="#3fb950" stroke-width="1" stroke-opacity=".6"/>
+  <line x1="548" y1="165" x2="548" y2="182" stroke="#3fb950" stroke-width="1" stroke-opacity=".6"/>
+  <line x1="628" y1="165" x2="628" y2="182" stroke="#3fb950" stroke-width="1" stroke-opacity=".6"/>
+  <line x1="708" y1="165" x2="708" y2="182" stroke="#d29922" stroke-width="1" stroke-opacity=".6"/>
+
+  <!-- OptimizeSystemPage sub-components -->
+  <rect x="18" y="240" width="100" height="24" rx="4" fill="#0d1117" stroke="#21262d"/>
+  <text x="68" y="256" text-anchor="middle" fill="#6e7681" font-size="8.5">ScrollViewer / Grid</text>
+  <rect x="18" y="272" width="100" height="24" rx="4" fill="#0d1117" stroke="#21262d"/>
+  <text x="68" y="288" text-anchor="middle" fill="#6e7681" font-size="8.5">Expander / Switch</text>
+  <rect x="18" y="304" width="100" height="24" rx="4" fill="#0d1117" stroke="#21262d"/>
+  <text x="68" y="320" text-anchor="middle" fill="#6e7681" font-size="8.5">InfoBar</text>
+  
+  <line x1="68" y1="210" x2="68" y2="240" stroke="#3fb950" stroke-width="1" stroke-opacity=".4"/>
+  <line x1="68" y1="264" x2="68" y2="272" stroke="#3fb950" stroke-width="1" stroke-opacity=".4"/>
+  <line x1="68" y1="296" x2="68" y2="304" stroke="#3fb950" stroke-width="1" stroke-opacity=".4"/>
+
+  <!-- DebloatSystemPage sub-components -->
+  <rect x="105" y="240" width="95" height="24" rx="4" fill="#0d1117" stroke="#21262d"/>
+  <text x="152" y="256" text-anchor="middle" fill="#6e7681" font-size="8.5">GridView</text>
+  <rect x="105" y="272" width="95" height="24" rx="4" fill="#0d1117" stroke="#21262d"/>
+  <text x="152" y="288" text-anchor="middle" fill="#6e7681" font-size="8.5">SegmentedControl</text>
+  <rect x="105" y="304" width="95" height="24" rx="4" fill="#0d1117" stroke="#21262d"/>
+  <text x="152" y="320" text-anchor="middle" fill="#6e7681" font-size="8.5">ProgressRing</text>
+  
+  <line x1="148" y1="210" x2="148" y2="240" stroke="#3fb950" stroke-width="1" stroke-opacity=".4"/>
+  <line x1="152" y1="264" x2="152" y2="272" stroke="#3fb950" stroke-width="1" stroke-opacity=".4"/>
+  <line x1="152" y1="296" x2="152" y2="304" stroke="#3fb950" stroke-width="1" stroke-opacity=".4"/>
+
+  <!-- Key Legend -->
+  <text x="260" y="256" fill="#58a6ff" font-size="9" font-weight="600">● App.xaml / Core</text>
+  <text x="260" y="272" fill="#a371f7" font-size="9">● Shell Navigation</text>
+  <text x="260" y="288" fill="#3fb950" font-size="9">● Feature Pages Configured</text>
+  <text x="260" y="304" fill="#d29922" font-size="9">● HomePage (Landing)</text>
+  <text x="260" y="320" fill="#6e7681" font-size="9">● XAML Framework Controls</text>
+
+  <!-- Title -->
+  <text x="380" y="375" text-anchor="middle" fill="#6e7681" font-size="10">Figure 2 — Actual Component Hierarchy &amp; Services registered in PageService</text>
+</svg>
+<figcaption>Figure 2 — WinUI 3 component tree rooted at App.xaml mapping directly to RyTuneX pages. The NavigationView shell handles routing through ShellPage.</figcaption>
+</figure>
+
+<h3>Key UI Design Patterns</h3>
+<div class="feature-row">
+  <div class="feature-block">
+    <h4><span class="material-icons-round" style="color:var(--accent);font-size:18px">toggle_on</span> Toggle Switch Pattern</h4>
+    <p style="font-size:.88rem">Each optimization or privacy setting is represented by a <code>ToggleSwitch</code>. On page load, the current registry value is read and reflected in the UI state. When toggled, the service writes the change, updates the registry, and logs the event — all without blocking the UI thread via <code>async/await</code>.</p>
+  </div>
+  <div class="feature-block">
+    <h4><span class="material-icons-round" style="color:var(--purple);font-size:18px">check_box</span> Checkable App List Pattern</h4>
+    <p style="font-size:.88rem">The Debloat page scans installed UWP and Win32 apps, rendering each in a <code>ListView</code> with a <code>CheckBox</code>. The user selects targets, then triggers batch removal through a single button, with progress feedback via an <code>InfoBar</code> and a <code>ProgressRing</code>.</p>
+  </div>
 </div>
-<div class="bg-surface-dark p-7 rounded-2xl border border-primary/5">
-<div class="flex items-center gap-3 mb-3">
-<span class="material-symbols-outlined text-primary">shield</span>
-<h3 class="text-xl font-bold">Privacy Enhancements</h3>
+
+<div class="callout info">
+  <span class="material-icons-round">info</span>
+  <p><strong>Mica Backdrop:</strong> RyTuneX applies <code>MicaBackdrop</code> (the semi-transparent, desktop-tinted material) to <code>MainWindow</code>, integrating it with the Windows 11 visual language. On Windows 10, it gracefully falls back to <code>DesktopAcrylicBackdrop</code>.</p>
 </div>
-<p class="text-sm text-slate-400 leading-relaxed">Limit telemetry and tracking-related behavior to give you stronger control over personal data and system privacy options.</p>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2 id="core-services">Core Services Architecture</h2>
+
+<div class="section-intro purple">
+  <span class="material-icons-round">hub</span>
+  <div>
+    <h3>Service-Oriented Logic Layer</h3>
+    <p>Most OS-level interactions are abstracted through <strong>Helper</strong> and <strong>Service classes</strong>, allowing UI pages to delegate operations such as registry access, privilege checks, and logging. While this structure promotes modularity and maintainability, some direct API usage may still exist in specific scenarios where abstraction is not practical.</p>
+  </div>
 </div>
-<div class="bg-surface-dark p-7 rounded-2xl border border-primary/5">
-<div class="flex items-center gap-3 mb-3">
-<span class="material-symbols-outlined text-primary">tune</span>
-<h3 class="text-xl font-bold">Windows Feature Management</h3>
+
+<h3>Service Interaction Flow</h3>
+
+<!-- SERVICE FLOW DIAGRAM -->
+<figure class="diagram">
+<svg viewBox="0 0 760 320" width="760" height="320" xmlns="http://www.w3.org/2000/svg" font-family="Inter,sans-serif">
+  <defs>
+    <marker id="arr2" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#58a6ff" opacity=".8"/></marker>
+    <marker id="arr3" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#3fb950" opacity=".8"/></marker>
+    <marker id="arr4" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#f85149" opacity=".8"/></marker>
+  </defs>
+  <rect width="760" height="320" fill="#121523" rx="8"/>
+
+  <!-- User Toggle -->
+  <rect x="20" y="130" width="120" height="44" rx="6" fill="#0d1117" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="80" y="148" text-anchor="middle" fill="#58a6ff" font-size="10" font-weight="600">User Toggle</text>
+  <text x="80" y="163" text-anchor="middle" fill="#8b949e" font-size="9">ToggleSwitch_Toggled</text>
+
+  <!-- Page Code-Behind -->
+  <rect x="180" y="110" width="130" height="80" rx="6" fill="#0d1117" stroke="#a371f7" stroke-width="1.5"/>
+  <text x="245" y="135" text-anchor="middle" fill="#a371f7" font-size="10" font-weight="600">OptimizeSystemPage</text>
+  <text x="245" y="152" text-anchor="middle" fill="#8b949e" font-size="8.5">await OptimizationOptions.</text>
+  <text x="245" y="165" text-anchor="middle" fill="#8b949e" font-size="8.5">XamlSwitchesAsync()</text>
+  <text x="245" y="178" text-anchor="middle" fill="#6e7681" font-size="8">Saves Registry1 &amp; Queues</text>
+
+  <!-- Admin Check -->
+  <rect x="350" y="20" width="130" height="64" rx="6" fill="#0d1117" stroke="#d29922" stroke-width="1.5"/>
+  <text x="415" y="44" text-anchor="middle" fill="#d29922" font-size="10" font-weight="600">Admin Verification</text>
+  <text x="415" y="60" text-anchor="middle" fill="#8b949e" font-size="8.5">WindowsPrincipal</text>
+  <text x="415" y="74" text-anchor="middle" fill="#6e7681" font-size="8">.IsInRole(Administrator)</text>
+
+  <!-- Service Layer -->
+  <rect x="350" y="110" width="130" height="80" rx="6" fill="#0d1117" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="415" y="135" text-anchor="middle" fill="#3fb950" font-size="10" font-weight="600">ExecuteToggleActionAsync</text>
+  <text x="415" y="152" text-anchor="middle" fill="#8b949e" font-size="8.5">OptimizeSystemHelper</text>
+  <text x="415" y="165" text-anchor="middle" fill="#8b949e" font-size="8.5">.DisableTelemetryServices()</text>
+  <text x="415" y="178" text-anchor="middle" fill="#6e7681" font-size="8">_toggleQueue / Background</text>
+
+  <!-- Logger -->
+  <rect x="350" y="220" width="130" height="60" rx="6" fill="#0d1117" stroke="#8b949e" stroke-width="1"/>
+  <text x="415" y="244" text-anchor="middle" fill="#8b949e" font-size="10" font-weight="600">LogHelper</text>
+  <text x="415" y="260" text-anchor="middle" fill="#6e7681" font-size="8.5">.Log() / .LogError()</text>
+  <text x="415" y="273" text-anchor="middle" fill="#6e7681" font-size="8">LocalCacheFolder\Logs</text>
+
+  <!-- OS APIs -->
+  <rect x="530" y="110" width="130" height="80" rx="6" fill="#0d1117" stroke="#f85149" stroke-width="1.5"/>
+  <text x="595" y="135" text-anchor="middle" fill="#f85149" font-size="10" font-weight="600">OS Execution</text>
+  <text x="595" y="152" text-anchor="middle" fill="#8b949e" font-size="8.5">OptimizationOptions</text>
+  <text x="595" y="165" text-anchor="middle" fill="#8b949e" font-size="8.5">.StartInCmd("schtasks..")</text>
+  <text x="595" y="178" text-anchor="middle" fill="#8b949e" font-size="8.5">.RunPowerShell()</text>
+
+  <!-- Result back -->
+  <rect x="620" y="220" width="120" height="60" rx="6" fill="#0d1117" stroke="#58a6ff" stroke-width="1"/>
+  <text x="680" y="244" text-anchor="middle" fill="#58a6ff" font-size="10" font-weight="600">UI / Shell Feedback</text>
+  <text x="680" y="260" text-anchor="middle" fill="#8b949e" font-size="8.5">App.ShowNotification()</text>
+  <text x="680" y="273" text-anchor="middle" fill="#6e7681" font-size="8">App.NotifyTaskCompletion()</text>
+
+  <!-- Arrows -->
+  <line x1="140" y1="152" x2="178" y2="152" stroke="#58a6ff" stroke-width="1.5" marker-end="url(#arr2)"/>
+  <line x1="310" y1="140" x2="348" y2="84" stroke="#d29922" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arr2)"/>
+  <line x1="310" y1="160" x2="348" y2="150" stroke="#3fb950" stroke-width="1.5" marker-end="url(#arr3)"/>
+  <line x1="480" y1="150" x2="528" y2="150" stroke="#3fb950" stroke-width="1.5" marker-end="url(#arr3)"/>
+  <line x1="415" y1="190" x2="415" y2="218" stroke="#8b949e" stroke-width="1.2" stroke-dasharray="3,2" marker-end="url(#arr2)"/>
+  <line x1="595" y1="190" x2="680" y2="218" stroke="#f85149" stroke-width="1.2" marker-end="url(#arr4)"/>
+  <line x1="619" y1="250" x2="310" y2="175" stroke="#58a6ff" stroke-width="1" stroke-dasharray="4,3" stroke-opacity=".5" marker-end="url(#arr2)"/>
+
+  <!-- Labels on arrows -->
+  <text x="158" y="145" fill="#58a6ff" font-size="8" opacity=".8">event</text>
+  <text x="312" y="112" fill="#d29922" font-size="8" opacity=".8">check</text>
+  <text x="312" y="148" fill="#3fb950" font-size="8" opacity=".8">queue</text>
+  <text x="492" y="143" fill="#3fb950" font-size="8" opacity=".8">process</text>
+  <text x="640" y="207" fill="#f85149" font-size="8" opacity=".8">result</text>
+  <text x="440" y="242" fill="#58a6ff" font-size="8" opacity=".6">Growl /</text>
+  <text x="440" y="252" fill="#58a6ff" font-size="8" opacity=".6">FlashWindowEx</text>
+
+  <text x="380" y="305" text-anchor="middle" fill="#6e7681" font-size="10">Figure 3 — Service invocation flow for RyTuneX optimizations</text>
+</svg>
+<figcaption>Figure 3 — Service invocation flow showing a real execution path in RyTuneX from user interaction all the way to shell process executions via `OptimizationOptions.StartInCmd` and UI task completion notifications.</figcaption>
+</figure>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2 id="module-optimize">Optimize Module</h2>
+
+<div class="module-card">
+  <div class="module-card-header">
+    <div class="module-badge" style="background:var(--accent-dim)"><span class="material-icons-round" style="color:var(--accent)">bolt</span></div>
+    <div>
+      <h3>Performance Optimization Engine</h3>
+      <span class="module-path">Views/OptimizeSystemPage.xaml.cs · Helpers/OptimizationOptions.cs</span>
+    </div>
+  </div>
+  <p>The Optimize module is the core performance engine of RyTuneX. It applies a curated set of registry tweaks and service configuration changes that reduce OS overhead, disable resource-consuming background processes, and tune the scheduler for interactive or gaming workloads.</p>
+  
+  <h4>Tweak Categories</h4>
+  <ul class="module-responsibilities">
+    <li>Power plan enforcement (Ultimate Performance)</li>
+    <li>Superfetch / SysMain service disable</li>
+    <li>Visual effects reduction (animations, shadows)</li>
+    <li>Prefetch &amp; background apps disable</li>
+    <li>Gaming Mode &amp; HAGS (Hardware GPU Scheduling)</li>
+    <li>Battery &amp; Power section management</li>
+    <li>Driver auto-update exclusion</li>
+    <li>Memory compression toggles</li>
+    <li>Notification/Action Center disable</li>
+    <li>Search indexing control</li>
+  </ul>
 </div>
-<p class="text-sm text-slate-400 leading-relaxed">Enable or disable optional Windows components from one place so you can tailor the OS to your workflow.</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Tweak</th><th>Registry / Service Target</th><th>Effect</th><th>Restart?</th></tr></thead>
+  <tbody>
+    <tr><td>Disable Superfetch</td><td><code>SysMain</code> service → Disabled</td><td>Reduces disk I/O on SSDs</td><td>No</td></tr>
+    <tr><td>Ultimate Performance</td><td><code>GUID</code> power scheme activation</td><td>Removes CPU throttling</td><td>No</td></tr>
+    <tr><td>Gaming Mode</td><td><span class="reg-key">HKCU\Software\Microsoft\GameBar → AutoGameModeEnabled</span></td><td>Prioritizes game process</td><td>No</td></tr>
+    <tr><td>HAGS</td><td><span class="reg-key">HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers → HwSchMode</span></td><td>GPU hardware scheduling</td><td>Yes</td></tr>
+    <tr><td>Disable Animations</td><td><span class="reg-key">HKCU\Control Panel\Desktop → UserPreferencesMask</span></td><td>Faster UI response</td><td>No</td></tr>
+    <tr><td>Disable Prefetch</td><td><span class="reg-key">HKLM\SYSTEM\...\Session Manager\Memory Management\PrefetchParameters</span></td><td>Reduces disk reads</td><td>Yes</td></tr>
+    <tr><td>Disable Indexing</td><td><code>WSearch</code> service → Disabled</td><td>CPU/disk savings</td><td>No</td></tr>
+    <tr><td>Exclude Drivers</td><td><span class="reg-key">HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate → ExcludeWUDriversInQualityUpdate</span></td><td>Prevents driver overwrite</td><td>Yes</td></tr>
+  </tbody>
+</table>
 </div>
-<div class="bg-surface-dark p-7 rounded-2xl border border-primary/5">
-<div class="flex items-center gap-3 mb-3">
-<span class="material-symbols-outlined text-primary">router</span>
-<h3 class="text-xl font-bold">Networking Options</h3>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2 id="module-debloat">Debloat Module</h2>
+
+<div class="module-card">
+  <div class="module-card-header">
+    <div class="module-badge" style="background:rgba(248,81,73,.12)"><span class="material-icons-round" style="color:var(--red)">auto_delete</span></div>
+    <div>
+      <h3>Selective Application Removal Engine</h3>
+      <span class="module-path">Views/DebloatSystemPage.xaml.cs · Helpers/OptimizationOptions.cs</span>
+    </div>
+  </div>
+  <p>The Debloat module provides a unified interface for removing both <strong>UWP (Universal Windows Platform)</strong> provisioned packages and <strong>Win32 programs</strong> from the system. It scans installed applications at runtime using the Windows Package Manager API and Win32 registry detection, then presents them in a searchable, filterable list.</p>
+
+  <h4>Detection Methods</h4>
+  <ul class="module-responsibilities">
+    <li>UWP scan via <code>PackageManager.FindPackagesForUser()</code></li>
+    <li>Win32 scan via <code>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall</code></li>
+    <li>Icon extraction into <code>%temp%\RyTuneX_AppIcons</code></li>
+    <li>Provisionned package removal for all users</li>
+    <li>Batch removal with progress tracking</li>
+    <li>App restore (re-provisioning UWP apps)</li>
+    <li>Search &amp; filter by name</li>
+    <li>System app protection (critical packages excluded)</li>
+  </ul>
 </div>
-<p class="text-sm text-slate-400 leading-relaxed">Configure connectivity-related settings such as DNS and network profiles for better control and troubleshooting.</p>
+
+<!-- APP REMOVAL FLOW DIAGRAM -->
+<figure class="diagram">
+<svg viewBox="0 0 700 260" width="700" height="260" xmlns="http://www.w3.org/2000/svg" font-family="Inter,sans-serif">
+  <defs>
+    <marker id="arr5" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#f85149" opacity=".8"/></marker>
+  </defs>
+  <!-- Background -->
+  <rect width="700" height="260" fill="#121523" rx="8"/>
+
+  <!-- Boxes -->
+  <rect x="20" y="100" width="120" height="52" rx="6" fill="#0d1117" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="80" y="122" text-anchor="middle" fill="#58a6ff" font-size="10" font-weight="600">Page Load</text>
+  <text x="80" y="138" text-anchor="middle" fill="#8b949e" font-size="8.5">LoadInstalledApps()</text>
+  <text x="80" y="150" text-anchor="middle" fill="#6e7681" font-size="8">Task.Run(GetInstalledApps)</text>
+
+  <rect x="175" y="60" width="120" height="44" rx="6" fill="#0d1117" stroke="#a371f7" stroke-width="1.5"/>
+  <text x="235" y="79" text-anchor="middle" fill="#a371f7" font-size="10" font-weight="600">UWP Scanner</text>
+  <text x="235" y="95" text-anchor="middle" fill="#8b949e" font-size="8.5">PS Get-AppxPackage</text>
+
+  <rect x="175" y="128" width="120" height="44" rx="6" fill="#0d1117" stroke="#d29922" stroke-width="1.5"/>
+  <text x="235" y="147" text-anchor="middle" fill="#d29922" font-size="10" font-weight="600">Win32 Scanner</text>
+  <text x="235" y="163" text-anchor="middle" fill="#8b949e" font-size="8.5">Registry Uninstall Keys</text>
+
+  <rect x="330" y="90" width="120" height="72" rx="6" fill="#0d1117" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="390" y="112" text-anchor="middle" fill="#3fb950" font-size="10" font-weight="600">appListView (UI)</text>
+  <text x="390" y="128" text-anchor="middle" fill="#8b949e" font-size="8.5">ListView + Cached Icons</text>
+  <text x="390" y="144" text-anchor="middle" fill="#8b949e" font-size="8.5">CheckBoxes</text>
+  <text x="390" y="158" text-anchor="middle" fill="#6e7681" font-size="8">appsFilter / AppSearch</text>
+
+  <rect x="485" y="60" width="120" height="44" rx="6" fill="#0d1117" stroke="#f85149" stroke-width="1.5"/>
+  <text x="545" y="79" text-anchor="middle" fill="#f85149" font-size="10" font-weight="600">UWP Removal</text>
+  <text x="545" y="95" text-anchor="middle" fill="#8b949e" font-size="8.5">Remove-AppxPackage</text>
+
+  <rect x="485" y="128" width="120" height="44" rx="6" fill="#0d1117" stroke="#f85149" stroke-width="1.5"/>
+  <text x="545" y="147" text-anchor="middle" fill="#f85149" font-size="10" font-weight="600">Win32 Removal</text>
+  <text x="545" y="163" text-anchor="middle" fill="#8b949e" font-size="8.5">GetWin32UninstallString()</text>
+
+  <!-- Arrows -->
+  <line x1="140" y1="118" x2="173" y2="88" stroke="#a371f7" stroke-width="1.3" marker-end="url(#arr5)"/>
+  <line x1="140" y1="134" x2="173" y2="148" stroke="#d29922" stroke-width="1.3" marker-end="url(#arr5)"/>
+  <line x1="295" y1="85" x2="328" y2="120" stroke="#a371f7" stroke-width="1.3" marker-end="url(#arr5)"/>
+  <line x1="295" y1="150" x2="328" y2="142" stroke="#d29922" stroke-width="1.3" marker-end="url(#arr5)"/>
+  <line x1="450" y1="118" x2="483" y2="90" stroke="#3fb950" stroke-width="1.3" marker-end="url(#arr5)"/>
+  <line x1="450" y1="138" x2="483" y2="150" stroke="#3fb950" stroke-width="1.3" marker-end="url(#arr5)"/>
+
+  <!-- Icon temp folder note -->
+  <rect x="175" y="200" width="330" height="36" rx="5" fill="rgba(210,153,34,.07)" stroke="#d29922" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="340" y="217" text-anchor="middle" fill="#d29922" font-size="9" font-weight="600">App Icon Cache: %temp%\RyTuneX_AppIcons\</text>
+  <text x="340" y="230" text-anchor="middle" fill="#8b949e" font-size="8.5">Extracted once per session, avoids permission issues, temp cleanup on exit</text>
+
+  <text x="350" y="248" text-anchor="middle" fill="#6e7681" font-size="10">Figure 4 — DebloatModule: dual-scanner app detection and removal pipeline</text>
+</svg>
+<figcaption>Figure 4 — The Debloat module runs two parallel scanners (UWP and Win32) and merges results into the UI list.</figcaption>
+</figure>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2 id="module-privacy">Privacy Module</h2>
+
+<div class="module-card">
+  <div class="module-card-header">
+    <div class="module-badge" style="background:var(--purple-dim)"><span class="material-icons-round" style="color:var(--purple)">shield</span></div>
+    <div>
+      <h3>Telemetry &amp; Privacy Control Engine</h3>
+      <span class="module-path">Views/PrivacyPage.xaml.cs · Helpers/OptimizationOptions.cs</span>
+    </div>
+  </div>
+  <p>The Privacy module provides granular control over Windows telemetry, advertising IDs, Cortana, and data collection pipelines. Each toggle maps to a documented registry key or service and is applied atomically with state read-back to verify the change took effect.</p>
+  <ul class="module-responsibilities">
+    <li>Disable DiagTrack (Connected User Experiences)</li>
+    <li>Disable WerSvc (Windows Error Reporting)</li>
+    <li>Block telemetry endpoints via hosts</li>
+    <li>Disable Advertising ID</li>
+    <li>Disable Cortana &amp; web search</li>
+    <li>Disable Activity History</li>
+    <li>Disable App Launch Tracking</li>
+    <li>Disable Feedback Notifications</li>
+    <li>Disable Location &amp; Sensor services</li>
+    <li>Disable Windows AI / Copilot features</li>
+  </ul>
 </div>
-<div class="bg-surface-dark p-7 rounded-2xl border border-primary/5">
-<div class="flex items-center gap-3 mb-3">
-<span class="material-symbols-outlined text-primary">memory</span>
-<h3 class="text-xl font-bold">Device Information</h3>
+
+<div class="callout warning">
+  <span class="material-icons-round">warning</span>
+  <p><strong>Selective Telemetry Blocking:</strong> RyTuneX deliberately avoids blocking Microsoft update, Store, and activation endpoints. Only diagnostic/telemetry hosts are targeted, preserving OS update functionality while reducing data collection.</p>
 </div>
-<p class="text-sm text-slate-400 leading-relaxed">Review hardware and operating system details to make informed decisions before applying tweaks and optimizations.</p>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2 id="module-features">Features Module</h2>
+
+<div class="module-card">
+  <div class="module-card-header">
+    <div class="module-badge" style="background:var(--green-dim)"><span class="material-icons-round" style="color:var(--green)">tune</span></div>
+    <div>
+      <h3>Optional Windows Features Management</h3>
+      <span class="module-path">Views/FeaturesPage.xaml.cs</span>
+    </div>
+  </div>
+  <p>The Features module exposes optional Windows components — those that can be enabled or disabled via <code>DISM</code>, <code>optionalfeatures.exe</code>, or registry-based feature flags — through a unified toggle interface. It is particularly useful for disabling Windows AI integrations, legacy features, and experimental components.</p>
+  <ul class="module-responsibilities">
+    <li>Disable Windows AI / Recall / Copilot</li>
+    <li>Disable Windows Subsystem for Linux (WSL) optional components</li>
+    <li>Internet Explorer mode control</li>
+    <li>Legacy component removal (.NET 3.5, etc.)</li>
+    <li>Virtual machine platform features</li>
+    <li>Hyper-V and sandbox toggles</li>
+  </ul>
 </div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2 id="module-network">Network Module</h2>
+
+<div class="module-card">
+  <div class="module-card-header">
+    <div class="module-badge" style="background:var(--orange-dim)"><span class="material-icons-round" style="color:var(--orange)">router</span></div>
+    <div>
+      <h3>Network Configuration Engine</h3>
+      <span class="module-path">Views/NetworkPage.xaml.cs</span>
+    </div>
+  </div>
+  <p>The Network module allows users to configure DNS servers, manage network profiles, and apply connectivity-related tweaks. It uses <code>netsh</code> and Windows registry writes to apply changes, with a DNS preset list for popular resolvers (Cloudflare, Google, Quad9, OpenDNS).</p>
+  <ul class="module-responsibilities">
+    <li>DNS server preset selection (1.1.1.1, 8.8.8.8, 9.9.9.9, etc.)</li>
+    <li>Custom DNS server entry</li>
+    <li>Reset DNS to DHCP defaults</li>
+    <li>Network adapter enumeration via WMI</li>
+    <li>Network profile type management</li>
+    <li>QoS &amp; Nagle's algorithm tweaks</li>
+  </ul>
 </div>
-</section>
-<!-- Usage Section -->
-<section class="mb-20 scroll-mt-24" id="usage">
-<h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
-<span class="h-8 w-1 bg-primary rounded-full"></span>
-                        Usage Instructions
-                    </h2>
-<div class="space-y-10">
-<div class="relative pl-8 border-l border-primary/20">
-<h3 class="text-xl font-bold mb-3">1. Start with a Restore Point</h3>
-<p class="text-slate-400 mb-4">Before applying tweaks, create a restore point so you can roll back safely if needed. This is the recommended first step in the official usage flow.</p>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2 id="module-device">Device Information Module</h2>
+
+<div class="module-card">
+  <div class="module-card-header">
+    <div class="module-badge" style="background:rgba(88,166,255,.1)"><span class="material-icons-round" style="color:var(--accent-2)">memory</span></div>
+    <div>
+      <h3>Hardware Intelligence Layer</h3>
+      <span class="module-path">Views/SystemInfoPage.xaml.cs</span>
+    </div>
+  </div>
+  <p>The Device module queries the Windows <strong>WMI (Windows Management Instrumentation)</strong> subsystem via <code>ManagementObjectSearcher</code> to retrieve detailed hardware and OS information. This data is surfaced before applying tweaks, allowing users to make informed decisions about which optimizations are appropriate for their hardware.</p>
+  
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Data Category</th><th>WMI Class</th><th>Key Properties</th></tr></thead>
+    <tbody>
+      <tr><td>CPU</td><td><code>Win32_Processor</code></td><td>Name, Cores, Threads, MaxClockSpeed, Architecture</td></tr>
+      <tr><td>GPU</td><td><code>Win32_VideoController</code></td><td>Name, AdapterRAM, DriverVersion, VideoModeDescription</td></tr>
+      <tr><td>RAM</td><td><code>Win32_PhysicalMemory</code></td><td>Capacity, Speed, Manufacturer, MemoryType</td></tr>
+      <tr><td>Disk</td><td><code>Win32_DiskDrive</code></td><td>Model, Size, MediaType (SSD/HDD), SerialNumber</td></tr>
+      <tr><td>OS</td><td><code>Win32_OperatingSystem</code></td><td>Caption, BuildNumber, Version, Architecture</td></tr>
+      <tr><td>Motherboard</td><td><code>Win32_BaseBoard</code></td><td>Manufacturer, Product, SerialNumber</td></tr>
+    </tbody>
+  </table>
+  </div>
+  
+  <p>The startup time improvement mentioned in changelogs (79.6% faster) was achieved by refactoring this module to use <strong>native Windows APIs</strong> instead of WMI for frequently-accessed properties, reducing query overhead dramatically.</p>
 </div>
-<div class="relative pl-8 border-l border-primary/20">
-<h3 class="text-xl font-bold mb-3">2. Optimize and Debloat</h3>
-<p class="text-slate-400 mb-4">Use the <strong>Optimize</strong> tab to apply performance settings, then use the <strong>Debloat</strong> tab to uninstall unwanted apps. Some changes may require a restart to fully apply.</p>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2 id="module-policies">Policies Module</h2>
+
+<div class="module-card">
+  <div class="module-card-header">
+    <div class="module-badge" style="background:var(--purple-dim)"><span class="material-icons-round" style="color:var(--purple)">policy</span></div>
+    <div>
+      <h3>Group Policy Override Scanner</h3>
+      <span class="module-path">Views/PoliciesPage.xaml.cs · Helpers/PolicyHelper.cs</span>
+    </div>
+  </div>
+  <p>The Policies module (introduced in a recent release) scans the Windows registry for <strong>Group Policy overrides</strong> that may conflict with user-applied tweaks. Many enterprise or pre-configured systems have policy-level restrictions that silently override registry tweaks made by optimization tools. This module detects and optionally removes them.</p>
+  
+  <h4>Scanned Policy Categories</h4>
+  <div class="cards" style="margin-top:16px">
+    <div class="card" style="padding:14px">
+      <h3 style="font-size:.85rem;margin-bottom:4px">Windows Update</h3>
+      <p style="font-size:.8rem">Policies controlling auto-update, delivery optimization, driver updates</p>
+    </div>
+    <div class="card" style="padding:14px">
+      <h3 style="font-size:.85rem;margin-bottom:4px">Privacy &amp; Telemetry</h3>
+      <p style="font-size:.8rem">AllowTelemetry, DiagnosticDataLevel, AdvertisingId policies</p>
+    </div>
+    <div class="card" style="padding:14px">
+      <h3 style="font-size:.85rem;margin-bottom:4px">Cortana &amp; Search</h3>
+      <p style="font-size:.8rem">AllowCortana, DisableWebSearch, SafeSearch enforcement</p>
+    </div>
+    <div class="card" style="padding:14px">
+      <h3 style="font-size:.85rem;margin-bottom:4px">Windows Store</h3>
+      <p style="font-size:.8rem">RemoveWindowsStore, DisableStoreApps, AutoDownload</p>
+    </div>
+    <div class="card" style="padding:14px">
+      <h3 style="font-size:.85rem;margin-bottom:4px">OneDrive</h3>
+      <p style="font-size:.8rem">DisableFileSyncNGSC, PreventNetworkTrafficPreference</p>
+    </div>
+    <div class="card" style="padding:14px">
+      <h3 style="font-size:.85rem;margin-bottom:4px">Security</h3>
+      <p style="font-size:.8rem">SmartScreen, UAC, Defender policy enforcements</p>
+    </div>
+  </div>
 </div>
-<div class="relative pl-8 border-l border-primary/20">
-<h3 class="text-xl font-bold mb-3">3. Privacy, Features, and Device Review</h3>
-<p class="text-slate-400 mb-4">Configure telemetry controls in the <strong>Privacy</strong> tab, manage optional components in the <strong>Features</strong> tab, and confirm your hardware/OS details in the <strong>Device</strong> page before finalizing changes.</p>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2 id="module-packages">Packages Module</h2>
+
+<div class="module-card">
+  <div class="module-card-header">
+    <div class="module-badge" style="background:var(--accent-dim)"><span class="material-icons-round" style="color:var(--accent)">inventory_2</span></div>
+    <div>
+      <h3>WinGet Package Manager Engine</h3>
+      <span class="module-path">Views/PackagesPage.xaml · Views/PackagesPage.xaml.cs</span>
+    </div>
+  </div>
+  <p>The Packages module provides a native WinUI 3 graphical interface over the Windows Package Manager (WinGet). It enables users to discover, bulk-install, and update applications seamlessly. The engine employs a robust dual-pipeline architecture that prefers the native COM API but gracefully falls back to CLI parsing if the API throws standard exceptions like "No such interface supported".</p>
+
+  <h4>Core Execution &amp; State Logic</h4>
+  <ul class="module-responsibilities">
+    <li><strong>In-Memory Fast Search:</strong> Loads the catalog on initialization, allowing instant local filtering via the <code>AutoSuggestBox</code> without re-querying the network.</li>
+    <li><strong>Heuristic Matching:</strong> Correlates local installed apps with WinGet IDs using normalized string matching (stripping dots and non-alphanumeric characters) to detect software installed outside of WinGet.</li>
+    <li><strong>Popular Query Injection:</strong> If the primary catalog fetch returns fewer than 200 items, it automatically injects a fallback list querying popular categories (browser, media, code, etc.).</li>
+    <li><strong>Tabbed State Management:</strong> Isolates the full browsing catalog from the updateable packages queue via an <code>_isUpdatesMode</code> toggle, dynamically swapping list views and primary action buttons.</li>
+    <li><strong>Safe Threading:</strong> Uses <code>CancellationTokenSource</code> to gracefully abort background fetching and CLI parsing if the user rapidly triggers a refresh or changes context.</li>
+  </ul>
 </div>
+
+<h3>Execution Pipeline Mapping</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Operation</th><th>Primary Method (API)</th><th>Fallback Method (CLI / Inventory)</th></tr></thead>
+  <tbody>
+    <tr><td>Catalog Discovery</td><td><code>PackageCatalog.FindPackagesAsync()</code></td><td>Parse <code>winget search</code> stdout or popular category queries</td></tr>
+    <tr><td>Installed Detection</td><td><code>LocalPackageCatalog</code> COM query</td><td><code>OptimizationOptions.GetInstalledApps()</code> inventory fallback</td></tr>
+    <tr><td>Update Detection</td><td>Routed directly to CLI for reliability</td><td>Regex parsing of <code>winget upgrade</code> stdout</td></tr>
+    <tr><td>Install / Upgrade</td><td>Routed directly to CLI for silent execution</td><td><code>cmd.exe /c winget install/upgrade --id "ID" --exact --silent</code></td></tr>
+  </tbody>
+</table>
 </div>
-</section>
-<!-- Contributing Section -->
-<section class="mb-20 scroll-mt-24" id="contributing">
-<h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
-<span class="h-8 w-1 bg-primary rounded-full"></span>
-                        Contributing to RyTuneX
-                    </h2>
-<div class="p-8 rounded-2xl bg-surface-dark border border-primary/10">
-<p class="text-slate-300 mb-6">We welcome contributions from everyone! Whether you're a developer or just want to report a bug, here's how you can help:</p>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div class="space-y-2">
-<h4 class="font-bold text-white flex items-center gap-2"><span class="material-symbols-outlined text-primary">bug_report</span> Bug Reports</h4>
-<p class="text-sm text-slate-400">If you find an issue, please open a GitHub Issue with your Windows version and logs from the <code>View Logs</code> button in the settings page of the app.</p>
+
+<h3>UI Component Architecture</h3>
+<div class="feature-row">
+  <div class="feature-block">
+    <h4><span class="material-icons-round" style="color:var(--accent);font-size:18px">check_box</span> Batch Operations List</h4>
+    <p style="font-size:.88rem">The UI uses custom <code>ListViewItem</code> templates incorporating an integrated checkbox mapped to the item's selection state. Selecting items queues them for batched execution, displaying real-time progress via a bottom <code>ProgressBar</code>.</p>
+  </div>
+  <div class="feature-block">
+    <h4><span class="material-icons-round" style="color:var(--green);font-size:18px">visibility</span> Mutually Exclusive Visual States</h4>
+    <p style="font-size:.88rem">The <code>PackageItemTemplate</code> manages three distinct visual states: <strong>Available</strong> (download icon), <strong>Installed</strong> (green checkmark), and <strong>Update Pending</strong> (highlighted in caution colors with the latest version string), bound directly to the visibility properties of the package model.</p>
+  </div>
 </div>
-<div class="space-y-2">
-<h4 class="font-bold text-white flex items-center gap-2"><span class="material-symbols-outlined text-primary">code</span> Code Contributions</h4>
-<p class="text-sm text-slate-400">Fork the repo, create a branch for your feature, and submit a PR targeting the <code>testing</code> branch. Please ensure you follow the existing C# coding standards.</p>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2 id="module-security">Security Module</h2>
+
+<div class="module-card">
+  <div class="module-card-header">
+    <div class="module-badge" style="background:var(--green-dim)"><span class="material-icons-round" style="color:var(--green)">security</span></div>
+    <div>
+      <h3>Windows Defender &amp; Security Toggles</h3>
+      <span class="module-path">Views/SecurityPage.xaml.cs</span>
+    </div>
+  </div>
+  <p>Consolidates core security settings including Windows Defender status, SmartScreen filters, specific exploit protections, and UAC controls. It integrates warning banners for aggressive operational modifications.</p>
 </div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2 id="module-processes">Processes Module</h2>
+
+<div class="module-card">
+  <div class="module-card-header">
+    <div class="module-badge" style="background:var(--orange-dim)"><span class="material-icons-round" style="color:var(--orange)">account_tree</span></div>
+    <div>
+      <h3>Active Task Management</h3>
+      <span class="module-path">Views/ProcessesPage.xaml.cs</span>
+    </div>
+  </div>
+  <p>A fast, lightweight task manager substitute that scans running Win32 and UWP applications, allowing the user to search, inspect process IDs, and forcefully terminate background tasks tying up system resources.</p>
 </div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2 id="module-repair">Repair Module</h2>
+
+<div class="module-card">
+  <div class="module-card-header">
+    <div class="module-badge" style="background:var(--purple-dim)"><span class="material-icons-round" style="color:var(--purple)">build</span></div>
+    <div>
+      <h3>System Integrity Tools</h3>
+      <span class="module-path">Views/RepairPage.xaml.cs</span>
+    </div>
+  </div>
+  <p>Simplifies complex command-line diagnostics such as SFC (System File Checker) and DISM image repairs. This module wraps PowerShell dispatches inside a reliable UI with progress tracking.</p>
 </div>
-</section>
-<!-- Support Section -->
-<section class="mb-20 scroll-mt-24" id="support">
-<h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
-<span class="h-8 w-1 bg-primary rounded-full"></span>
-                        Support &amp; Resources
-                    </h2>
-<p class="text-slate-400 mb-6">Contact: <a class="text-primary hover:underline" href="mailto:rytunex@gmail.com">rytunex@gmail.com</a></p>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<a class="group p-6 rounded-2xl bg-surface-dark border border-primary/5 hover:border-primary/30 transition-all" href="https://discord.gg/gyBzyd364t" rel="noopener noreferrer" target="_blank">
-<div class="flex items-center gap-4 mb-3">
-<div class="size-10 rounded-lg bg-[#5865F2]/20 flex items-center justify-center text-[#5865F2]">
-<svg class="size-6 fill-current" viewbox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.862-1.297 1.198-1.99a.076.076 0 0 0-.041-.105 13.053 13.053 0 0 1-1.867-.887.077.077 0 0 1-.008-.128c.125-.094.248-.192.366-.292a.077.077 0 0 1 .081-.01c3.901 1.787 8.124 1.787 11.979 0a.077.077 0 0 1 .081.01c.118.1.241.198.366.292a.077.077 0 0 1-.007.127 12.299 12.299 0 0 1-1.868.888.076.076 0 0 0-.041.105c.336.691.736 1.36 1.198 1.99a.078.078 0 0 0 .084.028 19.83 19.83 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.06.06 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.419-2.157 2.419zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.419-2.157 2.419z"></path></svg>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2 id="module-services">Services Module</h2>
+
+<div class="module-card">
+  <div class="module-card-header">
+    <div class="module-badge" style="background:rgba(88,166,255,.1)"><span class="material-icons-round" style="color:var(--accent-2)">miscellaneous_services</span></div>
+    <div>
+      <h3>Windows Services Manager</h3>
+      <span class="module-path">Views/ServicesPage.xaml.cs</span>
+    </div>
+  </div>
+  <p>Bypasses `services.msc` by exposing critical services status directly in RyTuneX. Users can start, stop, restart, and manipulate startup behaviors without navigating MMC snap-ins.</p>
 </div>
-<h4 class="font-bold group-hover:text-primary transition-colors">Discord Community</h4>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2 id="module-settings">Settings Module</h2>
+
+<div class="module-card">
+  <div class="module-card-header">
+    <div class="module-badge" style="background:rgba(139,148,158,.1)"><span class="material-icons-round" style="color:var(--text-muted)">settings</span></div>
+    <div>
+      <h3>Application Configuration &amp; Diagnostics</h3>
+      <span class="module-path">Views/SettingsPage.xaml.cs</span>
+    </div>
+  </div>
+  <p>The Settings page controls app-level preferences (theme, language), provides access to the structured log viewer, exposes a "Revert All Changes" function that undoes all applied tweaks by restoring registry defaults, and links to support resources.</p>
+  <ul class="module-responsibilities">
+    <li>Language selection (10+ locales via Resources.resw)</li>
+    <li>Theme: Light / Dark / System</li>
+    <li>Navigation type display</li>
+    <li>Import/Export Optimizations</li>
+    <li>Revert All Changes (registry state revert)</li>
+    <li>View Logs button → opens LogViewer</li>
+    <li>App version info</li>
+    <li>Feedback &amp; issue links</li>
+  </ul>
 </div>
-<p class="text-sm text-slate-400">Join our active community to chat with developers and other users, share tweaks, and get real-time help.</p>
-</a>
-<a class="group p-6 rounded-2xl bg-surface-dark border border-primary/5 hover:border-primary/30 transition-all" href="https://github.com/rayenghanmi/RyTuneX/issues" rel="noopener noreferrer" target="_blank">
-<div class="flex items-center gap-4 mb-3">
-<div class="size-10 rounded-lg bg-slate-100/10 flex items-center justify-center text-white">
-<svg class="size-6 fill-current" viewbox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2 id="registry-engine">Registry Engine — Deep Dive</h2>
+
+<div class="section-intro green">
+  <span class="material-icons-round">dns</span>
+  <div>
+    <h3>Central Registry Abstraction</h3>
+    <p>The <code>OptimizationOptions</code> class is the most critical infrastructure component in RyTuneX for dealing with OS interactions. It wraps all <code>Microsoft.Win32.Registry</code> and command line calls behind a safe, logged, exception-handled API that automatically tracks which keys have been modified for state management and revert support.</p>
+  </div>
 </div>
-<h4 class="font-bold group-hover:text-primary transition-colors">GitHub Issues</h4>
+
+<h3>Registry Operation Flow</h3>
+
+<!-- REGISTRY FLOW -->
+<figure class="diagram">
+<svg viewBox="0 0 740 300" width="740" height="300" xmlns="http://www.w3.org/2000/svg" font-family="Inter,sans-serif">
+  <defs>
+    <marker id="r1" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#3fb950" opacity=".8"/></marker>
+    <marker id="r2" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#f85149" opacity=".8"/></marker>
+  </defs>
+  <rect width="740" height="300" fill="#121523" rx="8"/>
+
+  <!-- Caller -->
+  <rect x="20" y="115" width="125" height="52" rx="6" fill="#0d1117" stroke="#a371f7" stroke-width="1.5"/>
+  <text x="82.5" y="136" text-anchor="middle" fill="#a371f7" font-size="10" font-weight="600">OptimizeSystemPage</text>
+  <text x="82.5" y="149" text-anchor="middle" fill="#8b949e" font-size="8.5">call OptimizeSystemHelper</text>
+  <text x="82.5" y="160" text-anchor="middle" fill="#8b949e" font-size="8.5">.DisableWindowShake()</text>
+
+  <!-- OptimizationOptions -->
+  <rect x="170" y="80" width="160" height="140" rx="6" fill="#0d1117" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="250" y="103" text-anchor="middle" fill="#3fb950" font-size="10.5" font-weight="600">OptimizationOptions</text>
+  <rect x="183" y="112" width="134" height="24" rx="4" fill="#0d1117" stroke="#21262d"/>
+  <text x="250" y="128" text-anchor="middle" fill="#8b949e" font-size="8.5">1. Check Admin Privilege</text>
+  <rect x="183" y="142" width="134" height="24" rx="4" fill="#0d1117" stroke="#21262d"/>
+  <text x="250" y="158" text-anchor="middle" fill="#8b949e" font-size="8.5">2. Parse CMD ProcessInfo</text>
+  <rect x="183" y="172" width="134" height="24" rx="4" fill="#0d1117" stroke="#21262d"/>
+  <text x="250" y="188" text-anchor="middle" fill="#8b949e" font-size="8.5">3. StartInCmd(reg add...)</text>
+  <rect x="183" y="202" width="134" height="8" rx="2" fill="#3fb950" opacity=".3"/>
+
+  <!-- StateManager -->
+  <rect x="375" y="40" width="130" height="60" rx="6" fill="#0d1117" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="440" y="61" text-anchor="middle" fill="#58a6ff" font-size="10" font-weight="600">LocalSettings</text>
+  <text x="440" y="77" text-anchor="middle" fill="#8b949e" font-size="8.5">Track modified toggles</text>
+  <text x="440" y="90" text-anchor="middle" fill="#6e7681" font-size="8">LocalState\settings.json</text>
+
+  <!-- LogHelper -->
+  <rect x="375" y="126" width="130" height="52" rx="6" fill="#0d1117" stroke="#8b949e" stroke-width="1"/>
+  <text x="440" y="147" text-anchor="middle" fill="#8b949e" font-size="10" font-weight="600">LogHelper</text>
+  <text x="440" y="163" text-anchor="middle" fill="#6e7681" font-size="8.5">LogToFile / Critical Sync</text>
+  <text x="440" y="174" text-anchor="middle" fill="#6e7681" font-size="8">LocalCacheFolder\Logs</text>
+
+  <!-- Win32 Registry -->
+  <rect x="375" y="204" width="140" height="52" rx="6" fill="#0d1117" stroke="#f85149" stroke-width="1.5"/>
+  <text x="445" y="225" text-anchor="middle" fill="#f85149" font-size="10" font-weight="600">Windows Registry</text>
+  <text x="445" y="241" text-anchor="middle" fill="#8b949e" font-size="8.5">HKCU\...\Explorer\Advanced</text>
+  <text x="445" y="252" text-anchor="middle" fill="#6e7681" font-size="8">DisallowShaking = 1</text>
+
+  <!-- Error Handler -->
+  <rect x="548" y="126" width="140" height="52" rx="6" fill="rgba(248,81,73,.08)" stroke="#f85149" stroke-width="1" stroke-dasharray="4,2"/>
+  <text x="618" y="147" text-anchor="middle" fill="#f85149" font-size="10" font-weight="600">Exception Catch</text>
+  <text x="618" y="163" text-anchor="middle" fill="#8b949e" font-size="8.5">Debug.WriteLine</text>
+  <text x="618" y="174" text-anchor="middle" fill="#8b949e" font-size="8.5">Throw LogException</text>
+
+  <!-- Arrows -->
+  <line x1="145" y1="146" x2="168" y2="146" stroke="#a371f7" stroke-width="1.5" marker-end="url(#r1)"/>
+  <line x1="330" y1="100" x2="373" y2="70" stroke="#58a6ff" stroke-width="1.2" marker-end="url(#r1)"/>
+  <line x1="330" y1="150" x2="373" y2="152" stroke="#8b949e" stroke-width="1.2" marker-end="url(#r1)"/>
+  <line x1="330" y1="190" x2="373" y2="220" stroke="#3fb950" stroke-width="1.5" marker-end="url(#r1)"/>
+  <line x1="505" y1="152" x2="546" y2="152" stroke="#f85149" stroke-width="1.2" stroke-dasharray="3,2" marker-end="url(#r2)"/>
+
+  <!-- Labels -->
+  <text x="148" y="140" fill="#a371f7" font-size="8" opacity=".8">call</text>
+  <text x="332" y="112" fill="#58a6ff" font-size="8" opacity=".7">save</text>
+  <text x="332" y="145" fill="#8b949e" font-size="8" opacity=".7">log</text>
+  <text x="332" y="208" fill="#3fb950" font-size="8" opacity=".7">write</text>
+  <text x="507" y="145" fill="#f85149" font-size="8" opacity=".7">on error</text>
+
+  <text x="370" y="286" text-anchor="middle" fill="#6e7681" font-size="10">Figure 5 — Apply Tweak operation: OptimizationOptions → CMD(Reg.exe) → log → LocalSettings, with error path</text>
+</svg>
+<figcaption>Figure 5 — RyTuneX OptimizationOptions write flow: privilege check, execution via CMD, registry update, state tracking, and logging.</figcaption>
+</figure>
+
+<h3>Registry Hive Mapping</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Hive</th><th>Scope</th><th>Used For</th></tr></thead>
+  <tbody>
+    <tr><td><code>HKLM\SOFTWARE\Policies</code></td><td>Machine / All users</td><td>Group Policy overrides, Windows Update, Telemetry caps</td></tr>
+    <tr><td><code>HKLM\SYSTEM\CurrentControlSet</code></td><td>Machine / Kernel</td><td>Services, GPU scheduling, memory management, NIC settings</td></tr>
+    <tr><td><code>HKLM\SOFTWARE\Microsoft\Windows NT</code></td><td>Machine</td><td>Boot config, prefetch, virtual memory settings</td></tr>
+    <tr><td><code>HKCU\Software\Microsoft\Windows</code></td><td>Current user</td><td>Visual effects, notification settings, account preferences</td></tr>
+    <tr><td><code>HKCU\Control Panel\Desktop</code></td><td>Current user</td><td>Animation settings, power button behavior</td></tr>
+    <tr><td><code>HKCU\Software\Microsoft\GameBar</code></td><td>Current user</td><td>Gaming mode &amp; overlay configuration</td></tr>
+    <tr><td><code>HKCU\Software\Microsoft\Windows\CurrentVersion\Search</code></td><td>Current user</td><td>Cortana, web search, search highlights</td></tr>
+  </tbody>
+</table>
 </div>
-<p class="text-sm text-slate-400">Our primary tracker for bugs and feature requests. Search existing issues before opening a new one.</p>
-</a>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2 id="uwp-removal">UWP Removal Engine</h2>
+
+<p>UWP removal in RyTuneX operates by dispatching specific <strong>PowerShell Cmdlets</strong>. This ensures deep, reliable removal of both provisioned packages (preventing reinstallation for new users) and active Appx packages across all existing users on the system.</p>
+
+<pre><code class="code-label">// Simplified UWP removal pattern (C#)</code>
+// 1. Formulate the PowerShell command to remove provisioned packages (system-wide)
+var cmdCommandRemoveProvisioned = $@"powershell -Command ""Get-AppxProvisionedPackage -Online | 
+    Where-Object {{ $_.DisplayName -eq '{appName}' }} | 
+    ForEach-Object {{ Remove-AppxProvisionedPackage -Online -PackageName $_.PackageName }}""";
+
+// 2. Formulate the PowerShell command to remove the active Appx package for all users
+var cmdCommandRemoveAppxPackage = $@"powershell -Command ""Get-AppxPackage -AllUsers | 
+    Where-Object {{ $_.Name -eq '{appName}' }} | 
+    Remove-AppxPackage""";
+
+// 3. Execute the batch commands asynchronously
+await OptimizationOptions.StartInCmd(cmdCommandRemoveProvisioned).ConfigureAwait(false);
+await OptimizationOptions.StartInCmd(cmdCommandRemoveAppxPackage).ConfigureAwait(false);
+
+LogHelper.Log($"Uninstalling: {appName}");</code></pre>
+
+<div class="callout success">
+  <span class="material-icons-round">check_circle</span>
+  <p><strong>Icon Safety:</strong> All app icons are extracted to <code>%temp%\RyTuneX_AppIcons\</code> rather than each app's install directory. This avoids permission errors on protected Program Files paths and keeps the extraction side-effect contained in the OS temp folder.</p>
 </div>
-</section>
-</article>
-</main>
-<!-- Table of Contents (Right Sidebar) -->
-<aside class="hidden xl:block w-48 shrink-0 py-10 pl-8">
-<div class="sticky top-28">
-<h4 class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4">On this page</h4>
-<ul class="flex flex-col gap-3 text-sm font-medium text-slate-500 border-l border-primary/10 pl-4">
-<li><a class="toc-link is-active hover:text-primary transition-colors" href="#overview">Overview</a></li>
-<li><a class="toc-link hover:text-primary transition-colors" href="#installation">Installation</a></li>
-<li><a class="toc-link hover:text-primary transition-colors" href="#requirements">Requirements</a></li>
-<li><a class="toc-link hover:text-primary transition-colors" href="#features">Key Features</a></li>
-<li><a class="toc-link hover:text-primary transition-colors" href="#usage">Usage Instructions</a></li>
-<li><a class="toc-link hover:text-primary transition-colors" href="#contributing">Contributing</a></li>
-<li><a class="toc-link hover:text-primary transition-colors" href="#support">Support</a></li>
-</ul>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2 id="telemetry">Telemetry Blocking Architecture</h2>
+
+<p>Windows telemetry operates through a multi-channel pipeline. RyTuneX targets each channel independently to maximize effectiveness while preserving essential OS functionality.</p>
+
+<!-- TELEMETRY BLOCKING DIAGRAM -->
+<figure class="diagram">
+<svg viewBox="0 0 720 320" width="720" height="320" xmlns="http://www.w3.org/2000/svg" font-family="Inter,sans-serif">
+  <defs>
+    <marker id="t1" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#3fb950" opacity=".8"/></marker>
+    <marker id="t2" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#f85149" opacity=".8"/></marker>
+  </defs>
+  <rect width="720" height="320" fill="#121523" rx="8"/>
+
+  <!-- Windows OS sources -->
+  <text x="130" y="30" text-anchor="middle" fill="#6e7681" font-size="10" font-weight="700">WINDOWS OS TRIGGERS</text>
+  <rect x="20" y="40" width="100" height="32" rx="5" fill="#0d1117" stroke="#30363d"/>
+  <text x="70" y="61" text-anchor="middle" fill="#8b949e" font-size="9">Scheduled Tasks</text>
+  <rect x="132" y="40" width="100" height="32" rx="5" fill="#0d1117" stroke="#30363d"/>
+  <text x="182" y="61" text-anchor="middle" fill="#8b949e" font-size="9">System Events</text>
+
+  <!-- Block arrows from RyTuneX -->
+  <text x="410" y="30" text-anchor="middle" fill="#a371f7" font-size="10" font-weight="700">RYTUNEX IFEO BLOCKING STRATEGY</text>
+
+  <!-- Layer 1: Target Executables -->
+  <rect x="260" y="40" width="180" height="36" rx="5" fill="rgba(163,113,247,.1)" stroke="#a371f7" stroke-width="1.2"/>
+  <text x="350" y="56" text-anchor="middle" fill="#a371f7" font-size="9.5" font-weight="600">Step 1 — Executable Targeting</text>
+  <text x="350" y="68" text-anchor="middle" fill="#8b949e" font-size="8.5">CompatTelRunner, DeviceCensus, etc.</text>
+
+  <!-- Layer 2: Registry Hook -->
+  <rect x="260" y="90" width="180" height="36" rx="5" fill="rgba(88,166,255,.08)" stroke="#58a6ff" stroke-width="1.2"/>
+  <text x="350" y="106" text-anchor="middle" fill="#58a6ff" font-size="9.5" font-weight="600">Step 2 — IFEO Registry Hook</text>
+  <text x="350" y="118" text-anchor="middle" fill="#8b949e" font-size="8.5">Image File Execution Options Hive</text>
+
+  <!-- Layer 3: Debugger Redirection -->
+  <rect x="260" y="140" width="180" height="36" rx="5" fill="rgba(63,185,80,.08)" stroke="#3fb950" stroke-width="1.2"/>
+  <text x="350" y="156" text-anchor="middle" fill="#3fb950" font-size="9.5" font-weight="600">Step 3 — Taskkill Redirection</text>
+  <text x="350" y="168" text-anchor="middle" fill="#8b949e" font-size="8.5">Map `Debugger` value to taskkill.exe</text>
+
+  <!-- Layer 4: Background Throttling -->
+  <rect x="260" y="190" width="180" height="36" rx="5" fill="rgba(210,153,34,.08)" stroke="#d29922" stroke-width="1.2"/>
+  <text x="350" y="206" text-anchor="middle" fill="#d29922" font-size="9.5" font-weight="600">Step 4 — Background Throttling</text>
+  <text x="350" y="218" text-anchor="middle" fill="#8b949e" font-size="8.5">Lower CPUPriority for lsass, SearchIndexer</text>
+
+  <!-- Execution -->
+  <rect x="580" y="80" width="120" height="60" rx="6" fill="rgba(248,81,73,.08)" stroke="#f85149" stroke-width="1.5"/>
+  <text x="640" y="106" text-anchor="middle" fill="#f85149" font-size="10" font-weight="600">Telemetry &amp;</text>
+  <text x="640" y="120" text-anchor="middle" fill="#f85149" font-size="10" font-weight="600">Bloatware Execution</text>
+  <text x="640" y="134" text-anchor="middle" fill="#6e7681" font-size="8">Instantly Terminated</text>
+
+  <!-- Safe paths (preserved) -->
+  <rect x="480" y="200" width="220" height="56" rx="6" fill="rgba(63,185,80,.07)" stroke="#3fb950" stroke-width="1" stroke-dasharray="4,2"/>
+  <text x="590" y="222" text-anchor="middle" fill="#3fb950" font-size="9.5" font-weight="600">✓ System Stability Preserved</text>
+  <text x="590" y="238" text-anchor="middle" fill="#8b949e" font-size="8.5">Background execution continues</text>
+  <text x="590" y="250" text-anchor="middle" fill="#8b949e" font-size="8.5">for non-targeted system binaries</text>
+
+  <!-- Block arrows from sources to blocking layers -->
+  <line x1="70" y1="72" x2="258" y2="58" stroke="#f85149" stroke-width="1.3" stroke-dasharray="3,2"/>
+  <line x1="182" y1="72" x2="258" y2="70" stroke="#f85149" stroke-width="1.3" stroke-dasharray="3,2"/>
+
+  <!-- Block arrows from layers to internet (blocked) -->
+  <line x1="440" y1="100" x2="577" y2="100" stroke="#f85149" stroke-width="1.5"/>
+  <rect x="488" y="88" width="36" height="18" rx="3" fill="#0d1117" stroke="#f85149"/>
+  <text x="506" y="100" text-anchor="middle" fill="#f85149" font-size="9" font-weight="700">BLOCK</text>
+
+  <text x="360" y="290" text-anchor="middle" fill="#6e7681" font-size="10">Figure 6 — RyTuneX uses IFEO debugger mapping to instantly terminate telemetry executables alongside background process throttling.</text>
+</svg>
+<figcaption>Figure 6 — Real-world RyTuneX strategy targeting executables via IFEO mapping and throttling.</figcaption>
+</figure>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2 id="state-mgmt">State Management</h2>
+
+<div class="section-intro orange">
+  <span class="material-icons-round">data_object</span>
+  <div>
+    <h3>Tweak State Tracking</h3>
+    <p>RyTuneX maintains a persistent <strong>registry state ledger</strong> — a record of every key that has been modified, along with the original value before modification. This enables the "Revert All Changes" feature in Settings, which restores every modified key to its pre-optimization state.</p>
+  </div>
 </div>
-</aside>
+
+<p>The state is managed within the <code>OptimizationOptions</code> class that serializes a configuration of values. On "Revert All Changes", each entry is iterated and the original value is written back using <code>OptimizationOptions</code> and PowerShell commands. Any entries that previously did not exist are deleted.</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Operation</th><th>State Action</th><th>File</th></tr></thead>
+  <tbody>
+    <tr><td>Apply tweak</td><td>Read current value → store in state → apply new value</td><td>Persistent state file</td></tr>
+    <tr><td>Already applied</td><td>Read state → mark toggle as ON without re-writing</td><td>State file (read-only)</td></tr>
+    <tr><td>Revert All</td><td>Iterate state → restore each original value → clear state</td><td>State file (cleared)</td></tr>
+    <tr><td>App close</td><td>State persists between sessions</td><td>State file</td></tr>
+  </tbody>
+</table>
 </div>
-<!-- Footer -->
-<footer class="border-t border-primary/10 bg-surface-dark py-12 px-4 lg:px-20 mt-20">
-<div class="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-4 gap-12">
-<div class="col-span-1 md:col-span-2">
-<div class="flex items-center gap-3 mb-6">
-<img alt="RyTuneX Logo" class="size-6 rounded" src="assets/logo.png"/>
-<h2 class="text-lg font-bold text-white tracking-tight">RyTuneX</h2>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2 id="logging">Logging System</h2>
+
+<div class="section-intro blue">
+  <span class="material-icons-round">article</span>
+  <div>
+    <h3>Structured File-Based Logger</h3>
+    <p>RyTuneX uses a custom lightweight logger (<code>LogHelper</code>) that writes timestamped, categorized entries to a plain-text log file. The log is viewable directly from the Settings page via the "View Logs" button, and users are asked to attach it when filing bug reports.</p>
+  </div>
 </div>
-<p class="text-slate-400 text-sm max-w-sm mb-6 leading-relaxed">
-                    The ultimate open-source Windows utility for those who demand more from their hardware. Built with WinUI 3 and .NET 10.
-                </p>
-<div class="flex gap-4">
-<a class="size-10 rounded-full bg-background-dark flex items-center justify-center text-slate-400 hover:text-primary hover:bg-primary/10 transition-all border border-primary/5" href="#">
-<svg class="size-5 fill-current" viewbox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg>
-</a>
-<a class="size-10 rounded-full bg-background-dark flex items-center justify-center text-slate-400 hover:text-primary hover:bg-primary/10 transition-all border border-primary/5" href="#">
-<svg class="size-5 fill-current" viewbox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"></path></svg>
-</a>
+
+<pre><code class="code-label">// Log entry format</code>
+2026-04-10 12:59:58.687: [INFO] [App.xaml..ctor] ___________ New Session ___________
+2026-04-10 12:59:59.261: [INFO] [App.xaml..ctor] App version: 1.7.0, OS: Microsoft Windows NT 10.0.26220.0, Runtime: .NET 10.0.5
+2026-04-11 09:59:32.177: [INFO] [FeaturesPage.xaml.ToggleSwitch_Toggled] ToggleSwitch Tag: WindowsDarkMode, IsOn: False
+2026-04-11 09:59:32.208: [INFO] [OptimizationOptions.ExecuteToggleActionAsync] Executing optimization: WindowsDarkMode = OFF
+2026-04-11 10:01:00.967: [WARN] [PackagesPage.xaml.GetInstalledPackagesMapAsync] Failed to query installed packages from local package catalog: No such interface supported
+</code></pre>
+
+<p>Log files are stored at the application's local cache folder, typically matching <code>%LocalAppData%\Packages\...\LocalCache\Logs\Log.txt</code>. The <code>LogHelper</code> is thread-safe and uses a <code>SemaphoreSlim</code> to serialize concurrent write operations from async service calls.</p>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2 id="i18n">Localization Architecture</h2>
+
+<div class="section-intro purple">
+  <span class="material-icons-round">language</span>
+  <div>
+    <h3>Resources.resw String System</h3>
+    <p>RyTuneX is fully internationalized using the Windows <strong>Resource (.resw) file</strong> system. Each language is a folder under <code>Strings/</code> containing a <code>Resources.resw</code> file. The WinUI 3 runtime automatically selects the correct resource set based on the system locale, with <code>en-us</code> as fallback.</p>
+  </div>
 </div>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Language</th><th>Locale Code</th><th>Contributor Path</th></tr></thead>
+  <tbody>
+    <tr><td>English (default)</td><td><code>en-us</code></td><td>Strings/en-us/Resources.resw</td></tr>
+    <tr><td>French</td><td><code>fr-fr</code></td><td>Strings/fr-fr/Resources.resw</td></tr>
+    <tr><td>Arabic</td><td><code>ar-tn</code></td><td>Strings/ar-tn/Resources.resw</td></tr>
+    <tr><td>Spanish</td><td><code>es-es</code></td><td>Strings/es-es/Resources.resw</td></tr>
+    <tr><td>German</td><td><code>de</code></td><td>Strings/de/Resources.resw</td></tr>
+    <tr><td>Chinese (Simplified)</td><td><code>zh-Hans</code></td><td>Strings/zh-Hans/Resources.resw</td></tr>
+    <tr><td>Korean</td><td><code>ko-kr</code></td><td>Strings/ko-kr/Resources.resw</td></tr>
+    <tr><td>Italian</td><td><code>it-it</code></td><td>Strings/it-it/Resources.resw</td></tr>
+  </tbody>
+</table>
 </div>
-<div>
-<h4 class="text-white font-bold mb-6">Navigation</h4>
-<ul class="space-y-4 text-sm text-slate-400">
-<li><a class="hover:text-primary transition-colors" href="index.html">Home</a></li>
-<li><a class="hover:text-primary transition-colors" href="docs.html">Documentation</a></li>
-<li><a class="hover:text-primary transition-colors" href="#features">Features</a></li>
-<li><a class="hover:text-primary transition-colors" href="https://twitter.com/rayen_ghanmi_23" rel="noopener noreferrer" target="_blank">X / Twitter</a></li>
-</ul>
+
+<p>Adding a new language requires only cloning the English <code>Resources.resw</code>, translating the string values (leaving XML structure intact), placing it at <code>Strings/{locale-code}/Resources.resw</code>, and submitting a pull request to the <code>testing</code> branch.</p>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2 id="installation">Installation Guide</h2>
+
+<div class="steps">
+  <div class="step">
+    <div class="step-body">
+      <h4>Download from Microsoft Store</h4>
+      <p>Install from the <a href="https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full" target="_blank">Microsoft Store</a> (recommended). This ensures you receive automatic updates and the package is signed and verified by Microsoft's distribution infrastructure.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-body">
+      <h4>Verify .NET Runtime</h4>
+      <p>RyTuneX requires <strong>.NET 10 Desktop Runtime</strong>. The Store installer manages dependencies automatically. For manual installs, the installer detects a missing runtime and redirects to Microsoft's download page.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-body">
+      <h4>Launch as Administrator</h4>
+      <p>Right-click the RyTuneX icon → <strong>Run as Administrator</strong>. Full functionality (registry writes, service management, policy changes) requires elevated privileges. SmartScreen may warn on unsigned builds; click <em>"More info"</em> → <em>"Run anyway"</em>.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-body">
+      <h4>Create a System Restore Point</h4>
+      <p>On the Welcome screen, click <strong>"Create Restore Point"</strong>. This is the most important safety step — it allows you to roll back any system changes if an optimization causes unexpected behavior.</p>
+    </div>
+  </div>
 </div>
-<div>
-<h4 class="text-white font-bold mb-6">Support</h4>
-<ul class="space-y-4 text-sm text-slate-400">
-<li><a class="hover:text-primary transition-colors" href="https://discord.gg/gyBzyd364t" rel="noopener noreferrer" target="_blank">Discord Server</a></li>
-<li><a class="hover:text-primary transition-colors" href="https://github.com/rayenghanmi/RyTuneX/issues" rel="noopener noreferrer" target="_blank">GitHub Issues</a></li>
-<li><a class="hover:text-primary transition-colors" href="privacy-policy.html" rel="noopener noreferrer">Privacy Policy</a></li>
-<li><a class="hover:text-primary transition-colors" href="mailto:rytunex@gmail.com">Contact Email</a></li>
-</ul>
+
+<div class="callout danger">
+  <span class="material-icons-round">warning</span>
+  <p><strong>Always create a restore point before applying system-wide tweaks.</strong> While RyTuneX's "Revert All Changes" feature covers most scenarios, a full Windows restore point is the safest fallback for registry-level or service-level changes.</p>
 </div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2 id="requirements">Technical Requirements</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Component</th><th>Requirement</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td>Operating System</td><td>Windows 10 (20H1, build 19041+) or Windows 11</td><td>Both 32-bit and 64-bit supported</td></tr>
+    <tr><td>Runtime</td><td>.NET 10 Desktop Runtime</td><td>Auto-installed via Store; manual download at microsoft.com/dotnet</td></tr>
+    <tr><td>Architecture</td><td>x64 / x86</td><td>ARM64 not officially supported</td></tr>
+    <tr><td>Privileges</td><td>Administrator (elevated)</td><td>Required for registry writes, service management, policy changes</td></tr>
+    <tr><td>Disk Space</td><td>~50 MB installed</td><td>Additional temp space for app icon cache</td></tr>
+    <tr><td>Distribution</td><td>Microsoft Store exclusively</td><td>Installable exe discontinued as of v1.6.2</td></tr>
+    <tr><td>Visual Studio</td><td>2022 v17+ with "Windows App SDK" workload</td><td>Required only for building from source</td></tr>
+  </tbody>
+</table>
 </div>
-<div class="mx-auto max-w-7xl border-t border-primary/5 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
-<p>© Rayen Ghanmi. Released under AGPL-3.0 License.</p>
-<div class="flex gap-6">
-<a class="hover:text-white transition-colors" href="privacy-policy.html" rel="noopener noreferrer">Privacy Policy</a>
-<a class="hover:text-white transition-colors" href="https://aka.ms/microsoft-store-terms-of-transaction" rel="noopener noreferrer" target="_blank">Terms of Service</a>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2 id="features">Key Features Summary</h2>
+
+<div class="cards">
+  <div class="card">
+    <div class="card-icon red"><span class="material-icons-round">auto_delete</span></div>
+    <h3>Selective App Removal</h3>
+    <p>Remove pre-installed UWP and Win32 bloatware. Supports batch removal with real-time progress, app icons, and search/filter. Icons cached in temp folder to avoid permission issues.</p>
+  </div>
+  <div class="card">
+    <div class="card-icon blue"><span class="material-icons-round">bolt</span></div>
+    <h3>System Optimizations</h3>
+    <p>30+ registry and service tweaks covering power plans, GPU scheduling, gaming mode, service management, animation tuning, and memory management.</p>
+  </div>
+  <div class="card">
+    <div class="card-icon purple"><span class="material-icons-round">shield</span></div>
+    <h3>Privacy Enhancements</h3>
+    <p>4-layer telemetry blocking (services, registry, policies, scheduled tasks). Preserves update/activation/Store functionality.</p>
+  </div>
+  <div class="card">
+    <div class="card-icon green"><span class="material-icons-round">tune</span></div>
+    <h3>Feature Management</h3>
+    <p>Enable/disable optional Windows components including AI features, Windows Recall, Copilot, legacy OS components, and WSL features.</p>
+  </div>
+  <div class="card">
+    <div class="card-icon orange"><span class="material-icons-round">router</span></div>
+    <h3>Network Configuration</h3>
+    <p>DNS preset switcher (Cloudflare, Google, Quad9, OpenDNS), custom DNS entry, DHCP reset, and Nagle's algorithm control.</p>
+  </div>
+  <div class="card">
+    <div class="card-icon blue"><span class="material-icons-round">memory</span></div>
+    <h3>Device Intelligence</h3>
+    <p>WMI-based hardware inventory: CPU, GPU, RAM, Disk, Motherboard, OS details. 79.6% faster load via native API migration.</p>
+  </div>
+  <div class="card">
+    <div class="card-icon purple"><span class="material-icons-round">policy</span></div>
+    <h3>Policy Scanner</h3>
+    <p>Scans Group Policy overrides across 6 categories. Shows configured policies, allows removal by category or individually, restores "Not Configured" defaults.</p>
+  </div>
+  <div class="card">
+    <div class="card-icon green"><span class="material-icons-round">restore</span></div>
+    <h3>Safe Revert System</h3>
+    <p>Backup-based state tracking for every change. "Revert All Changes" restores all registry values to pre-optimization state in one click.</p>
+  </div>
 </div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2 id="usage">Usage Instructions</h2>
+
+<div class="steps">
+  <div class="step">
+    <div class="step-body">
+      <h4>Start with the Welcome Screen — Create Restore Point</h4>
+      <p>On first launch, RyTuneX shows a welcome screen with a prominent "Create Restore Point" button. Always do this first. It invokes the Windows System Restore API to snapshot the current system state, giving you a guaranteed rollback path independent of RyTuneX's own revert feature.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-body">
+      <h4>Review Device Info Before Optimizing</h4>
+      <p>Navigate to the <strong>Device</strong> page to review your hardware. Knowing whether you have an SSD or HDD informs whether disabling Prefetch makes sense. Knowing your GPU vendor helps decide if HAGS is appropriate.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-body">
+      <h4>Apply Performance Tweaks</h4>
+      <p>On the <strong>Optimize</strong> page, toggle the tweaks relevant to your use case. Gaming-focused users should enable Gaming Mode, HAGS, and Ultimate Performance Plan. Battery-sensitive users should skip the power plan tweak and explore the Battery &amp; Power section instead.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-body">
+      <h4>Debloat Your System</h4>
+      <p>Open the <strong>Debloat</strong> page. The app scanner will enumerate installed apps with icons. Select the ones you want to remove (avoid removing system-critical apps like Cortana if other apps depend on it). Click "Uninstall Selected" and wait for the progress bar to complete.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-body">
+      <h4>Configure Privacy Settings</h4>
+      <p>On the <strong>Privacy</strong> page, toggle the telemetry and tracking services you want to disable. All changes are reversible. A restart may be required for some service changes to take effect.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-body">
+      <h4>Check Policies Page</h4>
+      <p>If some tweaks don't seem to stick, open the <strong>Policies</strong> page to check for Group Policy overrides. Enterprise-provisioned machines frequently have policies that override user-level registry changes. Remove the conflicting policies here first.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-body">
+      <h4>Restart &amp; Verify</h4>
+      <p>Most performance and service tweaks require a system restart to fully apply. After restarting, open RyTuneX — all toggle states should reflect your applied choices, read back from the registry state ledger.</p>
+    </div>
+  </div>
 </div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2 id="contributing">Contributing to RyTuneX</h2>
+
+<p>RyTuneX is an open-source project licensed under <strong>AGPL-3.0</strong>. All contributions — bug reports, feature requests, code PRs, and translations — are welcome.</p>
+
+<div class="feature-row">
+  <div class="feature-block">
+    <h4><span class="material-icons-round" style="color:var(--red);font-size:18px">bug_report</span> Bug Reports</h4>
+    <p style="font-size:.88rem">Open a GitHub Issue with: your Windows version (winver), build number, the exact steps to reproduce, and the log file from Settings → View Logs. Issues without logs are much harder to diagnose.</p>
+    <a href="https://github.com/rayenghanmi/RyTuneX/issues" target="_blank"><span class="tag blue" style="margin-top:8px"><span class="material-icons-round" style="font-size:12px">open_in_new</span>GitHub Issues</span></a>
+  </div>
+  <div class="feature-block">
+    <h4><span class="material-icons-round" style="color:var(--green);font-size:18px">code</span> Code Contributions</h4>
+    <p style="font-size:.88rem">Fork the repository, create a feature branch from <code>testing</code>, implement your changes following existing C# 14 style, and open a PR targeting <code>testing</code>. Avoid breaking changes to the state management or logging API.</p>
+    <a href="https://github.com/rayenghanmi/RyTuneX/tree/testing" target="_blank"><span class="tag green" style="margin-top:8px"><span class="material-icons-round" style="font-size:12px">open_in_new</span>testing branch</span></a>
+  </div>
+</div>
+
+<div class="feature-row">
+  <div class="feature-block">
+    <h4><span class="material-icons-round" style="color:var(--purple);font-size:18px">language</span> Translations</h4>
+    <p style="font-size:.88rem">Clone <code>Strings/en-us/Resources.resw</code>, translate all string values (not the keys), save as <code>Strings/{locale}/Resources.resw</code>, and submit a PR. New locales are automatically picked up by the WinUI 3 runtime.</p>
+  </div>
+  <div class="feature-block">
+    <h4><span class="material-icons-round" style="color:var(--orange);font-size:18px">star</span> Testing &amp; Feedback</h4>
+    <p style="font-size:.88rem">Test new builds from the <code>testing</code> branch or pre-release Store updates. Report regressions, edge cases on unusual hardware, and any tweaks that break system functionality.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<h2 id="support">Support &amp; Resources</h2>
+
+<div class="cards">
+  <div class="card">
+    <div class="card-icon purple"><span class="material-icons-round">forum</span></div>
+    <h3>Discord Community</h3>
+    <p>Join the active Discord server to chat with developers, share tweaks, get real-time help, and discuss optimization strategies.</p>
+    <a href="https://discord.gg/gyBzyd364t" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:.84rem"><span class="material-icons-round" style="font-size:14px">open_in_new</span>discord.gg/gyBzyd364t</a>
+  </div>
+  <div class="card">
+    <div class="card-icon blue"><span class="material-icons-round">bug_report</span></div>
+    <h3>GitHub Issues</h3>
+    <p>Primary tracker for bugs and feature requests. Search existing issues before opening a new one. Attach your log file for faster resolution.</p>
+    <a href="https://github.com/rayenghanmi/RyTuneX/issues" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:.84rem"><span class="material-icons-round" style="font-size:14px">open_in_new</span>GitHub Issues</a>
+  </div>
+  <div class="card">
+    <div class="card-icon green"><span class="material-icons-round">email</span></div>
+    <h3>Contact</h3>
+    <p>For non-public inquiries, licensing questions, or partnership opportunities, reach out directly by email.</p>
+    <a href="mailto:rytunex@gmail.com" style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:.84rem"><span class="material-icons-round" style="font-size:14px">mail</span>rytunex@gmail.com</a>
+  </div>
+</div>
+
+</main><!-- /main -->
+
+<footer>
+  <div>
+    <img src="assets/logo.png" width="20" style="vertical-align:middle;border-radius:4px;margin-right:6px" onerror="this.style.display='none'"/>
+    <strong style="color:var(--text-muted)">RyTuneX</strong> — The ultimate open-source Windows optimizer. Built with WinUI 3 &amp; .NET 10.
+  </div>
+  <div style="display:flex;gap:20px">
+    <a href="index.html">Home</a>
+    <a href="https://github.com/rayenghanmi/RyTuneX" target="_blank">GitHub</a>
+    <a href="https://discord.gg/gyBzyd364t" target="_blank">Discord</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+  </div>
+  <div>© Rayen Ghanmi. AGPL-3.0 License.</div>
 </footer>
-</div>
+
+<script>
+// Active sidebar highlighting on scroll
+const allSections = document.querySelectorAll('h2[id], h3[id]');
+const sidebarLinks = document.querySelectorAll('.sidebar-link');
+
+function getActiveId() {
+  let activeId = null;
+  allSections.forEach(section => {
+    const rect = section.getBoundingClientRect();
+    if (rect.top <= 90) activeId = section.id;
+  });
+  return activeId;
+}
+
+window.addEventListener('scroll', () => {
+  const id = getActiveId();
+  if (!id) return;
+  sidebarLinks.forEach(l => {
+    l.classList.toggle('active', l.getAttribute('href') === `#${id}`);
+  });
+}, { passive: true });
+
+// Smooth click for all anchor links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+</script>
 <script src="script.js"></script>
 <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="rayen.ghanmi.22" data-description="Support me on Buy me a coffee!" data-message="" data-color="#ff4d94" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
-</body></html>
+</body>
+</html>
