@@ -1,544 +1,1362 @@
 <!DOCTYPE html>
+<html lang="en">
 
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>RyTuneX | Ultimate Windows Optimization</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<meta name="description" content="RyTuneX is a privacy-first optimizer for Windows 10 & 11. Remove bloat, tweak settings, and improve performance and privacy with a single tool.">
-<link rel="canonical" href="https://rayenghanmi.github.io/rytunex/">
-<meta name="robots" content="index,follow">
-<meta name="theme-color" content="#f177a6">
-<link rel="alternate" href="https://rayenghanmi.github.io/rytunex/" hreflang="en-us">
-<meta property="og:title" content="RyTuneX — Windows 10 & 11 Optimizer | Boost Performance & Privacy">
-<meta property="og:description" content="RyTuneX is a privacy-first optimizer for Windows 10 & 11. Remove bloat, tweak settings, and improve performance and privacy with a single tool.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://rayenghanmi.github.io/rytunex/">
-<meta property="og:image" content="https://rayenghanmi.github.io/rytunex/assets/og.jpg">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="RyTuneX — Windows 10 & 11 Optimizer">
-<meta name="twitter:description" content="RyTuneX is a privacy-first optimizer for Windows 10 & 11. Remove bloat, tweak settings, and improve performance and privacy.">
-<meta name="twitter:image" content="https://rayenghanmi.github.io/rytunex/assets/og.jpg">
-<link rel="icon" href="assets/favicon.ico">
-<script type="application/ld+json">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RyTuneX | Ultimate Windows Optimization</title>
+  <meta name="description"
+    content="RyTuneX is a privacy-first optimizer for Windows 10 &amp; 11. Remove bloat, tweak settings, and improve performance and privacy with a single tool." />
+  <link rel="canonical" href="https://rayenghanmi.github.io/rytunex/" />
+  <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#f177a6" />
+  <link rel="alternate" href="https://rayenghanmi.github.io/rytunex/" hreflang="en-us" />
+  <meta property="og:title" content="RyTuneX, Windows 10 &amp; 11 Optimizer | Boost Performance &amp; Privacy" />
+  <meta property="og:description"
+    content="RyTuneX is a privacy-first optimizer for Windows 10 &amp; 11. Remove bloat, tweak settings, and improve performance and privacy with a single tool." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rayenghanmi.github.io/rytunex/" />
+  <meta property="og:image" content="https://rayenghanmi.github.io/rytunex/assets/og.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="RyTuneX, Windows 10 &amp; 11 Optimizer" />
+  <meta name="twitter:description"
+    content="RyTuneX is a privacy-first optimizer for Windows 10 &amp; 11. Remove bloat, tweak settings, and improve performance and privacy." />
+  <meta name="twitter:image" content="https://rayenghanmi.github.io/rytunex/assets/og.jpg" />
+  <link rel="icon" href="assets/favicon.ico" />
+  <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "RyTuneX",
   "url": "https://rayenghanmi.github.io/rytunex/",
   "logo": "https://rayenghanmi.github.io/rytunex/assets/og.jpg",
-  "description": "RyTuneX is a privacy-first optimizer for Windows 10 & 11. Remove bloat, tweak settings, and improve performance and privacy.",
+  "description": "RyTuneX is a privacy-first optimizer for Windows 10 &amp; 11.",
   "applicationCategory": "Utilities",
   "operatingSystem": "Windows 10, Windows 11",
   "offers": { "@type": "Offer", "url": "https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full", "price": "0", "priceCurrency": "USD" },
-  "sameAs": [
-    "https://github.com/rayenghanmi",
-    "https://twitter.com/rayen_ghanmi_23",
-    "https://instagram.com/rayen.ghanmi.23"
-  ]
+  "sameAs": ["https://github.com/rayenghanmi","https://twitter.com/rayen_ghanmi_23"]
 }
 </script>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#ff4d94",
-                        "background-light": "#f5f6f8",
-                        "background-dark": "#0b0e14",
-                    },
-                    fontFamily: {
-                        "display": ["Inter", "sans-serif"]
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.28rem",
-                        "lg": "0.75rem",
-                        "xl": "1rem",
-                        "full": "9999px"
-                    },
-                },
-            },
-        }
-    </script>
-<style>
-        :root {
-            --color-primary: #ff4d94;
-            --color-primary-strong: #ff0066;
-            --color-background-light: #f5f6f8;
-            --color-background-dark: #0b0e14;
-            --color-surface-dark: #161b2c;
-        }
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── INDEX-SPECIFIC STYLES ──────────────────────────────────────── */
 
-        html {
-            scroll-behavior: smooth;
-        }
+    /* Hero */
+    .hero-section {
+      padding: 80px 28px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      min-height: calc(100vh - var(--nav-h) - 60px);
+    }
 
-        body {
-            font-family: "Inter", sans-serif;
-        }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: var(--r-full);
+      background: var(--accent-dim);
+      border: 1px solid var(--border-accent);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 24px;
+    }
 
-        .material-symbols-outlined {
-            font-family: "Material Symbols Outlined";
-            font-weight: normal;
-            font-style: normal;
-            font-size: 24px;
-            line-height: 1;
-            letter-spacing: normal;
-            text-transform: none;
-            display: inline-block;
-            white-space: nowrap;
-            word-wrap: normal;
-            direction: ltr;
-            -webkit-font-smoothing: antialiased;
-            font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
-        }
+    .hero-eyebrow .pulse {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: glow-pulse 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
 
-        .scrollbar-hide::-webkit-scrollbar {
-            display: none;
-        }
+    .hero-title {
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      color: var(--text);
+      margin-bottom: 22px;
+    }
 
-        .nav-link {
-            position: relative;
-        }
+    .hero-title .highlight {
+      background: var(--grad-brand);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-        .nav-link::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: -6px;
-            width: 0;
-            height: 2px;
-            background: var(--color-primary);
-            transition: width 0.2s ease;
-        }
+    .hero-desc {
+      font-size: 1.1rem;
+      color: var(--text-sub);
+      line-height: 1.7;
+      max-width: 520px;
+      margin-bottom: 36px;
+    }
 
-        .nav-link:hover::after,
-        .nav-link.is-active::after {
-            width: 100%;
-        }
+    .hero-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 36px;
+    }
 
-        .nav-link.is-active {
-            color: var(--color-primary) !important;
-        }
+    .hero-winget {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      color: var(--text-sub);
+      max-width: 380px;
+    }
 
-        .sidebar-link,
-        .toc-link {
-            transition: all 0.2s ease;
-        }
+    .hero-winget .cmd-prefix {
+      color: var(--blue);
+      font-weight: 600;
+    }
 
-        .sidebar-link.is-active {
-            background: rgba(255, 46, 136, 0.15);
-            border-left: 3px solid #ff2e88;
-            color: var(--color-primary) !important;
-            font-weight: 600;
-        }
+    .hero-winget-copy {
+      margin-left: auto;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      padding: 4px;
+      border-radius: var(--r-sm);
+      display: flex;
+      align-items: center;
+      transition: color var(--t-fast), background var(--t-fast);
+    }
 
-        .toc-link.is-active {
-            color: var(--color-primary) !important;
-        }
+    .hero-winget-copy:hover {
+      color: var(--accent);
+      background: var(--accent-dim);
+    }
 
-        .hero-preview {
-            width: 100%;
-            border-radius: 6px;
-            overflow: hidden;
-            border: .5px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 20px 56px rgba(255, 77, 148, 0.14);
-            backdrop-filter: blur(2px) saturate(120%);
-            -webkit-backdrop-filter: blur(2px) saturate(120%);
-        }
+    .hero-social-proof {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-        .hero-preview img {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: contain;
-            object-position: center top;
-            opacity: 0.9;
-            filter: saturate(108%) contrast(102%);
-        }
+    .avatar-stack {
+      display: flex;
+    }
 
-        @media (max-width: 767px) {
-            .hero-preview {
-                border-radius: 6px;
-                box-shadow: 0 14px 36px rgba(255, 77, 148, 0.12);
-            }
+    .avatar-stack img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid var(--bg-base);
+      margin-left: -10px;
+      object-fit: cover;
+      background: var(--bg-elevated);
+    }
 
-            .hero-preview img {
-                max-height: 260px;
-            }
+    .avatar-stack img:first-child {
+      margin-left: 0;
+    }
 
-            .hero-glow {
-                display: none;
-            }
-        }
+    .social-proof-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
 
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation: none !important;
-                transition: none !important;
-            }
-        }
-    </style>
+    .social-proof-text strong {
+      color: var(--text-sub);
+    }
+
+    /* Hero image */
+    .hero-img-frame {
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow:
+        0 20px 50px -10px rgba(0, 0, 0, 0.7),
+        0 0 30px 0 rgba(241, 119, 166, 0.15);
+      /* Subtle accent glow matching your orb */
+      animation: float-y 6s ease-in-out infinite;
+    }
+
+    .hero-img-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: saturate(110%) contrast(103%);
+    }
+
+    /* Gradient overlay to soften bottom edge transitions */
+    .hero-img-frame::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(12, 10, 16, 0.7) 100%);
+      pointer-events: none;
+    }
+
+    /* Features section */
+    .features-section {
+      padding: 80px 28px;
+      background: rgba(255, 255, 255, 0.02);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .section-header .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      padding: 28px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      transition: border-color var(--t-mid), transform var(--t-mid), box-shadow var(--t-mid);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--grad-brand);
+      opacity: 0;
+      transition: opacity var(--t-mid);
+    }
+
+    .feature-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-accent);
+    }
+
+    .feature-card:hover::before {
+      opacity: 1;
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--r-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      position: relative;
+    }
+
+    .feature-icon.pink {
+      background: rgba(241, 119, 166, 0.12);
+      color: var(--pink);
+      border: 1px solid rgba(241, 119, 166, 0.2);
+    }
+
+    .feature-icon.blue {
+      background: rgba(91, 196, 245, 0.12);
+      color: var(--blue);
+      border: 1px solid rgba(91, 196, 245, 0.2);
+    }
+
+    .feature-icon.purple {
+      background: rgba(155, 127, 239, 0.12);
+      color: var(--purple);
+      border: 1px solid rgba(155, 127, 239, 0.2);
+    }
+
+    .feature-icon.green {
+      background: rgba(62, 207, 142, 0.12);
+      color: var(--green);
+      border: 1px solid rgba(62, 207, 142, 0.2);
+    }
+
+    .feature-icon.orange {
+      background: rgba(245, 158, 11, 0.12);
+      color: var(--orange);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+
+    .feature-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .feature-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Benchmarks section */
+    .benchmarks-section {
+      padding: 80px 28px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .bench-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .bench-card {
+      padding: 28px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+    }
+
+    .bench-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 28px;
+    }
+
+    .bench-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .bench-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .bench-delta {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--green);
+      line-height: 1;
+    }
+
+    .bench-delta-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-align: right;
+    }
+
+    .bench-row {
+      margin-bottom: 18px;
+    }
+
+    .bench-row-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-sub);
+      margin-bottom: 8px;
+    }
+
+    .bench-row-header.optimized {
+      color: var(--accent);
+    }
+
+    /* Testimonials */
+    .testimonials-section {
+      padding: 80px 28px;
+      background: rgba(255, 255, 255, 0.02);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .testimonial-card {
+      padding: 32px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      position: relative;
+      overflow: hidden;
+      transition: border-color var(--t-mid), transform var(--t-mid);
+    }
+
+    .testimonial-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-2px);
+    }
+
+    .quote-mark {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      font-size: 5rem;
+      line-height: 1;
+      color: var(--accent);
+      opacity: 0.07;
+      font-family: Georgia, serif;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .testimonial-text {
+      font-size: 0.96rem;
+      color: var(--text-sub);
+      line-height: 1.75;
+      font-style: italic;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .testimonial-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--border-mid);
+      background: var(--bg-elevated);
+    }
+
+    .testimonial-name {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .testimonial-source {
+      font-size: 0.78rem;
+      color: var(--accent);
+    }
+
+    /* CTA section */
+    .cta-section {
+      padding: 80px 28px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .cta-inner {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--r-2xl);
+      padding: 72px 60px;
+      text-align: center;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+    }
+
+    .cta-inner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 20% 50%, rgba(241, 119, 166, 0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 80% 50%, rgba(107, 173, 240, 0.10) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 50% 0%, rgba(155, 127, 239, 0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* Gradient border */
+    .cta-inner::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: var(--r-2xl);
+      border: 1px solid transparent;
+      background: linear-gradient(var(--bg-surface), var(--bg-surface)) padding-box,
+        var(--grad-brand) border-box;
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-title {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .cta-desc {
+      font-size: 1.05rem;
+      color: var(--text-sub);
+      margin-bottom: 36px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .cta-note {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    /* Stats strip */
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--border);
+      margin-bottom: 80px;
+    }
+
+    .stat-item {
+      background: var(--bg-surface);
+      padding: 32px 24px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: 900;
+      background: var(--grad-brand);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.04em;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Footer grid */
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      max-width: 1200px;
+      margin: 0 auto 48px;
+    }
+
+    .footer-brand-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-top: 14px;
+      max-width: 280px;
+    }
+
+    .footer-col-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-sub);
+      margin-bottom: 16px;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links a {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      transition: color var(--t-fast);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .footer-social-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--r-md);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      transition: background var(--t-fast), color var(--t-fast), border-color var(--t-fast);
+      text-decoration: none;
+    }
+
+    .footer-social-btn:hover {
+      background: var(--accent-dim);
+      color: var(--accent);
+      border-color: var(--border-accent);
+      text-decoration: none;
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-section {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+
+      .hero-image-wrap {
+        order: -1;
+      }
+
+      .hero-glow-orb {
+        display: none;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .stats-strip {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .bench-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-inner {
+        padding: 48px 24px;
+      }
+
+      .hero-section {
+        gap: 36px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 2.4rem;
+      }
+
+      .cta-title {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
 </head>
-<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased overflow-x-hidden">
-<div class="relative flex h-auto min-h-screen w-full flex-col">
-<div class="layout-container flex h-full grow flex-col">
-<!-- Navigation -->
-<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-6 md:px-20 py-4 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md sticky top-0 z-50">
-<div class="flex items-center gap-3 text-primary">
-<img alt="RyTuneX Logo" class="size-8 rounded-sm shadow-sm" src="assets/logo.png"/>
-<h2 class="text-slate-900 dark:text-white text-xl font-black leading-tight tracking-tight">RyTuneX</h2>
-</div>
-<nav class="hidden md:flex flex-1 justify-end gap-10 mr-10">
-<a class="nav-link text-slate-600 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" href="#features">Features</a>
-<a class="nav-link text-slate-600 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" href="#benchmarks">Benchmarks</a>
-<a class="nav-link text-slate-600 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" href="#testimonials">Testimonials</a>
-<a class="nav-link text-slate-600 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" data-page-link="true" href="docs.html">Docs</a>
-</nav>
-<div class="flex items-center gap-4">
-<a class="hidden sm:flex min-w-[120px] cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-primary text-white text-sm font-bold transition-transform active:scale-95 shadow-lg shadow-primary/20 shadow-primary/40" href="https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full" rel="noopener noreferrer" target="_blank">
-                        Download Now
-                    </a>
-<button aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu" class="md:hidden text-slate-600 dark:text-slate-300" data-mobile-menu-button="true" type="button">
-<span class="material-symbols-outlined">menu</span>
-</button>
-</div>
-</header>
-<nav class="hidden md:hidden border-b border-slate-200 dark:border-slate-800 bg-background-light/95 dark:bg-background-dark/95 px-6 py-4" data-mobile-menu="true" id="mobile-nav">
-<div class="flex flex-col gap-3">
-<a class="nav-link text-slate-700 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" href="#features">Features</a>
-<a class="nav-link text-slate-700 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" href="#benchmarks">Benchmarks</a>
-<a class="nav-link text-slate-700 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" href="#testimonials">Testimonials</a>
-<a class="nav-link text-slate-700 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" data-page-link="true" href="docs.html">Docs</a>
-<a class="mt-2 inline-flex items-center justify-center rounded-lg h-10 px-5 bg-primary text-white text-sm font-bold" href="https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full" rel="noopener noreferrer" target="_blank">Download Now</a>
-</div>
-</nav>
-<main class="flex-1">
-<!-- Hero Section -->
-<section class="max-w-7xl mx-auto px-6 md:px-20 py-12 md:py-24">
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
-<div class="flex flex-col gap-8">
-<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 w-fit">
-<span class="flex h-2 w-2 rounded-full bg-primary animate-pulse"></span>
-<span class="text-xs font-bold text-primary tracking-widest uppercase" data-version-template="Version {versionNoV} Now Live">Version - Now Live</span>
-</div>
-<h1 class="text-slate-900 dark:text-white text-5xl md:text-7xl font-black leading-[1.1] tracking-tight">
-                                Unlock Your PC's <span class="text-primary">True Potential</span>
-</h1>
-<p class="text-slate-600 dark:text-slate-400 text-lg md:text-xl font-normal leading-relaxed max-w-xl">
-                                Professional Windows 10/11 optimization tool for gamers and power users. Eliminate system bloat, reduce latency, and experience ultimate stability.
-                            </p>
-<div class="flex flex-wrap gap-4">
-<div class="flex flex-col gap-4 w-full sm:w-auto">
-<a class="flex min-w-[240px] cursor-pointer items-center justify-center rounded-xl h-14 px-8 bg-primary text-white text-lg font-bold shadow-xl shadow-primary/30 hover:brightness-110 transition-all" href="https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full" rel="noopener noreferrer" target="_blank">
-<span class="material-symbols-outlined mr-2">shopping_bag</span>
-        Download from Store
-    </a>
-<div class="flex items-center gap-2 p-3 bg-slate-900/50 border border-slate-800 rounded-xl text-xs font-mono text-slate-400 group relative">
-<span class="text-primary">winget</span> install --id 9PDH8M7HF2SQ
-    <button aria-label="Copy winget install command" class="ml-auto text-primary hover:text-white transition-colors" data-copy-text="winget install --id 9PDH8M7HF2SQ" title="Copy command" type="button">
-<span class="material-symbols-outlined text-sm">content_copy</span>
-</button>
-</div>
-</div>
-</div>
-<div class="flex items-center gap-4 pt-4">
-<div class="flex -space-x-3" data-stargazers-avatars>
-<img alt="RyTuneX stargazer avatar" class="w-10 h-10 rounded-full border-2 border-background-dark bg-slate-700 object-cover" src="https://avatars.githubusercontent.com/u/108760398?v=4"/>
-<img alt="RyTuneX stargazer avatar" class="w-10 h-10 rounded-full border-2 border-background-dark bg-slate-700 object-cover" src="https://avatars.githubusercontent.com/u/9919?v=4"/>
-<img alt="RyTuneX stargazer avatar" class="w-10 h-10 rounded-full border-2 border-background-dark bg-slate-700 object-cover" src="https://avatars.githubusercontent.com/u/49699333?v=4"/>
-</div>
-<p class="text-sm text-slate-500 dark:text-slate-400 font-medium" data-stars-template="Trusted by {stars} GitHub stargazers">Trusted by GitHub stargazers</p>
-</div>
-</div>
-<div class="relative">
-<div class="absolute -inset-4 bg-primary/20 blur-3xl rounded-full hero-glow"></div>
-<div class="relative hero-preview">
-<img alt="RyTuneX app preview" src="assets/img/pc2.png"/>
-</div>
-</div>
-</div>
-</section>
-<!-- Features Grid -->
-<section class="bg-slate-50 dark:bg-slate-900/50 py-24 scroll-mt-24" id="features">
-<div class="max-w-7xl mx-auto px-6 md:px-20">
-<div class="text-center mb-16">
-<h2 class="text-slate-900 dark:text-white text-3xl md:text-5xl font-black mb-4">Engineered for Performance</h2>
-<p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">RyTuneX optimizes your OS at a kernel level to ensure every frame counts and system interruptions are a thing of the past.</p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-<div class="p-8 rounded-2xl bg-white dark:bg-background-dark border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-colors group">
-<div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined text-3xl">speed</span>
-</div>
-<h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Optimize Performance</h3>
-<p class="text-slate-600 dark:text-slate-400 leading-relaxed">Speed up your system by disabling unnecessary services and applying high-performance power plans.</p>
-</div>
-<div class="p-8 rounded-2xl bg-white dark:bg-background-dark border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-colors group">
-<div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined text-3xl">delete</span>
-</div>
-<h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Remove Unwanted Apps</h3>
-<p class="text-slate-600 dark:text-slate-400 leading-relaxed">Clean up bloatware and reclaim disk space in seconds with our intelligent system debloater.</p>
-</div>
-<div class="p-8 rounded-2xl bg-white dark:bg-background-dark border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-colors group">
-<div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined text-3xl">shield</span>
-</div>
-<h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Enhance Privacy</h3>
-<p class="text-slate-600 dark:text-slate-400 leading-relaxed">Block telemetry and trackers while keeping your personal data private and secure.</p>
-</div>
-</div>
-</div>
-</section>
-<!-- Benchmarks Section -->
-<section class="py-24 max-w-7xl mx-auto px-6 md:px-20 scroll-mt-24" id="benchmarks">
-    <div class="text-center mb-16">
-        <h2 class="text-slate-900 dark:text-white text-3xl md:text-5xl font-black mb-4">Proven Results: Before vs After</h2>
-        <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Real-world performance metrics demonstrating the impact of deep system optimization.</p>
+
+<body>
+
+  <!-- Mica background -->
+  <div class="mica-bg" aria-hidden="true"></div>
+
+  <!-- ── NAVIGATION ──────────────────────────────────────────────── -->
+  <header>
+    <nav class="topnav" role="navigation" aria-label="Main navigation">
+      <a class="topnav-brand" href="index.html" aria-label="RyTuneX home">
+        <img src="assets/logo.png" alt="RyTuneX Logo" width="30" height="30" />
+        <span class="topnav-brand-name">RyTuneX</span>
+      </a>
+
+      <div class="topnav-links" id="topnav-links">
+        <a class="topnav-link nav-link-underline" href="#features">Features</a>
+        <a class="topnav-link nav-link-underline" href="#benchmarks">Benchmarks</a>
+        <a class="topnav-link nav-link-underline" href="#testimonials">Testimonials</a>
+        <a class="topnav-link nav-link-underline" data-page-link="true" href="docs.html">Documentation</a>
+        <a class="topnav-link nav-link-underline" data-page-link="true" href="privacy-policy.html">Privacy</a>
+      </div>
+
+      <a class="topnav-cta desktop-only" href="https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full"
+        rel="noopener noreferrer" target="_blank">
+        <span class="msr sm fill" aria-hidden="true">download</span>
+        Download Now
+      </a>
+
+      <button class="topnav-mobile-btn" id="mobile-menu-btn" aria-label="Toggle navigation" aria-expanded="false"
+        aria-controls="mobile-nav" type="button">
+        <span class="msr" id="mobile-menu-icon" aria-hidden="true">menu</span>
+      </button>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobile-nav" role="navigation" aria-label="Mobile navigation">
+      <a class="topnav-link" href="#features">Features</a>
+      <a class="topnav-link" href="#benchmarks">Benchmarks</a>
+      <a class="topnav-link" href="#testimonials">Testimonials</a>
+      <a class="topnav-link" data-page-link="true" href="docs.html">Documentation</a>
+      <a class="topnav-link" data-page-link="true" href="privacy-policy.html">Privacy Policy</a>
+      <a class="mobile-cta topnav-link" href="https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full"
+        rel="noopener noreferrer" target="_blank">
+        <span class="msr sm fill" aria-hidden="true">download</span>
+        Download Now
+      </a>
     </div>
-    
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-        
-        <div class="bg-white dark:bg-slate-900/40 p-8 rounded-2xl border border-slate-200 dark:border-slate-800">
-            <div class="flex justify-between items-end mb-8">
-                <div>
-                    <p class="text-slate-500 dark:text-slate-400 font-semibold mb-1 uppercase tracking-wider text-xs">FPS Performance</p>
-                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Forza Horizon 5</h3>
-                </div>
-                <div class="text-right">
-                    <span class="text-3xl font-black text-emerald-500">+19%</span>
-                    <p class="text-xs text-slate-500">Increase</p>
-                </div>
-            </div>
-            <div class="space-y-6">
-                <div>
-                    <div class="flex justify-between text-sm mb-2 font-medium">
-                        <span>Stock Windows 11</span>
-                        <span>77 FPS</span>
-                    </div>
-                    <div class="h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                        <div class="h-full bg-slate-400 dark:bg-slate-600 rounded-full" style="width: 83%"></div>
-                    </div>
-                </div>
-                <div>
-                    <div class="flex justify-between text-sm mb-2 font-bold text-primary">
-                        <span>RyTuneX Optimized</span>
-                        <span>92 FPS</span>
-                    </div>
-                    <div class="h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                        <div class="h-full bg-primary rounded-full shadow-lg shadow-primary/40" style="width: 100%"></div>
-                    </div>
-                </div>
-            </div>
+  </header>
+
+  <!-- ── MAIN ─────────────────────────────────────────────────────── -->
+  <main>
+
+    <!-- HERO -->
+    <section class="hero-section" aria-labelledby="hero-title">
+      <!-- Left: Text -->
+      <div class="animate-slide-up">
+        <div class="hero-eyebrow" role="status" aria-live="polite">
+          <span class="pulse" aria-hidden="true"></span>
+          <span data-version-template="Version {versionNoV} Now Live">Version, Now Live</span>
         </div>
 
-        <div class="bg-white dark:bg-slate-900/40 p-8 rounded-2xl border border-slate-200 dark:border-slate-800">
-            <div class="flex justify-between items-end mb-8">
-                <div>
-                    <p class="text-slate-500 dark:text-slate-400 font-semibold mb-1 uppercase tracking-wider text-xs">System Latency</p>
-                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Avg. Frametime</h3>
-                </div>
-                <div class="text-right">
-                    <span class="text-3xl font-black text-emerald-500">-66%</span>
-                    <p class="text-xs text-slate-500">Reduction</p>
-                </div>
-            </div>
-            <div class="space-y-6">
-                <div>
-                    <div class="flex justify-between text-sm mb-2 font-medium">
-                        <span>Stock Windows 11</span>
-                        <span>26.5 ms</span>
-                    </div>
-                    <div class="h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                        <div class="h-full bg-slate-400 dark:bg-slate-600 rounded-full" style="width: 100%"></div>
-                    </div>
-                </div>
-                <div>
-                    <div class="flex justify-between text-sm mb-2 font-bold text-primary">
-                        <span>RyTuneX Optimized</span>
-                        <span>9.0 ms</span>
-                    </div>
-                    <div class="h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                        <div class="h-full bg-primary rounded-full shadow-lg shadow-primary/40" style="width: 34%"></div>
-                    </div>
-                </div>
-            </div>
+        <h1 class="hero-title" id="hero-title">
+          Unlock Your PC's
+          <span class="highlight">True Potential</span>
+        </h1>
+
+        <p class="hero-desc">
+          The most advanced Windows 10 &amp; 11 optimization toolkit, built with WinUI 3 and available free on the
+          Microsoft Store. Eliminate bloat, reduce latency, protect your privacy.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary btn-lg" href="https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full"
+            rel="noopener noreferrer" target="_blank" id="hero-download-btn">
+            <span class="msr fill" aria-hidden="true">shopping_bag</span>
+            Get on Microsoft Store
+          </a>
+
+          <div class="hero-winget" role="group" aria-label="WinGet install command">
+            <span class="cmd-prefix" aria-hidden="true">$</span>
+            <code
+              style="background:none; padding:0; color:var(--text-sub); font-size:0.82rem;">winget install --id 9PDH8M7HF2SQ</code>
+            <button class="hero-winget-copy" type="button" aria-label="Copy winget command"
+              data-copy-text="winget install --id 9PDH8M7HF2SQ" title="Copy to clipboard">
+              <span class="msr sm" aria-hidden="true">content_copy</span>
+            </button>
+          </div>
         </div>
 
-        <div class="bg-white dark:bg-slate-900/40 p-8 rounded-2xl border border-slate-200 dark:border-slate-800">
-            <div class="flex justify-between items-end mb-8">
-                <div>
-                    <p class="text-slate-500 dark:text-slate-400 font-semibold mb-1 uppercase tracking-wider text-xs">Stutter Reduction</p>
-                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white">1% Low FPS</h3>
-                </div>
-                <div class="text-right">
-                    <span class="text-3xl font-black text-emerald-500">+38%</span>
-                    <p class="text-xs text-slate-500">Increase</p>
-                </div>
-            </div>
-            <div class="space-y-6">
-                <div>
-                    <div class="flex justify-between text-sm mb-2 font-medium">
-                        <span>Stock Windows 11</span>
-                        <span>42 FPS</span>
-                    </div>
-                    <div class="h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                        <div class="h-full bg-slate-400 dark:bg-slate-600 rounded-full" style="width: 72%"></div>
-                    </div>
-                </div>
-                <div>
-                    <div class="flex justify-between text-sm mb-2 font-bold text-primary">
-                        <span>RyTuneX Optimized</span>
-                        <span>58 FPS</span>
-                    </div>
-                    <div class="h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                        <div class="h-full bg-primary rounded-full shadow-lg shadow-primary/40" style="width: 100%"></div>
-                    </div>
-                </div>
-            </div>
+        <div class="hero-social-proof">
+          <div class="avatar-stack" data-stargazers-avatars aria-label="GitHub stargazers">
+            <img src="https://avatars.githubusercontent.com/u/108760398?v=4" alt="RyTuneX stargazer avatar" width="36"
+              height="36" />
+            <img src="https://avatars.githubusercontent.com/u/9919?v=4" alt="RyTuneX stargazer avatar" width="36"
+              height="36" />
+            <img src="https://avatars.githubusercontent.com/u/49699333?v=4" alt="RyTuneX stargazer avatar" width="36"
+              height="36" />
+          </div>
+          <p class="social-proof-text" data-stars-template="Trusted by <strong>{stars}</strong> GitHub stargazers">
+            Trusted by GitHub stargazers</p>
         </div>
+      </div>
 
-        <div class="bg-white dark:bg-slate-900/40 p-8 rounded-2xl border border-slate-200 dark:border-slate-800">
-            <div class="flex justify-between items-end mb-8">
-                <div>
-                    <p class="text-slate-500 dark:text-slate-400 font-semibold mb-1 uppercase tracking-wider text-xs">System Debloat</p>
-                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Background Tasks</h3>
-                </div>
-                <div class="text-right">
-                    <span class="text-3xl font-black text-emerald-500">-55%</span>
-                    <p class="text-xs text-slate-500">Reduction</p>
-                </div>
-            </div>
-            <div class="space-y-6">
-                <div>
-                    <div class="flex justify-between text-sm mb-2 font-medium">
-                        <span>Stock Windows 11</span>
-                        <span>165 Processes</span>
-                    </div>
-                    <div class="h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                        <div class="h-full bg-slate-400 dark:bg-slate-600 rounded-full" style="width: 100%"></div>
-                    </div>
-                </div>
-                <div>
-                    <div class="flex justify-between text-sm mb-2 font-bold text-primary">
-                        <span>RyTuneX Optimized</span>
-                        <span>74 Processes</span>
-                    </div>
-                    <div class="h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                        <div class="h-full bg-primary rounded-full shadow-lg shadow-primary/40" style="width: 45%"></div>
-                    </div>
-                </div>
-            </div>
+      <!-- Right: App preview -->
+      <div class="hero-image-wrap animate-slide-up anim-delay-2">
+        <div class="hero-glow-orb" aria-hidden="true"></div>
+        <div class="hero-img-frame">
+          <img src="assets/img/pc2.webp" alt="RyTuneX application preview showing the optimization dashboard"
+            width="800" height="520" />
         </div>
+      </div>
+    </section>
 
+    <!-- STATS STRIP -->
+    <div class="stats-strip" aria-label="Key statistics">
+      <div class="stat-item">
+        <span class="stat-value">+19%</span>
+        <span class="stat-label">Average FPS Gain</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">-66%</span>
+        <span class="stat-label">Frame Time Reduction</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">-55%</span>
+        <span class="stat-label">Background Tasks Slashed</span>
+      </div>
     </div>
-</section>
-<!-- Testimonials -->
-<section class="bg-primary/5 py-24 scroll-mt-24" id="testimonials">
-<div class="max-w-7xl mx-auto px-6 md:px-20">
-<div class="text-center mb-16">
-<h2 class="text-slate-900 dark:text-white text-3xl md:text-4xl font-black mb-4">What Users & Reviewers Say</h2>
-<p class="text-slate-600 dark:text-slate-400">Feedback from real reviewers and Windows power users.</p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-<div class="bg-white dark:bg-background-dark p-10 rounded-2xl border border-slate-200 dark:border-slate-800 relative shadow-sm" data-testimonial-slot>
-<span class="material-symbols-outlined text-primary/20 text-6xl absolute top-4 right-8">format_quote</span>
-<p class="text-slate-700 dark:text-slate-300 italic mb-8 relative z-10 text-lg" data-testimonial-quote>
-"The most striking aspect of RyTuneX is how directly it addresses user pain points with practical, low-friction solutions."
-</p>
-<div class="flex items-center gap-4">
-<img alt="WindowsForum logo" class="w-12 h-12 rounded-full object-cover border border-slate-300 dark:border-slate-700 bg-white" data-testimonial-image src="https://www.google.com/s2/favicons?domain=windowsforum.com&amp;sz=64"/>
-<div>
-<h4 class="font-bold text-slate-900 dark:text-white" data-testimonial-author>WindowsForum</h4>
-<p class="text-sm text-primary"><a class="hover:underline" data-testimonial-link href="https://windowsforum.com/threads/rytunex-1-3-2-review-the-best-windows-tweaking-tool-for-privacy-and-customization.367929/" rel="noopener noreferrer" target="_blank">Source Review</a></p>
-</div>
-</div>
-</div>
-<div class="bg-white dark:bg-background-dark p-10 rounded-2xl border border-slate-200 dark:border-slate-800 relative shadow-sm" data-testimonial-slot>
-<span class="material-symbols-outlined text-primary/20 text-6xl absolute top-4 right-8">format_quote</span>
-<p class="text-slate-700 dark:text-slate-300 italic mb-8 relative z-10 text-lg" data-testimonial-quote>
-"RyTuneX is more than just an optimization tool - it's a refined solution for anyone looking to unlock their Windows device's full potential."
-</p>
-<div class="flex items-center gap-4">
-<img alt="TrishTech logo" class="w-12 h-12 rounded-full object-cover border border-slate-300 dark:border-slate-700 bg-white" data-testimonial-image src="https://www.google.com/s2/favicons?domain=trishtech.com&amp;sz=64"/>
-<div>
-<h4 class="font-bold text-slate-900 dark:text-white" data-testimonial-author>Trisha - TrishTech</h4>
-<p class="text-sm text-primary"><a class="hover:underline" data-testimonial-link href="https://www.trishtech.com/2025/06/rytunex-optimize-and-enhance-your-windows-10-and-11-pc/" rel="noopener noreferrer" target="_blank">Source Review</a></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- CTA Section -->
-<section class="py-24 max-w-7xl mx-auto px-6 md:px-20 text-center">
-<div class="bg-gradient-to-br from-primary to-[#ff0066] rounded-[2rem] p-12 md:p-20 relative overflow-hidden">
-<div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
-<div class="relative z-10 flex flex-col items-center gap-8">
-<h2 class="text-white text-4xl md:text-6xl font-black max-w-3xl">Ready to Feel the Speed?</h2>
-<p class="text-blue-100 text-lg md:text-xl max-w-xl">
-                                Download the most advanced Windows optimization suite today. Free for personal use.
-                            </p>
-<a class="flex min-w-[240px] cursor-pointer items-center justify-center rounded-xl h-16 px-10 bg-white text-primary text-xl font-bold shadow-2xl hover:scale-105 transition-all" data-version-template="Download Now - {versionWithV}" href="https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full" rel="noopener noreferrer" target="_blank">
-                                Download Now - 
-                            </a>
-<p class="text-blue-200 text-sm">Supports Windows 10 (20H1+), Windows 11</p>
-</div>
-</div>
-</section>
-</main>
-<!-- Footer -->
-<footer class="bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-900 py-16">
-<div class="max-w-7xl mx-auto px-6 md:px-20 grid grid-cols-1 md:grid-cols-4 gap-12">
-<div class="col-span-1 md:col-span-1">
-<div class="flex items-center gap-3 text-primary mb-6">
-<img alt="RyTuneX Logo" class="size-6 rounded-sm" src="assets/logo.png"/>
-<h2 class="text-slate-900 dark:text-white text-lg font-black">RyTuneX</h2>
-</div>
-<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
-                            Empowering gamers and professionals through precision software engineering and system optimization.
-                        </p>
-</div>
-<div>
-<h4 class="text-slate-900 dark:text-white font-bold mb-6">Product</h4>
-<ul class="space-y-4 text-sm text-slate-500 dark:text-slate-400">
-<li><a class="hover:text-primary transition-colors" href="#features">Features</a></li>
-<li><a class="hover:text-primary transition-colors" href="privacy-policy.html">Privacy Policy</a></li>
-<li><a class="hover:text-primary transition-colors" href="https://github.com/rayenghanmi/RyTuneX/blob/main/CHANGELOG.md" rel="noopener noreferrer" target="_blank">Changelog</a></li>
-<li><a class="hover:text-primary transition-colors" href="https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full" rel="noopener noreferrer" target="_blank">Download</a></li>
-</ul>
-</div>
-<div>
-<h4 class="text-slate-900 dark:text-white font-bold mb-6">Resources</h4>
-<ul class="space-y-4 text-sm text-slate-500 dark:text-slate-400">
-<li><a class="hover:text-primary transition-colors" href="docs.html">Documentation</a></li>
-<li><a class="hover:text-primary transition-colors" href="https://discord.gg/gyBzyd364t" rel="noopener noreferrer" target="_blank">Community (Discord)</a></li>
-<li><a class="hover:text-primary transition-colors" href="https://github.com/rayenghanmi/RyTuneX/wiki" rel="noopener noreferrer" target="_blank">Knowledge Base</a></li>
-<li><a class="hover:text-primary transition-colors" href="https://github.com/rayenghanmi/RyTuneX" rel="noopener noreferrer" target="_blank">GitHub Repository</a></li>
-</ul>
-</div>
-<div>
-<h4 class="text-slate-900 dark:text-white font-bold mb-6">Stay Connected</h4>
-<div class="flex gap-4 mb-6">
-<a class="w-10 h-10 rounded-lg bg-slate-200 dark:bg-slate-900 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="https://rayenghanmi.github.io/rytunex" rel="noopener noreferrer" target="_blank">
-<span class="material-symbols-outlined text-xl">public</span>
-</a>
-<a class="w-10 h-10 rounded-lg bg-slate-200 dark:bg-slate-900 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="mailto:rytunex@gmail.com">
-<span class="material-symbols-outlined text-xl">rss_feed</span>
-</a>
-</div>
-<p class="text-xs text-slate-500 dark:text-slate-600">
-                            Contact: rytunex@gmail.com • © Rayen Ghanmi. Windows is a registered trademark of Microsoft Corporation.
-                        </p>
-</div>
-</div>
-</footer>
-</div>
-</div>
-<script src="script.js"></script>
-<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="rayen.ghanmi.22" data-description="Support me on Buy me a coffee!" data-message="" data-color="#ff4d94" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
-</body></html>
+
+    <!-- FEATURES -->
+    <section class="features-section" id="features" aria-labelledby="features-title">
+      <div class="section-header">
+        <div class="eyebrow"><span class="msr xs" aria-hidden="true">auto_awesome</span> Capabilities</div>
+        <h2 class="heading-lg" id="features-title" style="margin-bottom:14px;">Engineered for Performance</h2>
+        <p class="lead" style="max-width:600px; margin: 0 auto;">
+          RyTuneX optimizes your OS at a deep level, every toggle, every tweak, every debloat action is purpose-built
+          for real-world gains.
+        </p>
+      </div>
+
+      <div class="features-grid" style="max-width:1200px; margin: 0 auto;">
+        <div class="feature-card">
+          <div class="feature-icon pink"><span class="msr lg fill" aria-hidden="true">bolt</span></div>
+          <h3 class="feature-title">Performance Boost</h3>
+          <p class="feature-desc">Disable wasteful background services, apply gaming power plans, and unlock
+            kernel-level performance tweaks with a single click.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon blue"><span class="msr lg fill" aria-hidden="true">delete_sweep</span></div>
+          <h3 class="feature-title">Intelligent Debloat</h3>
+          <p class="feature-desc">Safely remove pre-installed UWP bloatware with surgical precision. Reclaim disk space
+            and eliminate startup clutter instantly.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon purple"><span class="msr lg fill" aria-hidden="true">shield</span></div>
+          <h3 class="feature-title">Privacy Shield</h3>
+          <p class="feature-desc">Block Microsoft telemetry pipelines, advertising IDs, and diagnostic data collection.
+            Your data stays on your machine.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon green"><span class="msr lg fill" aria-hidden="true">policy</span></div>
+          <h3 class="feature-title">Policy Engine</h3>
+          <p class="feature-desc">Scan, read, and apply Group Policy overrides across privacy, update behavior,
+            telemetry, and Windows features.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon orange"><span class="msr lg fill" aria-hidden="true">router</span></div>
+          <h3 class="feature-title">Network Control</h3>
+          <p class="feature-desc">Configure DNS, disable network throttling, and block unwanted outbound connections to
+            improve bandwidth and security.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon pink"><span class="msr lg fill" aria-hidden="true">inventory_2</span></div>
+          <h3 class="feature-title">Package Manager</h3>
+          <p class="feature-desc">Integrated WinGet support lets you search, install, and update software without ever
+            leaving the app.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BENCHMARKS -->
+    <section class="benchmarks-section" id="benchmarks" aria-labelledby="benchmarks-title">
+      <div class="section-header">
+        <div class="eyebrow"><span class="msr xs" aria-hidden="true">bar_chart</span> Results</div>
+        <h2 class="heading-lg" id="benchmarks-title" style="margin-bottom:14px;">Proven Real-World Gains</h2>
+        <p class="lead" style="max-width:600px; margin: 0 auto;">
+          Real performance metrics measured before and after RyTuneX optimization on the same hardware.
+        </p>
+      </div>
+
+      <div class="bench-grid">
+
+        <!-- FH5: FPS -->
+        <div class="bench-card">
+          <div class="bench-header">
+            <div>
+              <div class="bench-label">FPS Performance</div>
+              <div class="bench-title">Forza Horizon 5</div>
+            </div>
+            <div>
+              <div class="bench-delta">+19%</div>
+              <div class="bench-delta-label">Increase</div>
+            </div>
+          </div>
+          <div class="bench-row">
+            <div class="bench-row-header">
+              <span>Stock Windows 11</span>
+              <span>77 FPS</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill muted" style="width:83%;" role="progressbar" aria-valuenow="83" aria-valuemin="0"
+                aria-valuemax="100"></div>
+            </div>
+          </div>
+          <div class="bench-row">
+            <div class="bench-row-header optimized">
+              <span>RyTuneX Optimized</span>
+              <span>92 FPS</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill pink" style="width:100%;" role="progressbar" aria-valuenow="100" aria-valuemin="0"
+                aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FH5: Frametime -->
+        <div class="bench-card">
+          <div class="bench-header">
+            <div>
+              <div class="bench-label">System Latency</div>
+              <div class="bench-title">FH5 Avg. Frametime</div>
+            </div>
+            <div>
+              <div class="bench-delta">-31%</div>
+              <div class="bench-delta-label">Reduction</div>
+            </div>
+          </div>
+          <div class="bench-row">
+            <div class="bench-row-header">
+              <span>Stock Windows 11</span>
+              <span>16.0 ms</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill muted" style="width:100%;" role="progressbar" aria-valuenow="100" aria-valuemin="0"
+                aria-valuemax="100"></div>
+            </div>
+          </div>
+          <div class="bench-row">
+            <div class="bench-row-header optimized">
+              <span>RyTuneX Optimized</span>
+              <span>11.0 ms</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill pink" style="width:69%;" role="progressbar" aria-valuenow="69" aria-valuemin="0"
+                aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FH5: 1% Lows -->
+        <div class="bench-card">
+          <div class="bench-header">
+            <div>
+              <div class="bench-label">Stutter Reduction</div>
+              <div class="bench-title">FH5 1% Low FPS</div>
+            </div>
+            <div>
+              <div class="bench-delta">+37%</div>
+              <div class="bench-delta-label">Increase</div>
+            </div>
+          </div>
+          <div class="bench-row">
+            <div class="bench-row-header">
+              <span>Stock Windows 11</span>
+              <span>42 FPS</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill muted" style="width:72%;" role="progressbar" aria-valuenow="72" aria-valuemin="0"
+                aria-valuemax="100"></div>
+            </div>
+          </div>
+          <div class="bench-row">
+            <div class="bench-row-header optimized">
+              <span>RyTuneX Optimized</span>
+              <span>58 FPS</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill pink" style="width:100%;" role="progressbar" aria-valuenow="100" aria-valuemin="0"
+                aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GTA V: FPS -->
+        <div class="bench-card">
+          <div class="bench-header">
+            <div>
+              <div class="bench-label">FPS Performance</div>
+              <div class="bench-title">GTA V Enhanced</div>
+            </div>
+            <div>
+              <div class="bench-delta">+45%</div>
+              <div class="bench-delta-label">Increase</div>
+            </div>
+          </div>
+          <div class="bench-row">
+            <div class="bench-row-header">
+              <span>Stock Windows 11</span>
+              <span>71 FPS</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill muted" style="width:69%;" role="progressbar" aria-valuenow="69" aria-valuemin="0"
+                aria-valuemax="100"></div>
+            </div>
+          </div>
+          <div class="bench-row">
+            <div class="bench-row-header optimized">
+              <span>RyTuneX Optimized</span>
+              <span>103 FPS</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill pink" style="width:100%;" role="progressbar" aria-valuenow="100" aria-valuemin="0"
+                aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GTA V: Frametime -->
+        <div class="bench-card">
+          <div class="bench-header">
+            <div>
+              <div class="bench-label">System Latency</div>
+              <div class="bench-title">GTA V Avg. Frametime</div>
+            </div>
+            <div>
+              <div class="bench-delta">-66%</div>
+              <div class="bench-delta-label">Reduction</div>
+            </div>
+          </div>
+          <div class="bench-row">
+            <div class="bench-row-header">
+              <span>Stock Windows 11</span>
+              <span>26.5 ms</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill muted" style="width:100%;" role="progressbar" aria-valuenow="100" aria-valuemin="0"
+                aria-valuemax="100"></div>
+            </div>
+          </div>
+          <div class="bench-row">
+            <div class="bench-row-header optimized">
+              <span>RyTuneX Optimized</span>
+              <span>9.0 ms</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill pink" style="width:34%;" role="progressbar" aria-valuenow="34" aria-valuemin="0"
+                aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GTA V: 1% Lows -->
+        <div class="bench-card">
+          <div class="bench-header">
+            <div>
+              <div class="bench-label">Stutter Reduction</div>
+              <div class="bench-title">GTA V 1% Low FPS</div>
+            </div>
+            <div>
+              <div class="bench-delta">+130%</div>
+              <div class="bench-delta-label">Increase</div>
+            </div>
+          </div>
+          <div class="bench-row">
+            <div class="bench-row-header">
+              <span>Stock Windows 11</span>
+              <span>37 FPS</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill muted" style="width:61%;" role="progressbar" aria-valuenow="61" aria-valuemin="0"
+                aria-valuemax="100"></div>
+            </div>
+          </div>
+          <div class="bench-row">
+            <div class="bench-row-header optimized">
+              <span>RyTuneX Optimized</span>
+              <span>85 FPS</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill pink" style="width:100%;" role="progressbar" aria-valuenow="100" aria-valuemin="0"
+                aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- System Processes -->
+        <div class="bench-card">
+          <div class="bench-header">
+            <div>
+              <div class="bench-label">System Debloat</div>
+              <div class="bench-title">Background Tasks</div>
+            </div>
+            <div>
+              <div class="bench-delta">-55%</div>
+              <div class="bench-delta-label">Reduction</div>
+            </div>
+          </div>
+          <div class="bench-row">
+            <div class="bench-row-header">
+              <span>Stock Windows 11</span>
+              <span>165 Processes</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill muted" style="width:100%;" role="progressbar" aria-valuenow="100" aria-valuemin="0"
+                aria-valuemax="100"></div>
+            </div>
+          </div>
+          <div class="bench-row">
+            <div class="bench-row-header optimized">
+              <span>RyTuneX Optimized</span>
+              <span>74 Processes</span>
+            </div>
+            <div class="bar-track">
+              <div class="bar-fill pink" style="width:45%;" role="progressbar" aria-valuenow="45" aria-valuemin="0"
+                aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials-section" id="testimonials" aria-labelledby="testimonials-title">
+      <div class="section-header">
+        <div class="eyebrow"><span class="msr xs" aria-hidden="true">reviews</span> Press &amp; Community</div>
+        <h2 class="heading-lg" id="testimonials-title" style="margin-bottom:14px;">What Reviewers Say</h2>
+        <p class="lead" style="max-width:500px; margin: 0 auto;">Feedback from trusted Windows media outlets and power
+          users around the globe.</p>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card" data-testimonial-slot>
+          <div class="quote-mark" aria-hidden="true">"</div>
+          <p class="testimonial-text" data-testimonial-quote>
+            "The most striking aspect of RyTuneX is how directly it addresses user pain points with practical,
+            low-friction solutions."
+          </p>
+          <div class="testimonial-author">
+            <img class="testimonial-avatar" data-testimonial-image
+              src="https://www.google.com/s2/favicons?domain=windowsforum.com&sz=64" alt="WindowsForum logo" width="42"
+              height="42" />
+            <div>
+              <div class="testimonial-name" data-testimonial-author>WindowsForum</div>
+              <div class="testimonial-source"><a
+                  href="https://windowsforum.com/threads/rytunex-1-3-2-review-the-best-windows-tweaking-tool-for-privacy-and-customization.367929/"
+                  rel="noopener noreferrer" target="_blank" data-testimonial-link>Source Review ↗</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card" data-testimonial-slot>
+          <div class="quote-mark" aria-hidden="true">"</div>
+          <p class="testimonial-text" data-testimonial-quote>
+            "RyTuneX is more than just an optimization tool, it's a refined solution for anyone looking to unlock their
+            Windows device's full potential."
+          </p>
+          <div class="testimonial-author">
+            <img class="testimonial-avatar" data-testimonial-image
+              src="https://www.google.com/s2/favicons?domain=trishtech.com&sz=64" alt="TrishTech logo" width="42"
+              height="42" />
+            <div>
+              <div class="testimonial-name" data-testimonial-author>Trisha, TrishTech</div>
+              <div class="testimonial-source"><a
+                  href="https://www.trishtech.com/2025/06/rytunex-optimize-and-enhance-your-windows-10-and-11-pc/"
+                  rel="noopener noreferrer" target="_blank" data-testimonial-link>Source Review ↗</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section" aria-labelledby="cta-title">
+      <div class="cta-inner">
+        <div class="cta-content">
+          <h2 class="cta-title" id="cta-title">Ready to Feel the Speed?</h2>
+          <p class="cta-desc">Download the most advanced Windows optimization suite. Free, open-source, and trusted by
+            thousands worldwide.</p>
+          <div class="cta-actions">
+            <a class="btn btn-primary btn-lg" href="https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full"
+              rel="noopener noreferrer" target="_blank" data-version-template="Download Now, {versionWithV}"
+              id="cta-download-btn">
+              <span class="msr fill" aria-hidden="true">download</span>
+              Download Now
+            </a>
+            <a class="btn btn-secondary btn-lg" href="docs.html">
+              <span class="msr" aria-hidden="true">menu_book</span>
+              Read the Docs
+            </a>
+          </div>
+          <p class="cta-note">Supports Windows 10 (20H1+) &amp; Windows 11, x64 &amp; x86</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── FOOTER ────────────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <!-- Brand -->
+      <div>
+        <a class="topnav-brand" href="index.html" style="display:inline-flex;">
+          <img src="assets/logo.png" alt="RyTuneX" width="28" height="28" />
+          <span class="topnav-brand-name">RyTuneX</span>
+        </a>
+        <p class="footer-brand-desc">Empowering Windows users with precision optimization tools. Built with WinUI 3
+          &amp; .NET, available free on the Microsoft Store.</p>
+        <div class="footer-social" style="margin-top:18px;">
+          <a class="footer-social-btn" href="https://github.com/rayenghanmi/RyTuneX" rel="noopener noreferrer"
+            target="_blank" aria-label="GitHub repository">
+            <span class="msr sm" aria-hidden="true">code</span>
+          </a>
+          <a class="footer-social-btn" href="https://discord.gg/gyBzyd364t" rel="noopener noreferrer" target="_blank"
+            aria-label="Discord community">
+            <span class="msr sm" aria-hidden="true">forum</span>
+          </a>
+          <a class="footer-social-btn" href="mailto:rytunex@gmail.com" aria-label="Email contact">
+            <span class="msr sm" aria-hidden="true">mail</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Product -->
+      <div>
+        <div class="footer-col-title">Product</div>
+        <ul class="footer-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#benchmarks">Benchmarks</a></li>
+          <li><a href="https://github.com/rayenghanmi/RyTuneX/blob/main/CHANGELOG.md" rel="noopener noreferrer"
+              target="_blank">Changelog</a></li>
+          <li><a href="https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full" rel="noopener noreferrer"
+              target="_blank">Download</a></li>
+        </ul>
+      </div>
+
+      <!-- Resources -->
+      <div>
+        <div class="footer-col-title">Resources</div>
+        <ul class="footer-links">
+          <li><a href="docs.html">Documentation</a></li>
+          <li><a href="https://discord.gg/gyBzyd364t" rel="noopener noreferrer" target="_blank">Community</a></li>
+          <li><a href="https://github.com/rayenghanmi/RyTuneX/wiki" rel="noopener noreferrer" target="_blank">Knowledge
+              Base</a></li>
+          <li><a href="https://github.com/rayenghanmi/RyTuneX" rel="noopener noreferrer" target="_blank">GitHub</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal -->
+      <div>
+        <div class="footer-col-title">Legal</div>
+        <ul class="footer-links">
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="https://github.com/rayenghanmi/RyTuneX/blob/main/LICENSE" rel="noopener noreferrer"
+              target="_blank">License (AGPL-3.0)</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Rayen Ghanmi. Windows is a registered trademark of Microsoft Corporation.</span>
+      <span>Contact: rytunex@gmail.com</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    /* ── Mobile menu toggle ────────────────────────────────────────── */
+    (function () {
+      var btn = document.getElementById('mobile-menu-btn');
+      var menu = document.getElementById('mobile-nav');
+      var icon = document.getElementById('mobile-menu-icon');
+      if (!btn || !menu) return;
+
+      btn.addEventListener('click', function () {
+        var open = menu.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (icon) icon.textContent = open ? 'close' : 'menu';
+      });
+
+      menu.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+          menu.classList.remove('open');
+          btn.setAttribute('aria-expanded', 'false');
+          if (icon) icon.textContent = 'menu';
+        });
+      });
+
+      window.addEventListener('resize', function () {
+        if (window.innerWidth >= 900) {
+          menu.classList.remove('open');
+          btn.setAttribute('aria-expanded', 'false');
+          if (icon) icon.textContent = 'menu';
+        }
+      });
+    })();
+  </script>
+  <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+    data-id="rayen.ghanmi.22" data-description="Support me on Buy me a coffee!" data-message="" data-color="#c9306e"
+    data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+</body>
+
+</html>

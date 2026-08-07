@@ -104,7 +104,7 @@
       .then(function (repoData) {
         if (starsTarget) {
           var template = starsTarget.getAttribute("data-stars-template") || "Trusted by {stars} GitHub stargazers";
-          starsTarget.textContent = template.replace(/\{stars\}/g, formatNumber(repoData.stargazers_count));
+          starsTarget.innerHTML = template.replace(/\{stars\}/g, formatNumber(repoData.stargazers_count));
         }
 
         if (!avatarsContainer) return null;
@@ -196,7 +196,7 @@
           "RyTuneX supports Windows 10 and 11, offering users a streamlined approach to managing their systems.",
         author: "MajorGeeks Editors",
         link: "https://www.majorgeeks.com/files/details/rytunex.html",
-        image: "https://www.google.com/s2/favicons?domain=majorgeeks.com&sz=64",
+        image: "https://www.majorgeeks.com/images/logos/majorgeeks-nostar.gif",
         imageAlt: "MajorGeeks logo"
       },
       {
@@ -209,23 +209,7 @@
       },
       {
         quote:
-            "RyTuneX centralizes advanced privacy controls that are normally scattered across Settings, services, and the registry.",
-        author: "All Things Windows",
-        link: "https://windows.atsit.in/tl/31650/",
-        image: "https://www.google.com/s2/favicons?domain=windows.atsit.in&sz=64",
-        imageAlt: "All Things Windows logo"
-      },
-      {
-        quote:
-            "RyTuneX makes it easy to disable telemetry, manage features, and remove unwanted components from Windows.",
-        author: "All Things Windows",
-        link: "https://windows.atsit.in/tl/31650/",
-        image: "https://www.google.com/s2/favicons?domain=windows.atsit.in&sz=64",
-        imageAlt: "All Things Windows logo"
-      },
-      {
-        quote:
-            "RyTuneX lets users clean up their system, block telemetry, manage Windows features, and remove built-in apps.",
+          "RyTuneX lets users clean up their system, block telemetry, manage Windows features, and remove built-in apps.",
         author: "Brian Fagioli - BetaNews",
         link: "https://betanews.com/article/rytunex-1-3-2-optimize-windows-11-remove-microsoft-edge/",
         image: "https://www.google.com/s2/favicons?domain=betanews.com&sz=64",
@@ -233,11 +217,43 @@
       },
       {
         quote:
-            "Built with WinUI 3 and .NET 8, RyTuneX provides a modern interface and compatibility with Windows 10 and 11.",
+          "Built with WinUI 3 and .NET 8, RyTuneX provides a modern interface and compatibility with Windows 10 and 11.",
         author: "JustGeek",
         link: "https://www.justgeek.fr/rytunex-optimiser-windows-125187/",
         image: "https://www.google.com/s2/favicons?domain=justgeek.fr&sz=64",
         imageAlt: "JustGeek logo"
+      },
+      {
+        quote:
+          "RyTuneX has quickly become the favourite tool among PC users in 2025.",
+        author: "Techno360",
+        link: "https://techno360.in/rytunex-free-windows-optimizer/",
+        image: "https://www.google.com/s2/favicons?domain=techno360.in&sz=64",
+        imageAlt: "Techno360 logo"
+      },
+      {
+        quote:
+          "The free and powerful tool that gives you complete control.",
+        author: "Mundobytes",
+        link: "https://mundobytes.com/en/Customize-and-optimize-Windows-with-Rytunex/",
+        image: "https://www.google.com/s2/favicons?domain=mundobytes.com&sz=64",
+        imageAlt: "Mundobytes logo"
+      },
+      {
+        quote:
+          "One of the most complete and versatile open source tools for Windows 10 and 11.",
+        author: "Actualidad Gadget",
+        link: "https://en.actualidadgadget.com/Rytunex:-The-best-tool-for-customizing-and-optimizing-Windows-10-and-11/",
+        image: "https://www.actualidadgadget.com/wp-content/uploads/2020/05/cropped-favicon-150x150.png",
+        imageAlt: "Actualidad Gadget logo"
+      },
+      {
+        quote:
+          "Your go-to solution for a faster, cleaner, and more private Windows experience.",
+        author: "MediaKet",
+        link: "https://www.mediaket.net/software/maintenance-tools/rytunex.html",
+        image: "https://www.google.com/s2/favicons?domain=mediaket.net&sz=64",
+        imageAlt: "MediaKet logo"
       }
     ];
 
@@ -307,7 +323,7 @@
     if (!copyButtons.length) return;
 
     copyButtons.forEach(function (button) {
-      var icon = button.querySelector(".material-symbols-outlined");
+      var icon = button.querySelector(".material-symbols-outlined, .msr");
       var defaultIcon = icon ? icon.textContent.trim() : "content_copy";
 
       button.addEventListener("click", function () {
@@ -343,20 +359,20 @@
     if (!button || !menu) return;
 
     function closeMenu() {
-      menu.classList.add("hidden");
+      menu.classList.remove("open");
       button.setAttribute("aria-expanded", "false");
       button.setAttribute("aria-label", "Open menu");
-      var iconClose = button.querySelector(".material-symbols-outlined");
+      var iconClose = button.querySelector(".msr, .material-symbols-outlined");
       if (iconClose) iconClose.textContent = "menu";
     }
 
     button.addEventListener("click", function () {
-      var isHidden = menu.classList.contains("hidden");
-      menu.classList.toggle("hidden", !isHidden);
-      button.setAttribute("aria-expanded", isHidden ? "true" : "false");
-      button.setAttribute("aria-label", isHidden ? "Close menu" : "Open menu");
-      var icon = button.querySelector(".material-symbols-outlined");
-      if (icon) icon.textContent = isHidden ? "close" : "menu";
+      var isOpen = menu.classList.contains("open");
+      menu.classList.toggle("open", !isOpen);
+      button.setAttribute("aria-expanded", isOpen ? "false" : "true");
+      button.setAttribute("aria-label", isOpen ? "Open menu" : "Close menu");
+      var icon = button.querySelector(".msr, .material-symbols-outlined");
+      if (icon) icon.textContent = isOpen ? "menu" : "close";
     });
 
     menu.querySelectorAll("a").forEach(function (link) {
@@ -396,6 +412,7 @@
       var targetPage = href || "index.html";
       var isActive = targetPage === currentPage;
       link.classList.toggle("is-active", isActive);
+      link.classList.toggle("active", isActive);
       if (isActive) {
         link.setAttribute("aria-current", "page");
       } else {
@@ -436,9 +453,9 @@
     syncSocialProof();
     syncTestimonials();
 
-    setupSectionObserver("main section[id]", ".nav-link[href^='#']", "is-active");
-    setupSectionObserver("main section[id]", ".sidebar-link[href^='#']", "is-active");
-    setupSectionObserver("main section[id]", ".toc-link[href^='#']", "is-active");
+    setupSectionObserver("section[id], h2[id], h3[id]", ".nav-link[href^='#']", "is-active");
+    setupSectionObserver("section[id], h2[id], h3[id]", ".sidebar-link[href^='#']", "is-active");
+    setupSectionObserver("section[id], h2[id], h3[id]", ".toc-link[href^='#']", "is-active");
 
     if (window.location.hash) {
       setActiveByHash(".nav-link[href^='#']", "is-active", window.location.hash);
