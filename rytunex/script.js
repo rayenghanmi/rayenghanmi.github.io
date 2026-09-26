@@ -43,19 +43,11 @@
   }
 
   function fetchLatestVersion() {
-    return fetchRepoMetadata()
-      .then(function (repoData) {
-        var releasesUrlTemplate = repoData && repoData.releases_url;
-        var releasesLatestUrl = releasesUrlTemplate
-          ? releasesUrlTemplate.replace("{/id}", "/latest")
-          : REPO_API_URL + "/releases/latest";
-
-        return fetch(releasesLatestUrl, {
-          headers: {
-            Accept: "application/vnd.github+json"
-          }
-        });
-      })
+    return fetch(REPO_API_URL + "/releases/latest", {
+      headers: {
+        Accept: "application/vnd.github+json"
+      }
+    })
       .then(function (response) {
         if (!response.ok) {
           throw new Error("Failed to fetch latest release");
@@ -103,11 +95,29 @@
     fetchRepoMetadata()
       .then(function (repoData) {
         if (starsTarget) {
-          var template = starsTarget.getAttribute("data-stars-template") || "Trusted by {stars} GitHub stargazers";
-          starsTarget.innerHTML = template.replace(/\{stars\}/g, formatNumber(repoData.stargazers_count));
+          var count = formatNumber(repoData.stargazers_count);
+          // Build DOM safely — no innerHTML with external data
+          starsTarget.textContent = "";
+          starsTarget.append(
+            document.createTextNode("Trusted by "),
+            Object.assign(document.createElement("strong"), { textContent: count }),
+            document.createTextNode(" GitHub stargazers")
+          );
         }
 
         if (!avatarsContainer) return null;
+
+        // Use a 1-hour cache for avatar data to avoid re-fetching on every page load.
+        var AVATAR_CACHE_KEY = "rytunex_avatars_cache";
+        var AVATAR_CACHE_TTL = 3600000; // 1 hour in ms
+        var now = Date.now();
+        try {
+          var cached = JSON.parse(localStorage.getItem(AVATAR_CACHE_KEY) || "null");
+          if (cached && cached.ts && (now - cached.ts) < AVATAR_CACHE_TTL && Array.isArray(cached.data) && cached.data.length >= 3) {
+            applyAvatars(avatarsContainer, cached.data);
+            return null; // skip fetch
+          }
+        } catch (e) { /* ignore */ }
 
         var stargazersUrl = (repoData && repoData.stargazers_url) || (REPO_API_URL + "/stargazers");
         return fetch(stargazersUrl + "?per_page=100", {
@@ -137,17 +147,26 @@
 
         if (picked.length < 3) return;
 
-        var avatars = avatarsContainer.querySelectorAll("img");
-        for (var i = 0; i < Math.min(avatars.length, picked.length); i++) {
-          var user = picked[i];
-          avatars[i].src = user.avatar_url;
-          avatars[i].alt = (user.login || "RyTuneX") + " avatar";
-          avatars[i].title = user.login || "RyTuneX stargazer";
-        }
+        // Store in cache.
+        try {
+          localStorage.setItem("rytunex_avatars_cache", JSON.stringify({ ts: Date.now(), data: picked }));
+        } catch (e) { /* ignore */ }
+
+        applyAvatars(avatarsContainer, picked);
       })
       .catch(function () {
         // Keep fallback avatars/text if API is unavailable or rate-limited.
       });
+  }
+
+  function applyAvatars(container, users) {
+    var avatars = container.querySelectorAll("img");
+    for (var i = 0; i < Math.min(avatars.length, users.length); i++) {
+      var user = users[i];
+      avatars[i].src = user.avatar_url;
+      avatars[i].alt = (user.login || "RyTuneX") + " avatar";
+      avatars[i].title = user.login || "RyTuneX stargazer";
+    }
   }
 
   function pickRandomItems(items, count) {
@@ -354,15 +373,15 @@
   }
 
   function setupMobileMenu() {
-    var button = document.querySelector("[data-mobile-menu-button]");
-    var menu = document.querySelector("[data-mobile-menu]");
+    // Wire by ID — the HTML uses id="mobile-menu-btn" and id="mobile-nav"
+    var button = document.getElementById("mobile-menu-btn");
+    var menu = document.getElementById("mobile-nav");
     if (!button || !menu) return;
 
     function closeMenu() {
       menu.classList.remove("open");
       button.setAttribute("aria-expanded", "false");
-      button.setAttribute("aria-label", "Open menu");
-      var iconClose = button.querySelector(".msr, .material-symbols-outlined");
+      var iconClose = button.querySelector(".msr");
       if (iconClose) iconClose.textContent = "menu";
     }
 
@@ -370,8 +389,7 @@
       var isOpen = menu.classList.contains("open");
       menu.classList.toggle("open", !isOpen);
       button.setAttribute("aria-expanded", isOpen ? "false" : "true");
-      button.setAttribute("aria-label", isOpen ? "Open menu" : "Close menu");
-      var icon = button.querySelector(".msr, .material-symbols-outlined");
+      var icon = button.querySelector(".msr");
       if (icon) icon.textContent = isOpen ? "menu" : "close";
     });
 
@@ -382,7 +400,7 @@
     });
 
     window.addEventListener("resize", function () {
-      if (window.innerWidth >= 768) {
+      if (window.innerWidth >= 900) {
         closeMenu();
       }
     });
