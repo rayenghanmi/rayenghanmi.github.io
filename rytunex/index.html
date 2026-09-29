@@ -44,6 +44,13 @@
   "description": "RyTuneX is an advanced, open-source system tuning engine for Windows 10 & 11.",
   "applicationCategory": "Utilities",
   "operatingSystem": "Windows 10, Windows 11",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": 4.8,
+    "ratingCount": 136,
+    "bestRating": 5,
+    "worstRating": 1
+  },
   "offers": { "@type": "Offer", "url": "https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full", "price": "0", "priceCurrency": "USD" },
   "sameAs": ["https://github.com/rayenghanmi/RyTuneX"]
 }
@@ -64,6 +71,14 @@
       min-height: calc(100vh - var(--nav-h) - 60px);
     }
 
+    .hero-eyebrow-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
     .hero-eyebrow {
       display: inline-flex;
       align-items: center;
@@ -77,7 +92,6 @@
       color: var(--accent);
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      margin-bottom: 24px;
     }
 
     .hero-eyebrow .pulse {
@@ -158,6 +172,59 @@
       display: flex;
       align-items: center;
       gap: 12px;
+    }
+
+    .store-rating-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-mid);
+      border-radius: var(--r-full);
+      font-size: 0.8rem;
+      color: var(--text-sub);
+      text-decoration: none;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      transition: border-color var(--t-fast), background var(--t-fast), transform var(--t-fast), box-shadow var(--t-fast);
+    }
+
+    .store-rating-badge:hover {
+      border-color: #fbbf24;
+      background: rgba(251, 191, 36, 0.08);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(251, 191, 36, 0.2);
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .rating-stars {
+      display: inline-flex;
+      gap: 2px;
+      color: #fbbf24;
+      filter: drop-shadow(0 0 5px rgba(251, 191, 36, 0.5));
+    }
+
+    .rating-stars .msr {
+      font-size: 15px;
+    }
+
+    .rating-score {
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .rating-max {
+      color: var(--text-muted);
+      font-size: 0.76rem;
+      font-weight: 500;
+    }
+
+    .rating-count {
+      color: var(--text-muted);
+      font-size: 0.78rem;
     }
 
     .avatar-stack {
@@ -883,9 +950,24 @@
     <section class="hero-section" aria-labelledby="hero-title">
       <!-- Left: Text -->
       <div class="animate-slide-up">
-        <div class="hero-eyebrow" role="status" aria-live="polite">
-          <span class="pulse" aria-hidden="true"></span>
-          <span data-version-template="Version {versionNoV} Now Live">Now Available</span>
+        <div class="hero-eyebrow-row">
+          <div class="hero-eyebrow" role="status" aria-live="polite">
+            <span class="pulse" aria-hidden="true"></span>
+            <span data-version-template="Version {versionNoV} Now Live">Now Available</span>
+          </div>
+
+          <a class="store-rating-badge" href="https://apps.microsoft.com/detail/9pdh8m7hf2sq" target="_blank"
+            rel="noopener noreferrer" aria-label="Rated 4.8 out of 5 stars on Microsoft Store">
+            <span class="rating-stars" aria-hidden="true">
+              <span class="msr fill sm">star</span>
+              <span class="msr fill sm">star</span>
+              <span class="msr fill sm">star</span>
+              <span class="msr fill sm">star</span>
+              <span class="msr fill sm">star</span>
+            </span>
+            <span class="rating-score"><span data-store-rating-value>4.8</span><span class="rating-max">/5</span></span>
+            <span class="rating-count" data-store-rating-count>(130+ reviews)</span>
+          </a>
         </div>
 
         <h1 class="hero-title" id="hero-title">

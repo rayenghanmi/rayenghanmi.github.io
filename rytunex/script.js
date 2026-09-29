@@ -87,6 +87,62 @@
       });
   }
 
+  var STORE_API_URL = "https://displaycatalog.mp.microsoft.com/v7.0/products/9pdh8m7hf2sq?market=US&languages=en-US";
+  var STORE_CACHE_KEY = "rytunex_store_rating";
+  var STORE_CACHE_TTL = 3600000; // 1 hour
+
+  function syncStoreRating() {
+    var ratingValueEl = document.querySelector("[data-store-rating-value]");
+    var ratingCountEl = document.querySelector("[data-store-rating-count]");
+    if (!ratingValueEl && !ratingCountEl) return;
+
+    var now = Date.now();
+    try {
+      var cached = JSON.parse(localStorage.getItem(STORE_CACHE_KEY) || "null");
+      if (cached && cached.ts && (now - cached.ts) < STORE_CACHE_TTL && cached.rating) {
+        if (ratingValueEl) ratingValueEl.textContent = Number(cached.rating).toFixed(1);
+        if (ratingCountEl && cached.count) ratingCountEl.textContent = "(" + cached.count + "+ reviews)";
+        return;
+      }
+    } catch (e) { /* ignore */ }
+
+    fetch(STORE_API_URL, {
+      headers: {
+        Accept: "application/json"
+      }
+    })
+      .then(function (response) {
+        if (!response.ok) throw new Error("Failed to fetch store rating");
+        return response.json();
+      })
+      .then(function (data) {
+        var usage = (data && data.Product && data.Product.MarketProperties && data.Product.MarketProperties[0] && data.Product.MarketProperties[0].UsageData) || [];
+        var allTime = null;
+        for (var i = 0; i < usage.length; i++) {
+          if (usage[i].AggregateTimeSpan === "AllTime") {
+            allTime = usage[i];
+            break;
+          }
+        }
+        if (!allTime && usage.length > 0) {
+          allTime = usage[usage.length - 1];
+        }
+
+        var rating = allTime && allTime.AverageRating ? allTime.AverageRating : 4.8;
+        var count = allTime && allTime.RatingCount ? allTime.RatingCount : 130;
+
+        if (ratingValueEl) ratingValueEl.textContent = Number(rating).toFixed(1);
+        if (ratingCountEl) ratingCountEl.textContent = "(" + count + "+ reviews)";
+
+        try {
+          localStorage.setItem(STORE_CACHE_KEY, JSON.stringify({ ts: now, rating: rating, count: count }));
+        } catch (e) { /* ignore */ }
+      })
+      .catch(function () {
+        // Fallback default values remain intact in HTML
+      });
+  }
+
   function syncSocialProof() {
     var starsTarget = document.querySelector("[data-stars-template]");
     var avatarsContainer = document.querySelector("[data-stargazers-avatars]");
@@ -468,6 +524,7 @@
     setupCopyButtons();
     setupMobileMenu();
     syncLatestVersion();
+    syncStoreRating();
     syncSocialProof();
     syncTestimonials();
 
