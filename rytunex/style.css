@@ -1,18 +1,7 @@
-/* ─────────────────────────────────────────────────────────────────
-   RyTuneX — Shared Fluent Design System
-   2026 Edition · Mica + Acrylic aesthetic
-   Color palette extracted from logo:
-     Pink/Magenta: #f177a6, #e8498a, #c9306e
-     Blue/Cyan:    #5bc4f5, #6badf0, #4a8de0
-     Purple:       #9b7fef, #7b5cd6
-   ───────────────────────────────────────────────────────────────── */
-
-/* Fonts loaded via <link> in HTML for better performance */
-
 /* ── DESIGN TOKENS ─────────────────────────────────────────────── */
 :root {
   /* Brand gradient palette */
-  --pink: #f177a6;
+  --pink: #ff5e92;
   --pink-deep: #e8498a;
   --pink-strong: #c9306e;
   --blue: #5bc4f5;
@@ -26,7 +15,8 @@
   --accent-deep: var(--pink-deep);
 
   /* Brand gradient */
-  --grad-brand: linear-gradient(135deg, var(--pink) 0%, var(--purple) 50%, var(--blue-mid) 100%);
+  --grad-brand: #ff5e92;
+  /*linear-gradient(135deg, var(--pink) 0%, var(--purple) 50%, var(--blue-mid) 100%);*/
   --grad-pink: linear-gradient(135deg, var(--pink-deep) 0%, var(--pink-strong) 100%);
   --grad-glow: linear-gradient(135deg, rgba(241, 119, 166, 0.3) 0%, rgba(155, 127, 239, 0.3) 50%, rgba(107, 173, 240, 0.3) 100%);
 
