@@ -157,7 +157,17 @@ button {
 }
 
 /* ── MATERIAL SYMBOLS ──────────────────────────────────────────── */
-.msr {
+@font-face {
+  font-family: 'Material Symbols Rounded';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('assets/fonts/material-symbols-rounded.woff2') format('woff2'),
+    url('https://fonts.gstatic.com/s/materialsymbolsrounded/v378/syl7-zNym6YjUruM-QrEh7-nyTnjDwKNJ_190FjpZIvLgyidOK7BDB_Qb9vUdV6_gjDK-P3JuF_Zs-obHph2-jOcZTKPqw.woff2') format('woff2');
+}
+
+.msr,
+.material-symbols-rounded {
   font-family: 'Material Symbols Rounded';
   font-weight: normal;
   font-style: normal;
@@ -170,12 +180,15 @@ button {
   word-wrap: normal;
   direction: ltr;
   -webkit-font-smoothing: antialiased;
+  -webkit-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
   vertical-align: middle;
   user-select: none;
 }
 
-.msr.fill {
+.msr.fill,
+.material-symbols-rounded.fill {
   font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
