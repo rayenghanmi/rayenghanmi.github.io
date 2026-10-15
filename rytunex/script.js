@@ -429,9 +429,97 @@
   }
 
   function setupMobileMenu() {
-    // Wire by ID — the HTML uses id="mobile-menu-btn" and id="mobile-nav"
     var button = document.getElementById("mobile-menu-btn");
     var menu = document.getElementById("mobile-nav");
+    var sidebar = document.querySelector(".sidebar");
+    var backdrop = document.getElementById("sidebar-backdrop");
+    var sidebarClose = document.getElementById("sidebar-close-btn");
+    var docsToggle = document.getElementById("docs-sidebar-toggle");
+
+    // If the page has a docs sidebar, mobile menu button and docs toggle should open the sidebar
+    if (sidebar) {
+      function openSidebar() {
+        sidebar.classList.add("open", "is-open");
+        if (backdrop) backdrop.classList.add("active", "open");
+        document.body.classList.add("sidebar-open");
+        if (button) {
+          button.setAttribute("aria-expanded", "true");
+          var icon = button.querySelector(".msr");
+          if (icon) icon.textContent = "close";
+        }
+      }
+
+      function closeSidebar() {
+        sidebar.classList.remove("open", "is-open");
+        if (backdrop) backdrop.classList.remove("active", "open");
+        document.body.classList.remove("sidebar-open");
+        if (button) {
+          button.setAttribute("aria-expanded", "false");
+          var icon = button.querySelector(".msr");
+          if (icon) icon.textContent = "menu";
+        }
+      }
+
+      function toggleSidebar() {
+        var isOpen = sidebar.classList.contains("open") || sidebar.classList.contains("is-open");
+        if (isOpen) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+      }
+
+      if (button) {
+        button.addEventListener("click", function (e) {
+          e.stopPropagation();
+          toggleSidebar();
+        });
+      }
+
+      if (docsToggle) {
+        docsToggle.addEventListener("click", function (e) {
+          e.stopPropagation();
+          openSidebar();
+        });
+      }
+
+      if (sidebarClose) {
+        sidebarClose.addEventListener("click", function (e) {
+          e.stopPropagation();
+          closeSidebar();
+        });
+      }
+
+      if (backdrop) {
+        backdrop.addEventListener("click", function () {
+          closeSidebar();
+        });
+      }
+
+      sidebar.querySelectorAll("a").forEach(function (link) {
+        link.addEventListener("click", function () {
+          if (window.innerWidth <= 900) {
+            closeSidebar();
+          }
+        });
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && (sidebar.classList.contains("open") || sidebar.classList.contains("is-open"))) {
+          closeSidebar();
+        }
+      });
+
+      window.addEventListener("resize", function () {
+        if (window.innerWidth >= 900) {
+          closeSidebar();
+        }
+      });
+
+      return;
+    }
+
+    // Default mobile menu for pages without sidebar (e.g. index.html)
     if (!button || !menu) return;
 
     function closeMenu() {
