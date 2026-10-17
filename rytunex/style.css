@@ -941,42 +941,55 @@ body:has(.sidebar) .site-footer {
   pointer-events: none;
 }
 
-/* ── ANIMATED GLOW PULSE ───────────────────────────────────────── */
+/* ── ANIMATION & REVEAL SYSTEM (GPU-Optimized) ─────────────────── */
 @keyframes glow-pulse {
-
-  0%,
-  100% {
+  0%, 100% {
     opacity: 0.4;
-    transform: scale(1);
+    transform: scale3d(1, 1, 1);
   }
-
   50% {
-    opacity: 0.7;
-    transform: scale(1.08);
+    opacity: 0.75;
+    transform: scale3d(1.08, 1.08, 1);
   }
 }
 
 @keyframes float-y {
-
-  0%,
-  100% {
-    transform: translateY(0);
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
   }
-
   50% {
-    transform: translateY(-8px);
+    transform: translate3d(0, -6px, 0);
+  }
+}
+
+@keyframes float-subtle {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -4px, 0);
   }
 }
 
 @keyframes slide-up {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translate3d(0, 18px, 0);
   }
-
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -984,36 +997,302 @@ body:has(.sidebar) .site-footer {
   from {
     opacity: 0;
   }
-
   to {
     opacity: 1;
   }
 }
 
-@keyframes bar-fill {
+@keyframes scale-in {
   from {
-    width: 0 !important;
+    opacity: 0;
+    transform: scale3d(0.95, 0.95, 1);
+  }
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
   }
 }
 
+@keyframes copy-pop {
+  0% { transform: scale3d(1, 1, 1); }
+  45% { transform: scale3d(1.22, 1.22, 1); }
+  100% { transform: scale3d(1, 1, 1); }
+}
+
+@keyframes shimmer-sweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+@keyframes bar-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Base keyframe utility classes */
 .animate-slide-up {
-  animation: slide-up 0.5s ease both;
+  animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-slide-down {
+  animation: slide-down 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .animate-fade-in {
   animation: fade-in 0.4s ease both;
 }
 
+.animate-scale-in {
+  animation: scale-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-float {
+  animation: float-y 5s ease-in-out infinite;
+}
+
 .anim-delay-1 {
-  animation-delay: 0.1s;
+  animation-delay: 0.08s;
 }
 
 .anim-delay-2 {
-  animation-delay: 0.2s;
+  animation-delay: 0.16s;
 }
 
 .anim-delay-3 {
-  animation-delay: 0.3s;
+  animation-delay: 0.24s;
+}
+
+.anim-delay-4 {
+  animation-delay: 0.32s;
+}
+
+/* ── SCROLL REVEAL ENGINE ──────────────────────────────────────── */
+/* Fallback: If JS is disabled or not ready, all content is visible */
+.reveal,
+.reveal-fade,
+.reveal-scale,
+.reveal-slide-left,
+.reveal-slide-right {
+  opacity: 1;
+  transform: none;
+}
+
+/* Only when JS initiates reveal mode do elements hide before view */
+html.js-reveal-ready .reveal {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+html.js-reveal-ready .reveal.is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+html.js-reveal-ready .reveal-fade {
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  will-change: opacity;
+}
+
+html.js-reveal-ready .reveal-fade.is-revealed {
+  opacity: 1;
+  will-change: auto;
+}
+
+html.js-reveal-ready .reveal-scale {
+  opacity: 0;
+  transform: scale3d(0.96, 0.96, 1) translate3d(0, 12px, 0);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+html.js-reveal-ready .reveal-scale.is-revealed {
+  opacity: 1;
+  transform: scale3d(1, 1, 1) translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+/* Stagger Groups */
+html.js-reveal-ready .reveal-stagger > * {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  transition: opacity 0.48s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.48s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+html.js-reveal-ready .reveal-stagger.is-revealed > *,
+html.js-reveal-ready .reveal-stagger > *.is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+html.js-reveal-ready .reveal-stagger > *:nth-child(1) { transition-delay: 0.04s; }
+html.js-reveal-ready .reveal-stagger > *:nth-child(2) { transition-delay: 0.08s; }
+html.js-reveal-ready .reveal-stagger > *:nth-child(3) { transition-delay: 0.12s; }
+html.js-reveal-ready .reveal-stagger > *:nth-child(4) { transition-delay: 0.16s; }
+html.js-reveal-ready .reveal-stagger > *:nth-child(5) { transition-delay: 0.20s; }
+html.js-reveal-ready .reveal-stagger > *:nth-child(6) { transition-delay: 0.24s; }
+html.js-reveal-ready .reveal-stagger > *:nth-child(7) { transition-delay: 0.28s; }
+html.js-reveal-ready .reveal-stagger > *:nth-child(8) { transition-delay: 0.32s; }
+
+/* ── INTERACTIVE MICRO-INTERACTIONS ────────────────────────────── */
+/* Cards & Containers Hover Elevation */
+.card,
+.feature-card,
+.feature-block,
+.module-card,
+.summary-card,
+.terms-section,
+.policy-section,
+.testimonial-card,
+.bench-card {
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.28s ease,
+              box-shadow 0.28s ease;
+  transform: translate3d(0, 0, 0);
+}
+
+.card:hover,
+.feature-card:hover,
+.feature-block:hover,
+.module-card:hover,
+.summary-card:hover,
+.terms-section:hover,
+.policy-section:hover,
+.testimonial-card:hover,
+.bench-card:hover {
+  transform: translate3d(0, -3px, 0);
+}
+
+/* Card Icons Micro-motion */
+.card-icon,
+.feature-icon,
+.module-badge,
+.summary-icon {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
+}
+
+.card:hover .card-icon,
+.feature-card:hover .feature-icon,
+.feature-block:hover .card-icon,
+.module-card:hover .module-badge,
+.summary-card:hover .summary-icon {
+  transform: scale3d(1.1, 1.1, 1) rotate(1deg);
+}
+
+/* Button & Link Sheen / Press */
+.btn,
+.topnav-cta {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.2s ease,
+              box-shadow 0.2s ease;
+  transform: translate3d(0, 0, 0);
+}
+
+.btn:hover,
+.topnav-cta:hover {
+  transform: translate3d(0, -2px, 0);
+}
+
+.btn:active,
+.topnav-cta:active {
+  transform: scale3d(0.98, 0.98, 1);
+}
+
+/* Subtle gloss shine on primary action buttons */
+.btn-primary::after,
+.topnav-cta::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: skewX(-20deg);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.btn-primary:hover::after,
+.topnav-cta:hover::after {
+  opacity: 1;
+  animation: shimmer-sweep 0.85s ease;
+}
+
+/* Copy button click pop */
+.btn-copy-pop {
+  animation: copy-pop 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Floating Scroll to Top button */
+.scroll-top-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--r-full);
+  background: rgba(20, 23, 32, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-mid);
+  color: var(--text-sub);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 900;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(0, 14px, 0);
+  transition: opacity 0.28s ease,
+              transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.2s,
+              border-color 0.2s,
+              color 0.2s,
+              box-shadow 0.2s;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.scroll-top-btn.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate3d(0, 0, 0);
+}
+
+.scroll-top-btn:hover {
+  background: var(--bg-elevated);
+  border-color: var(--border-accent);
+  color: var(--accent);
+  box-shadow: 0 4px 20px var(--glow-pink);
+  transform: translate3d(0, -2px, 0);
+}
+
+.scroll-top-btn:active {
+  transform: scale3d(0.95, 0.95, 1);
+}
+
+/* Sidebar Link subtle slide on hover */
+.sidebar-link {
+  transition: color var(--t-fast), background var(--t-fast), border-color var(--t-fast), transform var(--t-fast);
+}
+
+.sidebar-link:hover {
+  transform: translate3d(3px, 0, 0);
 }
 
 /* ── NAV UNDERLINE ANIMATION ───────────────────────────────────── */
@@ -1055,7 +1334,19 @@ body:has(.sidebar) .site-footer {
 .bar-fill {
   height: 100%;
   border-radius: var(--r-full);
-  animation: bar-fill 1s ease both;
+  transform-origin: left center;
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+html.js-reveal-ready .bar-fill {
+  transform: scaleX(0);
+}
+
+html.js-reveal-ready .bench-card.is-revealed .bar-fill,
+html.js-reveal-ready .bar-fill.animate-fill,
+.bar-fill.animate-fill {
+  transform: scaleX(1);
 }
 
 .bar-fill.pink {
@@ -1276,11 +1567,26 @@ body.sidebar-open {
 
 /* ── REDUCED MOTION ────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal,
+  .reveal-fade,
+  .reveal-scale,
+  .reveal-stagger > *,
+  html.js-reveal-ready .reveal,
+  html.js-reveal-ready .reveal-fade,
+  html.js-reveal-ready .reveal-scale,
+  html.js-reveal-ready .reveal-stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }

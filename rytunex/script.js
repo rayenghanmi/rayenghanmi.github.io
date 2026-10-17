@@ -88,23 +88,83 @@
   }
 
   var STORE_API_URL = "https://displaycatalog.mp.microsoft.com/v7.0/products/9pdh8m7hf2sq?market=US&languages=en-US";
-  var STORE_CACHE_KEY = "rytunex_store_rating";
-  var STORE_CACHE_TTL = 3600000; // 1 hour
+  var STORE_CACHE_KEY = "rytunex_store_rating_v2";
+  var STORE_CACHE_TTL = 600000; // 10 minutes
+
+  function updateSchemaRating(rating, count) {
+    try {
+      var script = document.querySelector('script[type="application/ld+json"]');
+      if (script && rating && count) {
+        var data = JSON.parse(script.textContent);
+        if (data && data["@type"] === "SoftwareApplication") {
+          data.aggregateRating = {
+            "@type": "AggregateRating",
+            "ratingValue": Number(Number(rating).toFixed(1)),
+            "ratingCount": Number(count),
+            "bestRating": 5,
+            "worstRating": 1
+          };
+          script.textContent = JSON.stringify(data, null, 2);
+        }
+      }
+    } catch (e) {
+      // Ignore schema parse issues
+    }
+  }
+
+  function applyStoreRating(rating, count) {
+    if (!rating && !count) return;
+
+    var ratingValueEl = document.querySelector("[data-store-rating-value]");
+    var ratingCountEl = document.querySelector("[data-store-rating-count]");
+    var ratingMaxEl = document.querySelector("[data-store-rating-max]");
+    var badgeEl = document.querySelector("[data-store-badge]") || document.querySelector(".store-rating-badge");
+
+    if (rating && ratingValueEl) {
+      ratingValueEl.textContent = Number(rating).toFixed(1);
+    }
+    if (rating && ratingMaxEl) {
+      ratingMaxEl.style.display = "inline";
+    }
+    if (count && ratingCountEl) {
+      ratingCountEl.textContent = "(" + count + "+ reviews)";
+    }
+    if (badgeEl && rating && count) {
+      badgeEl.setAttribute(
+        "aria-label",
+        "Rated " + Number(rating).toFixed(1) + " out of 5 stars on Microsoft Store (" + count + "+ reviews)"
+      );
+    }
+
+    updateSchemaRating(rating, count);
+  }
 
   function syncStoreRating() {
     var ratingValueEl = document.querySelector("[data-store-rating-value]");
     var ratingCountEl = document.querySelector("[data-store-rating-count]");
     if (!ratingValueEl && !ratingCountEl) return;
 
-    var now = Date.now();
+    // Purge deprecated cache key with outdated hardcoded values
     try {
-      var cached = JSON.parse(localStorage.getItem(STORE_CACHE_KEY) || "null");
-      if (cached && cached.ts && (now - cached.ts) < STORE_CACHE_TTL && cached.rating) {
-        if (ratingValueEl) ratingValueEl.textContent = Number(cached.rating).toFixed(1);
-        if (ratingCountEl && cached.count) ratingCountEl.textContent = "(" + cached.count + "+ reviews)";
+      localStorage.removeItem("rytunex_store_rating");
+    } catch (e) { /* ignore */ }
+
+    var now = Date.now();
+    var cached = null;
+    try {
+      cached = JSON.parse(localStorage.getItem(STORE_CACHE_KEY) || "null");
+    } catch (e) {
+      cached = null;
+    }
+
+    // Stale-while-revalidate: display cached rating immediately to prevent layout shift
+    if (cached && cached.rating && cached.count) {
+      applyStoreRating(cached.rating, cached.count);
+      // If cached recently within TTL, skip redundant network call
+      if (cached.ts && (now - cached.ts) < STORE_CACHE_TTL) {
         return;
       }
-    } catch (e) { /* ignore */ }
+    }
 
     fetch(STORE_API_URL, {
       headers: {
@@ -128,18 +188,19 @@
           allTime = usage[usage.length - 1];
         }
 
-        var rating = allTime && allTime.AverageRating ? allTime.AverageRating : 4.8;
-        var count = allTime && allTime.RatingCount ? allTime.RatingCount : 130;
+        if (allTime && allTime.AverageRating && allTime.RatingCount) {
+          var rating = Number(allTime.AverageRating);
+          var count = Number(allTime.RatingCount);
 
-        if (ratingValueEl) ratingValueEl.textContent = Number(rating).toFixed(1);
-        if (ratingCountEl) ratingCountEl.textContent = "(" + count + "+ reviews)";
+          applyStoreRating(rating, count);
 
-        try {
-          localStorage.setItem(STORE_CACHE_KEY, JSON.stringify({ ts: now, rating: rating, count: count }));
-        } catch (e) { /* ignore */ }
+          try {
+            localStorage.setItem(STORE_CACHE_KEY, JSON.stringify({ ts: now, rating: rating, count: count }));
+          } catch (e) { /* ignore */ }
+        }
       })
       .catch(function () {
-        // Fallback default values remain intact in HTML
+        // Keep clean state without fabricating any hardcoded fallback rating
       });
   }
 
@@ -408,9 +469,11 @@
         copyTextToClipboard(text)
           .then(function () {
             if (icon) icon.textContent = "check";
+            button.classList.add("btn-copy-pop");
             button.setAttribute("title", "Copied!");
 
             window.setTimeout(function () {
+              button.classList.remove("btn-copy-pop");
               if (icon) icon.textContent = defaultIcon;
               button.setAttribute("title", "Copy command");
             }, 1400);
@@ -607,6 +670,145 @@
     });
   }
 
+  function setupScrollReveals() {
+    var prefersReducedMotion = false;
+    try {
+      prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    } catch (e) { }
+
+    var isLowEndDevice = false;
+    try {
+      var mem = navigator.deviceMemory;
+      var cores = navigator.hardwareConcurrency;
+      var saveData = navigator.connection && navigator.connection.saveData;
+      if ((mem && mem <= 2) || (cores && cores <= 2) || saveData) {
+        isLowEndDevice = true;
+      }
+    } catch (e) { }
+
+    var targetSelectors = [
+      ".reveal",
+      ".reveal-fade",
+      ".reveal-scale",
+      ".reveal-stagger",
+      ".hero-eyebrow-row",
+      ".hero-actions",
+      ".hero-social-proof",
+      ".hero-image-wrap",
+      ".stats-strip",
+      ".stat-item",
+      ".features-grid",
+      ".feature-card",
+      ".bench-grid",
+      ".bench-card",
+      ".testimonials-grid",
+      ".testimonial-card",
+      ".section-header",
+      ".cta-inner",
+      ".summary-card",
+      ".policy-section",
+      ".terms-section",
+      ".module-card",
+      ".section-intro",
+      ".diagram-figure",
+      ".table-wrap",
+      ".callout",
+      ".cards > .card",
+      ".cards > .feature-block",
+      ".feature-block",
+      ".feature-row",
+      ".hero"
+    ];
+
+    var targets = document.querySelectorAll(targetSelectors.join(", "));
+    if (!targets.length) return;
+
+    if (prefersReducedMotion || isLowEndDevice || !("IntersectionObserver" in window)) {
+      targets.forEach(function (el) {
+        el.classList.add("is-revealed");
+      });
+      return;
+    }
+
+    document.documentElement.classList.add("js-reveal-ready");
+
+    var revealObserver = new IntersectionObserver(
+      function (entries, observer) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-revealed");
+            var barFills = entry.target.querySelectorAll(".bar-fill");
+            if (barFills.length) {
+              barFills.forEach(function (bar) {
+                bar.classList.add("animate-fill");
+              });
+            }
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        root: null,
+        threshold: 0.08,
+        rootMargin: "0px 0px -40px 0px"
+      }
+    );
+
+    targets.forEach(function (target) {
+      if (
+        !target.classList.contains("reveal") &&
+        !target.classList.contains("reveal-fade") &&
+        !target.classList.contains("reveal-scale") &&
+        !target.classList.contains("reveal-stagger")
+      ) {
+        target.classList.add("reveal");
+      }
+      revealObserver.observe(target);
+    });
+  }
+
+  function setupScrollTopButton() {
+    var btn = document.querySelector(".scroll-top-btn");
+    if (!btn) {
+      btn = document.createElement("button");
+      btn.className = "scroll-top-btn";
+      btn.type = "button";
+      btn.setAttribute("aria-label", "Scroll to top");
+      btn.setAttribute("title", "Back to top");
+      btn.innerHTML = '<span class="msr" aria-hidden="true">arrow_upward</span>';
+      document.body.appendChild(btn);
+    }
+
+    var ticking = false;
+    function onScroll() {
+      var scrollY = window.pageYOffset || document.documentElement.scrollTop;
+      if (scrollY > 380) {
+        btn.classList.add("is-visible");
+      } else {
+        btn.classList.remove("is-visible");
+      }
+      ticking = false;
+    }
+
+    window.addEventListener(
+      "scroll",
+      function () {
+        if (!ticking) {
+          window.requestAnimationFrame(onScroll);
+          ticking = true;
+        }
+      },
+      { passive: true }
+    );
+
+    btn.addEventListener("click", function () {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+  }
+
   function init() {
     setActivePageLinks();
     setupCopyButtons();
@@ -615,6 +817,8 @@
     syncStoreRating();
     syncSocialProof();
     syncTestimonials();
+    setupScrollReveals();
+    setupScrollTopButton();
 
     setupSectionObserver("section[id], h2[id], h3[id]", ".nav-link[href^='#']", "is-active");
     setupSectionObserver("section[id], h2[id], h3[id]", ".sidebar-link[href^='#']", "is-active");
