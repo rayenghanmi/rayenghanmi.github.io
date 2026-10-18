@@ -4,9 +4,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RyTuneX | Advanced Open-Source Tuning Engine for Power Users &amp; Gamers</title>
+  <title>RyTuneX | Advanced Open-Source Tuning Engine for Windows &amp; Android</title>
   <meta name="description"
-    content="RyTuneX is an advanced, open-source tuning engine for power users and gamers on Windows 10 &amp; 11. Maximize performance, eliminate latency, and manage deeply embedded system policies natively." />
+    content="RyTuneX is an advanced, open-source tuning engine for power users and gamers on Windows and Android. Maximize performance, eliminate latency, and manage deeply embedded system packages and policies natively." />
   <meta name="author" content="Rayen Ghanmi" />
   <link rel="canonical" href="https://rayenghanmi.github.io/rytunex/" />
   <meta name="robots" content="index,follow" />
@@ -15,9 +15,9 @@
 
   <meta property="og:site_name" content="RyTuneX" />
   <meta property="og:locale" content="en_US" />
-  <meta property="og:title" content="RyTuneX | Advanced Open-Source Tuning Engine for Power Users &amp; Gamers" />
+  <meta property="og:title" content="RyTuneX | Advanced Open-Source Tuning Engine for Windows &amp; Android" />
   <meta property="og:description"
-    content="RyTuneX is an advanced, open-source tuning engine for power users and gamers on Windows 10 &amp; 11. Maximize performance, eliminate latency, and manage deeply embedded system policies natively." />
+    content="RyTuneX is an advanced, open-source tuning engine for power users and gamers on Windows and Android. Maximize performance, eliminate latency, and manage deeply embedded system packages and policies natively." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://rayenghanmi.github.io/rytunex/" />
   <meta property="og:image" content="https://rayenghanmi.github.io/rytunex/assets/og.jpg" />
@@ -27,9 +27,9 @@
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@rayenghanmi" />
-  <meta name="twitter:title" content="RyTuneX | Advanced Open-Source Tuning Engine for Power Users &amp; Gamers" />
+  <meta name="twitter:title" content="RyTuneX | Advanced Open-Source Tuning Engine for Windows &amp; Android" />
   <meta name="twitter:description"
-    content="RyTuneX is an advanced, open-source tuning engine for power users and gamers on Windows 10 &amp; 11. Maximize performance, eliminate latency, and manage deeply embedded system policies natively." />
+    content="RyTuneX is an advanced, open-source tuning engine for power users and gamers on Windows and Android. Maximize performance, eliminate latency, and manage deeply embedded system packages and policies natively." />
   <meta name="twitter:image" content="https://rayenghanmi.github.io/rytunex/assets/og.jpg" />
 
   <link rel="icon" href="assets/favicon.ico" sizes="48x48" />
@@ -820,6 +820,318 @@
       color: var(--text-dim);
     }
 
+    /* ── ANDROID SECTION ────────────────────────────────────────── */
+    .android-section {
+      padding: 88px 28px;
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: radial-gradient(ellipse 70% 50% at 50% -10%, rgba(61, 220, 132, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 80%, rgba(255, 94, 146, 0.06) 0%, transparent 60%),
+        rgba(255, 255, 255, 0.015);
+    }
+
+    .android-glow-orb {
+      position: absolute;
+      top: 20%;
+      right: 5%;
+      width: 520px;
+      height: 520px;
+      background: radial-gradient(circle, rgba(61, 220, 132, 0.12) 0%, rgba(255, 94, 146, 0.10) 40%, transparent 70%);
+      filter: blur(60px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .android-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .android-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .android-content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .android-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #3ddc84;
+      margin-bottom: 14px;
+    }
+
+    .android-title {
+      font-size: clamp(2rem, 3.8vw, 3.2rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .android-title .highlight-green {
+      color: #3ddc84;
+    }
+
+    .android-desc {
+      font-size: 1.05rem;
+      color: var(--text-sub);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .android-badges-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .android-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: var(--r-full);
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-mid);
+      color: var(--text-sub);
+    }
+
+    .android-badge.green {
+      color: #3ddc84;
+      border-color: rgba(61, 220, 132, 0.3);
+      background: rgba(61, 220, 132, 0.08);
+    }
+
+    .android-badge.pink {
+      color: var(--pink);
+      border-color: rgba(255, 94, 146, 0.3);
+      background: rgba(255, 94, 146, 0.08);
+    }
+
+    .android-badge.blue {
+      color: var(--blue);
+      border-color: rgba(91, 196, 245, 0.3);
+      background: rgba(91, 196, 245, 0.08);
+    }
+
+    .android-badge.purple {
+      color: var(--purple);
+      border-color: rgba(155, 127, 239, 0.3);
+      background: rgba(155, 127, 239, 0.08);
+    }
+
+    .android-feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .android-feature-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 16px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      transition: border-color var(--t-mid), transform var(--t-mid), box-shadow var(--t-mid);
+    }
+
+    .android-feature-row:hover {
+      border-color: var(--border-accent);
+      transform: translateX(4px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .android-feature-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--r-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .android-feature-icon.green {
+      background: rgba(61, 220, 132, 0.12);
+      color: #3ddc84;
+      border: 1px solid rgba(61, 220, 132, 0.25);
+    }
+
+    .android-feature-icon.pink {
+      background: rgba(255, 94, 146, 0.12);
+      color: var(--pink);
+      border: 1px solid rgba(255, 94, 146, 0.25);
+    }
+
+    .android-feature-icon.blue {
+      background: rgba(91, 196, 245, 0.12);
+      color: var(--blue);
+      border: 1px solid rgba(91, 196, 245, 0.25);
+    }
+
+    .android-feature-icon.orange {
+      background: rgba(245, 158, 11, 0.12);
+      color: var(--orange);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+    }
+
+    .android-feature-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .android-feature-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    .android-actions-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+
+    .android-actions-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .android-btn-green {
+      background: linear-gradient(135deg, #2eb36a 0%, #1c7c45 100%);
+      color: #fff;
+      box-shadow: 0 0 0 1px rgba(61, 220, 132, 0.4), 0 4px 20px rgba(61, 220, 132, 0.25);
+    }
+
+    .android-btn-green:hover {
+      filter: brightness(1.1);
+      box-shadow: 0 0 0 1px rgba(61, 220, 132, 0.6), 0 6px 24px rgba(61, 220, 132, 0.35);
+    }
+
+    /* ── GENERIC PHONE MOCKUP ──────────────────────────────────── */
+    .android-mockup-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .generic-phone-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 350px;
+    }
+
+    .generic-phone-frame {
+      position: relative;
+      width: 100%;
+      background: linear-gradient(160deg, #242938 0%, #151822 45%, #0b0d14 100%);
+      border-radius: 40px;
+      padding: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow:
+        0 24px 60px -10px rgba(0, 0, 0, 0.88),
+        0 0 45px -5px rgba(61, 220, 132, 0.16),
+        0 0 35px -5px rgba(255, 94, 146, 0.16),
+        inset 0 1px 1px rgba(255, 255, 255, 0.25),
+        inset 0 -1px 1px rgba(0, 0, 0, 0.6);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+    }
+
+    .generic-phone-wrap:hover .generic-phone-frame {
+      transform: translateY(-4px) scale(1.01);
+      box-shadow:
+        0 32px 72px -10px rgba(0, 0, 0, 0.94),
+        0 0 55px -5px rgba(61, 220, 132, 0.25),
+        0 0 45px -5px rgba(255, 94, 146, 0.25),
+        inset 0 1px 1px rgba(255, 255, 255, 0.35);
+    }
+
+    /* Minimal subtle speaker at top bezel */
+    .generic-phone-speaker {
+      position: absolute;
+      top: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 44px;
+      height: 3px;
+      background: #080a10;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 3px;
+      z-index: 5;
+    }
+
+    /* Screen display */
+    .generic-phone-screen {
+      position: relative;
+      border-radius: 30px;
+      overflow: hidden;
+      background: #0a0c12;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      aspect-ratio: 1080 / 2340;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .generic-phone-screen img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      border-radius: 30px;
+    }
+
+    .android-device-tag {
+      margin-top: 16px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-sub);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 16px;
+      border-radius: var(--r-full);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-mid);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .android-device-tag .msr {
+      color: #3ddc84;
+    }
+
     @media (max-width: 1024px) {
       .hero-section {
         padding-top: 24px;
@@ -832,6 +1144,15 @@
 
       .features-grid {
         grid-template-columns: 1fr 1fr;
+      }
+
+      .android-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .android-mockup-container {
+        order: -1;
       }
 
       .footer-grid {
@@ -852,6 +1173,21 @@
 
       .hero-content {
         margin-top: -70px;
+      }
+
+      .android-section {
+        padding: 60px 20px;
+      }
+
+      .android-actions-row {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .android-actions-row .btn {
+        width: 100%;
+        max-width: 380px;
+        justify-content: center;
       }
 
       .hero-glow-orb {
@@ -1004,6 +1340,7 @@
 
       <div class="topnav-links" id="topnav-links">
         <a class="topnav-link nav-link-underline" href="#features">Features</a>
+        <a class="topnav-link nav-link-underline" href="#android">Android</a>
         <a class="topnav-link nav-link-underline" href="#benchmarks">Benchmarks</a>
         <a class="topnav-link nav-link-underline" href="#testimonials">Testimonials</a>
         <a class="topnav-link nav-link-underline" data-page-link="true" href="docs.html">Documentation</a>
@@ -1025,6 +1362,7 @@
     <!-- Mobile menu -->
     <div class="mobile-menu" id="mobile-nav" role="navigation" aria-label="Mobile navigation">
       <a class="topnav-link" href="#features">Features</a>
+      <a class="topnav-link" href="#android">Android</a>
       <a class="topnav-link" href="#benchmarks">Benchmarks</a>
       <a class="topnav-link" href="#testimonials">Testimonials</a>
       <a class="topnav-link" data-page-link="true" href="docs.html">Documentation</a>
@@ -1071,6 +1409,11 @@
             <span class="rating-score"><span data-store-rating-value></span><span class="rating-max"
                 data-store-rating-max style="display:none;">/5</span></span>
             <span class="rating-count" data-store-rating-count>Microsoft Store</span>
+          </a>
+
+          <a class="store-rating-badge" href="#android" aria-label="Explore RyTuneX for Android">
+            <span class="msr fill sm" style="color:#3ddc84;" aria-hidden="true">smartphone</span>
+            <span>Android Edition <strong style="color:#3ddc84; font-weight:700;">New</strong></span>
           </a>
         </div>
 
@@ -1181,6 +1524,148 @@
           <h3 class="feature-title">Package Provisioning</h3>
           <p class="feature-desc">Integrated WinGet support allows you to search, manage, and update necessary software
             seamlessly from within the engine.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── RYTIUNEX FOR ANDROID ──────────────────────────────────── -->
+    <section class="android-section" id="android" aria-labelledby="android-title">
+      <div class="android-glow-orb" aria-hidden="true"></div>
+
+      <div class="android-container">
+        <div class="android-grid">
+          <!-- Left Column: Details & Features -->
+          <div class="android-content reveal">
+            <div class="android-eyebrow">
+              <span class="msr xs" aria-hidden="true">smartphone</span> Android Edition
+            </div>
+
+            <h2 class="android-title" id="android-title">
+              Take Absolute Control of
+              <span class="highlight-green">Android</span>
+            </h2>
+
+            <p class="android-desc">
+              RyTuneX for Android is the mobile edition of the advanced tuning engine. Granular, hardware-level control
+              over your smartphone: tune the display panel, cut touchscreen input latency, surgically debloat packages,
+              and
+              manage system DNS | completely stateless, with no root required, zero background daemons, and no battery
+              drain.
+            </p>
+
+            <div class="android-badges-wrap" aria-label="System specifications">
+              <span class="android-badge green">
+                <span class="msr xs" aria-hidden="true">android</span> Android 8.0+
+              </span>
+              <span class="android-badge purple">
+                <span class="msr xs" aria-hidden="true">layers</span> Jetpack Compose &amp; Material 3
+              </span>
+              <span class="android-badge blue">
+                <span class="msr xs" aria-hidden="true">vpn_key</span> No Root · Shizuku (UID 2000)
+              </span>
+              <span class="android-badge pink">
+                <span class="msr xs" aria-hidden="true">code</span> 100% Open-Source (AGPL-3.0)
+              </span>
+            </div>
+
+            <div class="android-feature-list reveal-stagger">
+              <div class="android-feature-row">
+                <div class="android-feature-icon green">
+                  <span class="msr fill" aria-hidden="true">bolt</span>
+                </div>
+                <div>
+                  <h3 class="android-feature-title">Hardware-Aware Tuning &amp; Profiles</h3>
+                  <p class="android-feature-text">
+                    Live device telemetry with one-tap profiles (Extreme Gaming, Adaptive Endurance, RyTuneX Fluid,
+                    Reset to Stock).
+                    Lock true hardware refresh rates, adjust animation scales, force GPU rendering paths, and
+                    pre-compile apps with ART AOT.
+                  </p>
+                </div>
+              </div>
+
+              <div class="android-feature-row">
+                <div class="android-feature-icon blue">
+                  <span class="msr fill" aria-hidden="true">delete_sweep</span>
+                </div>
+                <div>
+                  <h3 class="android-feature-title">Universal Android Debloater (UAD-NG)</h3>
+                  <p class="android-feature-text">
+                    Surgically freeze, uninstall, or restore pre-installed packages by safety ratings (Recommended,
+                    Advanced, Expert, Unsafe),
+                    powered by the 1,500+ definition UAD database. Export, share, and import debloat presets instantly.
+                  </p>
+                </div>
+              </div>
+
+              <div class="android-feature-row">
+                <div class="android-feature-icon pink">
+                  <span class="msr fill" aria-hidden="true">security</span>
+                </div>
+                <div>
+                  <h3 class="android-feature-title">Root-Free Transparency &amp; Safety</h3>
+                  <p class="android-feature-text">
+                    Privileged access via Shizuku (ADB UID 2000) with zero battery-draining background services.
+                    Includes a built-in terminal log,
+                    confirmation dialogs before every system modification, and a one-tap Roll Back All Changes.
+                  </p>
+                </div>
+              </div>
+
+              <div class="android-feature-row">
+                <div class="android-feature-icon orange">
+                  <span class="msr fill" aria-hidden="true">dns</span>
+                </div>
+                <div>
+                  <h3 class="android-feature-title">Network &amp; Latency Control</h3>
+                  <p class="android-feature-text">
+                    System-wide encrypted DNS-over-TLS (Cloudflare, AdGuard, Quad9, Google, or custom DoT), touchscreen
+                    latency boosts,
+                    and reduction of background radio chatter and telemetry.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="android-actions-row">
+              <a class="btn android-btn-green btn-lg"
+                href="https://github.com/rayenghanmi/RyTuneX-Android/releases/latest" rel="noopener noreferrer"
+                target="_blank" id="android-github-btn">
+                <span class="msr fill" aria-hidden="true">android</span>
+                Get RyTuneX for Android
+              </a>
+
+              <a class="btn btn-secondary btn-lg" href="https://github.com/rayenghanmi/RyTuneX-Android"
+                rel="noopener noreferrer" target="_blank">
+                <span class="msr" aria-hidden="true">code</span>
+                View Source on GitHub
+              </a>
+            </div>
+
+            <div class="android-actions-note">
+              <span class="msr sm" aria-hidden="true">info</span>
+              <span>Requires Android 8.0+ and <a href="https://shizuku.rikka.app/" target="_blank"
+                  rel="noopener noreferrer">Shizuku</a> via Wireless Debugging (No Root Needed).</span>
+            </div>
+          </div>
+
+          <!-- Right Column: Generic Phone Mockup -->
+          <div class="android-mockup-container reveal-scale">
+            <div class="generic-phone-wrap">
+              <div class="generic-phone-frame">
+                <div class="generic-phone-speaker" aria-hidden="true"></div>
+                <div class="generic-phone-screen">
+                  <img src="assets/img/android.webp" alt="RyTuneX for Android interface preview" width="1080"
+                    height="2340" loading="lazy" />
+                </div>
+              </div>
+            </div>
+
+            <div class="android-device-tag">
+              <span class="msr xs" aria-hidden="true">smartphone</span>
+              <span>RyTuneX for Android</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1496,14 +1981,20 @@
       <div class="cta-inner reveal-scale">
         <div class="cta-content">
           <h2 class="cta-title" id="cta-title">Ready to Engineer Your OS?</h2>
-          <p class="cta-desc">Download the most advanced Windows tuning engine. Free, open-source, and trusted by
+          <p class="cta-desc">Download the most advanced system tuning engine for Windows and Android. Free,
+            open-source, and trusted by
             thousands worldwide.</p>
           <div class="cta-actions">
             <a class="btn btn-primary btn-lg" href="https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full"
-              rel="noopener noreferrer" target="_blank" data-version-template="Download Now {versionWithV}"
+              rel="noopener noreferrer" target="_blank" data-version-template="Download Windows {versionWithV}"
               id="cta-download-btn">
               <span class="msr fill" aria-hidden="true">download</span>
-              Download Now
+              Download for Windows
+            </a>
+            <a class="btn android-btn-green btn-lg" href="https://github.com/rayenghanmi/RyTuneX-Android"
+              rel="noopener noreferrer" target="_blank" id="cta-android-btn">
+              <span class="msr fill" aria-hidden="true">android</span>
+              RyTuneX for Android
             </a>
             <a class="btn btn-secondary btn-lg" href="docs.html">
               <span class="msr" aria-hidden="true">menu_book</span>
@@ -1517,7 +2008,7 @@
             </a>
 
           </div>
-          <p class="cta-note">Supports Windows 10 (20H1+) &amp; Windows 11, x64 &amp; x86</p>
+          <p class="cta-note">Windows 10/11 (x64/x86) &bull; Android 8.0+ via Shizuku (No Root)</p>
         </div>
       </div>
     </section>
@@ -1533,9 +2024,9 @@
           <img src="assets/logo.png" alt="RyTuneX" width="28" height="28" />
           <span class="topnav-brand-name">RyTuneX</span>
         </a>
-        <p class="footer-brand-desc">Empowering Windows power users with an advanced system tuning engine. Built with
-          WinUI 3
-          &amp; .NET, available free on the Microsoft Store.</p>
+        <p class="footer-brand-desc">Empowering Windows &amp; Android power users with an advanced system tuning engine.
+          Built for
+          maximum performance, root-free control, and complete transparency.</p>
         <div class="footer-social" style="margin-top:18px;">
           <a class="footer-social-btn" href="https://github.com/rayenghanmi/RyTuneX" rel="noopener noreferrer"
             target="_blank" aria-label="GitHub repository">
@@ -1555,12 +2046,13 @@
       <div>
         <div class="footer-col-title">Product</div>
         <ul class="footer-links">
+          <li><a href="https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full" rel="noopener noreferrer"
+              target="_blank">Windows Edition</a></li>
+          <li><a href="#android">Android Edition</a></li>
           <li><a href="#features">Features</a></li>
           <li><a href="#benchmarks">Benchmarks</a></li>
           <li><a href="https://github.com/rayenghanmi/RyTuneX/blob/main/CHANGELOG.md" rel="noopener noreferrer"
               target="_blank">Changelog</a></li>
-          <li><a href="https://apps.microsoft.com/detail/9PDH8M7HF2SQ?mode=full" rel="noopener noreferrer"
-              target="_blank">Download</a></li>
         </ul>
       </div>
 
@@ -1572,7 +2064,10 @@
           <li><a href="https://discord.gg/gyBzyd364t" rel="noopener noreferrer" target="_blank">Community</a></li>
           <li><a href="https://github.com/rayenghanmi/RyTuneX/wiki" rel="noopener noreferrer" target="_blank">Knowledge
               Base</a></li>
-          <li><a href="https://github.com/rayenghanmi/RyTuneX" rel="noopener noreferrer" target="_blank">GitHub</a></li>
+          <li><a href="https://github.com/rayenghanmi/RyTuneX" rel="noopener noreferrer" target="_blank">Windows
+              Repo</a></li>
+          <li><a href="https://github.com/rayenghanmi/RyTuneX-Android" rel="noopener noreferrer" target="_blank">Android
+              Repo</a></li>
         </ul>
       </div>
 
@@ -1589,7 +2084,8 @@
     </div>
 
     <div class="footer-bottom">
-      <span>© 2026 Rayen Ghanmi. Windows is a registered trademark of Microsoft Corporation.</span>
+      <span>© 2026 Rayen Ghanmi. Windows is a registered trademark of Microsoft Corporation. Android is a trademark of
+        Google LLC.</span>
       <span>Contact: rytunex@gmail.com</span>
     </div>
   </footer>
