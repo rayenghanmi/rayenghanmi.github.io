@@ -108,6 +108,8 @@ html {
   scroll-behavior: smooth;
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 body {
@@ -116,7 +118,14 @@ body {
   color: var(--text);
   line-height: 1.65;
   overflow-x: hidden;
+  max-width: 100%;
   min-height: 100vh;
+  overflow-wrap: break-word;
+}
+
+h1, h2, h3, h4, h5, h6, p, code, pre, .mono, [class*="path"], [class*="key"], [class*="title"] {
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 a {
@@ -1272,6 +1281,12 @@ html.js-reveal-ready .reveal-stagger > *:nth-child(8) { transition-delay: 0.32s;
   opacity: 1;
   pointer-events: auto;
   transform: translate3d(0, 0, 0);
+}
+
+/* Stack scroll-to-top above Buy Me a Coffee floating button when active */
+body:has(#bmc-wbtn) .scroll-top-btn,
+body.has-bmc-widget .scroll-top-btn {
+  bottom: 92px;
 }
 
 .scroll-top-btn:hover {

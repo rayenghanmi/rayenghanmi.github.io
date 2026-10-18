@@ -807,6 +807,15 @@
         behavior: "smooth"
       });
     });
+
+    function checkBmcWidget() {
+      if (document.getElementById("bmc-wbtn")) {
+        document.body.classList.add("has-bmc-widget");
+      }
+    }
+    checkBmcWidget();
+    setTimeout(checkBmcWidget, 1000);
+    setTimeout(checkBmcWidget, 3000);
   }
 
   function init() {
