@@ -106,9 +106,11 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-h) + 16px);
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
   overflow-x: hidden;
+  overflow-x: clip;
   max-width: 100%;
 }
 
@@ -117,7 +119,7 @@ body {
   background: var(--bg-base);
   color: var(--text);
   line-height: 1.65;
-  overflow-x: hidden;
+  overflow-x: clip;
   max-width: 100%;
   min-height: 100vh;
   overflow-wrap: break-word;
@@ -499,6 +501,12 @@ button {
 .layout-main.no-sidebar {
   margin-left: 0;
 }
+
+/* breathing room under the sticky navbar on the docs page */
+.layout-main:not(.no-sidebar) {
+  padding-top: 40px;
+}
+
 
 /* ── SECTION & CARD PRIMITIVES ─────────────────────────────────── */
 .section-wrap {
